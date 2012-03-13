@@ -35,7 +35,7 @@ class DottyRepository < Thor
         files.each do |f|
           of.puts
           of.puts descriptions[f]
-          of.puts "# #{File.basname(f)}"
+          of.puts "# #{File.basename(f)}"
         end
       end
     end
