@@ -1,7 +1,7 @@
 # Setup RVM if it is installed
-if test -s "$HOME/.rvm/scripts/rvm" ; then
+if test -r "$HOME/.rvm/scripts/rvm" ; then
     . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
-elif test -s "/usr/local/rvm/scripts/rvm" ; then
+elif test -r "/usr/local/rvm/scripts/rvm" ; then
     . "/usr/local/rvm/scripts/rvm"
 fi
 
