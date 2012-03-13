@@ -9,7 +9,7 @@ class DottyRepository < Thor
 
   desc "bootstrap", "Bootstrap bash modules"
   def bootstrap
-    unless File.exists?("~/.bash_modules")
+    unless File.exists?(File.expand_path("~/.bash_modules"))
       descriptions = { }
       files = Dir.glob("bash_modules.d/*")
       files.each do |f|
