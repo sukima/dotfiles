@@ -102,17 +102,20 @@ fi
 # Loading of other bash modules
 if test -e "$HOME/.bash_modules" ; then
     if command_exists "readlink" ; then
-        mod_path=$(dirname "$(readlink $0)")
+        mod_path=$(dirname "$(readlink $HOME/.bashrc)")
         mod_path=$(cd "$mod_path/../bash_modules.d" && pwd)
     elif test -d "$HOME/.dotty/default/dotfiles/bash_modules.d" ; then
         mod_path="$HOME/.dotty/default/dotfiles/bash_modules.d"
     else
         mod_path="$HOME/.bash_modules.d"
     fi
-    sed -e 's/#.*//' -e 's/[ 	]*$//' -e 's/^[ 	]*//' -e '/^$/ d' "$HOME/.bash_modules" | while read confline
-    do
-        [[ -s "$mod_path/$confline" ]] && . "$mod_path/$confline"
+    mod_files=$(sed -e 's/#.*//' -e 's/[ 	]*$//' -e 's/^[ 	]*//' -e '/^$/ d' "$HOME/.bash_modules")
+    OLDIFS=IFS
+    IFS=$'\n'
+    for confline in $mod_files; do
+        [[ -r "$mod_path/$confline" ]] && source "$mod_path/$confline"
     done
+    IFS=$OLDIFS
 fi
 
 # Fix PS1 if git-completion module was loaded
