@@ -1,0 +1,6 @@
+# Add developer tools to path
+if [ -d /Developer/Tools ]; then
+    PATH=$PATH:/Developer/Tools
+fi
+
+# vim:set ft=sh sw=4 et fdm=marker :

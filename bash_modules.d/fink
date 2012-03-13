@@ -1,0 +1,12 @@
+# Source fink definitions (Mac OS X)
+if [ -f /sw/bin/init.sh ]; then
+    . /sw/bin/init.sh
+fi
+
+if [ -x /sw/bin/ls ]; then
+    alias ls='/sw/bin/ls -F --color --show-control-chars'
+else
+    alias ls='ls -F'
+fi
+
+# vim:set ft=sh sw=4 et fdm=marker :

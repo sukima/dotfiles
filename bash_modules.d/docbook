@@ -1,0 +1,57 @@
+# Docbook ease of use functions
+# Docbook is cool but the commands are complicated to remember
+
+# docbook2html {{{
+function docbook2html {
+    case "$1" in
+        ""|"-h"|"--help")
+            echo "Usage: docbook2html [-nc|--nochunk] <infile>"
+            ;;
+        *)
+            case "$1" in
+                "-nc"|"--nochunk")
+                    shift
+                    if test -n "$1"; then
+                        name=`basename $1 .xml`
+                        echo "Generating $name.html..."
+                        xsltproc --xinclude --output $name.html /usr/local/share/xml/xsl/docbook-xsl/xhtml/docbook.xsl $1
+                        echo "Done."
+                    else
+                        echo "Missing file name."
+                    fi
+                    ;;
+                *)
+                    name=`basename $1 .xml`
+                    echo "Creating Directory..."
+                    mkdir $name
+                    if test -d images; then
+                        echo "Copying images..."
+                        cp -r images $name
+                    fi
+                    cd $name
+                    echo "Generating HTML files for $name..."
+                    xsltproc --xinclude --output $name /usr/local/share/xml/xsl/docbook-xsl/xhtml/chunk.xsl ../$1
+                    cd ..
+                    echo "Done."
+                    ;;
+            esac
+            ;;
+    esac
+} # }}}
+# docbook2pdf {{{
+function docbook2pdf {
+    case "$1" in
+        ""|"-h"|"--help")
+            echo "Usage: docbook2pdf <infile>"
+            ;;
+        *)
+            name=`basename $1 .xml`
+            echo "Generating $name.pdf..."
+            xsltproc --xinclude --output $name.fo /usr/local/share/xml/xsl/docbook-xsl/fo/docbook.xsl $1
+            java org.apache.fop.cli.Main -fo $name.fo -pdf $name.pdf
+            echo "Done."
+            ;;
+    esac
+} # }}}
+
+# vim:set ft=sh sw=4 et fdm=marker :
