@@ -1,0 +1,30 @@
+[user]
+    name = Devin Weaver
+    email = suki@tritarget.org
+
+[alias]
+    ci = commit
+    co = checkout
+    st = status
+    patch = format-patch
+    mylog = log --topo-order --decorate --first-parent
+    rawdiff = diff --no-ext-diff -w
+
+[apply]
+    whitespace = fix
+
+[push]
+    default = matching
+
+[color]
+    status = auto
+    branch = auto
+
+[tig]
+    show-author = full     # Show abbreviated/full/none author names.
+    show-date = relative   # Show relative commit date.
+    show-rev-graph = yes   # Show revision graph?
+    show-refs = yes        # Show references?
+    show-line-numbers = no # Show line numbers?
+
+# vim:set sw=4 ts=4 et:
