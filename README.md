@@ -8,10 +8,17 @@ Dotfiles for Sukima (suki@tritarget.org). Includes:
 - screen
 - tmux
 
+Files and directories that already exists while installing with dotty will
+cause it to fail. After you fix the offending directories to can pick up where
+you left off again with the `dotty bootstrap <name>` command where `<name>` is
+the name of the failed repository you tried to install.
+
 ## dotfiles/
 
 Dotty will symlink files and directories in the root your repos dotfiles/ directory, relative to ~.
 You can symlink stuff to sub directories of ~ by using the in+subdir directory naming convention.
+
+More information available at http://github.com/trym/dotty#readme
 
 ### Examples
 
@@ -19,31 +26,25 @@ You can symlink stuff to sub directories of ~ by using the in+subdir directory n
     dotfiles/in+.ssh/config   => ~/.ssh/config
     dotfiles/in+a/in+b/c      => ~/a/b/c
 
-## dotty-symlink.yml
+## Non dotty users
 
-If you want more control over the symlinking, you can create a dotty-symlink.yml in the repo root.
+A simple `install.sh` file is included which you can use to symlink the config files.
 
-### Example
-    
-    file_in_repo:.in_home_dir
+    Usage: install.sh [-h][-I][-f] [-d prefix]
+      -I,--no-install           Do not install symlinks (.bashrc, etc)
+      -f,--force                Force overwriting bashrc, etc. ** DESTRUCTIVE **
+      -h,--help                 This cruft
+      -d,--dir prefix           Install to prefix instead of default $HOME
+    Cannot concatinate arguments (-If will not work, use -I -f instead).
 
-## dotty-repository.thor
+## bash_modules
 
-If you want to do more than symlinking, you can create a dotty-repository.thor that implements the 'bootstrap' and 'implode' thor tasks.
-The class must be named "DottyRepository".
+The `.bash_modules` file lists modules to run on each invocation of a new
+shell. These are modules that are not neccissary for a default shell but add or
+enhance the environment. (for example competions and custom prompts or
+universal aliases)
 
-### Example
+The file ignores any line that is commented with a # (hash mark) and any non
+black line is a name of a module you would like to load.
 
-    class DottyRepository < Thor
-      include Thor::Actions
-
-      desc "bootstrap", "Bootstrap this repo"
-      def bootstrap
-        # Do stuff here
-      end
-
-      desc "implode", "Implode this repo"
-      def implode
-        # Do stuff here
-      end
-    end
+All modules are found in the `.bash_modules.d` folder.
