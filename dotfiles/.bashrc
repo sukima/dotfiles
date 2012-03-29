@@ -24,6 +24,9 @@ HISTFILESIZE=2000
 # CTRL-D will logout of shell after 2 tries (ignore 1st CTRL-D)
 IGNOREEOF=1
 
+# allow CTRL-S to work
+stty stop undef
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
