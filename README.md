@@ -48,3 +48,11 @@ The file ignores any line that is commented with a # (hash mark) and any non
 black line is a name of a module you would like to load.
 
 All modules are found in the `.bash_modules.d` folder.
+
+## Appendix
+
+### Mac OS X
+
+- Solarized color theme for [Mac Terminal.app][1]
+
+[1]: https://github.com/tomislav/osx-lion-terminal.app-colors-solarized
