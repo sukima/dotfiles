@@ -1,0 +1,13 @@
+# Add Hugin tools to path on Mac OS X
+
+# This assumes you have installed [Hugin][1] and the [Panotools][2]
+# To install Panotools you will need to run as root:
+#     $ sudo perl -MCPAN -e shell
+#     > install CPAN
+#     > reload CPAN
+#     > install Panotools::Script
+# 
+# [1]: http://hugin.sourceforge.net/
+# [2]: http://panotools.sourceforge.net/
+
+export PATH="/Applications/Hugin/HuginTools:$PATH"
