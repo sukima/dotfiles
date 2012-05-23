@@ -1,0 +1,11 @@
+# Function for quick start or attach tmux session
+
+tmux_start() {
+  if tmux has-session; then
+    tmux attach
+  else
+    tmux new-session
+  fi
+}
+
+alias t='tmux_start'
