@@ -134,7 +134,12 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# Source local_basrc for backwartds compatability
-[[ -f "$HOME/.local_bashrc" ]] && . "$HOME/.local_bashrc"
+# Instalation specific config
+if [ -f "$HOME/.bash_local" ]; then
+    . "$HOME/.bash_local"
+elif [ -f "$HOME/.local_bashrc" ]; then
+    # Deprecated
+    . "$HOME/.local_bashrc"
+fi
 
 # vim:set ft=sh sw=4 et fdm=marker :
