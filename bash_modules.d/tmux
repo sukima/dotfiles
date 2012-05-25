@@ -1,5 +1,7 @@
 # Function for quick start or attach tmux session
 
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+
 tmux_start() {
   if tmux has-session; then
     tmux attach
