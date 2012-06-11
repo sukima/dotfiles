@@ -28,3 +28,5 @@
     show-line-numbers = no # Show line numbers?
 
 # vim:set sw=4 ts=4 et:
+[github]
+	user = sukima
