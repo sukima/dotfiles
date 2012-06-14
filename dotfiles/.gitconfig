@@ -30,3 +30,5 @@
 # vim:set sw=4 ts=4 et:
 [github]
 	user = sukima
+[merge]
+	conflictstyle = diff3
