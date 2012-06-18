@@ -7,8 +7,25 @@
 class DottyRepository < Thor
   include Thor::Actions
 
-  desc "bootstrap", "Bootstrap bash modules"
+  desc "bootstrap", "Bootstrap bash"
   def bootstrap
+    loader_code = "source $HOME/.bash_loader"
+    ['.bashrc', '.bash_profile'].each do |file|
+      path = File.expand_path("~/#{file}")
+      if File.exists? path
+        content = File.read(path)
+        unless content.include? loader_code
+          File.open(path, 'w') do |c|
+            c.puts loader_code
+            c.write content
+          end
+        end
+      else
+        File.open(path, 'w') do |c|
+          c.puts loader_code
+        end
+      end
+    end
     unless File.exists?(File.expand_path("~/.bash_modules"))
       descriptions = { }
       files = Dir.glob("bash_modules.d/*")

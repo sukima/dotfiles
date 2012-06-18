@@ -59,6 +59,22 @@ else
             fi
         fi
     done
+    # Adds link in bashrc and bash_profile
+    loader_code='source $HOME/.bash_loader'
+    for x in $HOME/.bashrc $HOME/.bash_profile; do
+      if test -e "$x"; then
+        if grep 'bash_loader' "$x"; then
+          echo "Ignoring $x (loader already defined)"
+        else
+          echo "$loader_code" | cat - "$x" > "$x.tmp"
+          mv "$x.tmp" "$x"
+          echo "Updated $x"
+        fi
+      else
+        echo "$loader_code" > "$x"
+        echo "Created $x"
+      fi
+    done
 fi
 
 # bash_modules
