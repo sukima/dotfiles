@@ -102,7 +102,7 @@ alias l='ls -CF'
 # Loading of other bash modules
 if test -e "$HOME/.bash_modules" ; then
     if command_exists "readlink" ; then
-        mod_path=$(dirname "$(readlink $HOME/.bashrc)")
+        mod_path=$(dirname "$(readlink $HOME/.bash_loader)")
         mod_path=$(cd "$mod_path/../bash_modules.d" && pwd)
     elif test -d "$HOME/.dotty/default/dotfiles/bash_modules.d" ; then
         mod_path="$HOME/.dotty/default/dotfiles/bash_modules.d"
