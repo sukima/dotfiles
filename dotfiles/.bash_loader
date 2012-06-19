@@ -8,7 +8,8 @@
 # If this file loaded already, don't do anything
 [ -n "$BASH_LOADED" ] && return
 
-export BASH_LOADED=1
+# This needs to be local. Do not export.
+BASH_LOADED=1
 
 # Convinience method to check if a command exists or not.
 command_exists () {
