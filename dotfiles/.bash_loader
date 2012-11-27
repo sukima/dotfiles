@@ -101,23 +101,30 @@ alias l='ls -CF'
 
 # Modules
 # Loading of other bash modules
-if test -e "$HOME/.bash_modules" ; then
-    if command_exists "readlink" ; then
-        mod_path=$(dirname "$(readlink $HOME/.bash_loader)")
-        mod_path=$(cd "$mod_path/../bash_modules.d" && pwd)
-    elif test -d "$HOME/.dotty/default/dotfiles/bash_modules.d" ; then
-        mod_path="$HOME/.dotty/default/dotfiles/bash_modules.d"
-    else
-        mod_path="$HOME/.bash_modules.d"
+load_bash_modules() {
+    if test -e "$HOME/.bash_modules" ; then
+        if command_exists "readlink" ; then
+            mod_path=$(dirname "$(readlink $HOME/.bash_loader)")
+            mod_path=$(cd "$mod_path/../bash_modules.d" && pwd)
+        elif test -d "$HOME/.dotty/default/dotfiles/bash_modules.d" ; then
+            mod_path="$HOME/.dotty/default/dotfiles/bash_modules.d"
+        else
+            mod_path="$HOME/.bash_modules.d"
+        fi
+        mod_files=$(sed -e 's/#.*//' -e 's/[ 	]*$//' -e 's/^[ 	]*//' -e '/^$/ d' "$HOME/.bash_modules")
+        OLDIFS=IFS
+        IFS=$'\n'
+        for confline in $mod_files; do
+            [[ -r "$mod_path/$confline" ]] && source "$mod_path/$confline"
+        done
+        IFS=$OLDIFS
     fi
-    mod_files=$(sed -e 's/#.*//' -e 's/[ 	]*$//' -e 's/^[ 	]*//' -e '/^$/ d' "$HOME/.bash_modules")
-    OLDIFS=IFS
-    IFS=$'\n'
-    for confline in $mod_files; do
-        [[ -r "$mod_path/$confline" ]] && source "$mod_path/$confline"
-    done
-    IFS=$OLDIFS
-fi
+    if test -z "$1"; then
+        echo "Modules loaded."
+    fi
+}
+
+load_bash_modules -quiet
 
 # Fix PS1 if git-completion module was loaded
 if command_exists "__git_ps1" ; then
