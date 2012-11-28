@@ -22,7 +22,6 @@ display_help() {
 
 FORCE=no
 NO_INSTALL_ARG=no
-DIR=`dirname $0`
 PREFIX="$HOME"
 
 while test -n "$1"; do
@@ -39,6 +38,11 @@ while test -n "$1"; do
     esac
     shift
 done
+
+DIR=`dirname $0`
+cd $DIR
+DIR=`pwd`
+cd $PREFIX
 
 # Symlinks
 if test "$NO_INSTALL_ARG" = "yes"; then
