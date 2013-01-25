@@ -9,7 +9,7 @@
 [ -n "$BASH_LOADED" ] && return
 
 # This needs to be local. Do not export.
-BASH_LOADED=1
+export BASH_LOADED=1
 
 # Convinience method to check if a command exists or not.
 command_exists () {
