@@ -1,8 +1,8 @@
 # Add developer tools to path
 if [ -d /Developer/Tools ]; then
-    export PATH=$PATH:/Developer/Tools
+    addToPath /Developer/Tools
 elif [ -d /Applications/Xcode.app/Contents/Developer/Tools ]; then
-    export PATH=$PATH:/Applications/Xcode.app/Contents/Developer/Tools
+    addToPath /Applications/Xcode.app/Contents/Developer/Tools
 fi
 
 # vim:set ft=sh sw=4 et fdm=marker :
