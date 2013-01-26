@@ -9,7 +9,7 @@
 [ -n "$BASH_LOADED" ] && return
 
 # This needs to be local. Do not export.
-export BASH_LOADED=1
+BASH_LOADED=1
 
 # Convinience method to check if a command exists or not.
 command_exists () {
@@ -98,6 +98,31 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
+# Utility functions to manipulate the PATH.
+# Used to prevent duplicates on multiple calls.
+inPath() {
+    echo "${PATH}" | grep "$1" > /dev/null
+}
+notInPath() {
+    if inPath "$1"; then
+        return 1
+    else
+        return 0
+    fi
+}
+addToPath() {
+    if notInPath "$1"; then
+        PATH="${PATH}:$1"
+    fi
+    export PATH
+}
+prependToPath() {
+    if notInPath "$1"; then
+        PATH="$1:${PATH}"
+    fi
+    export PATH
+}
 
 # Modules
 # Loading of other bash modules
