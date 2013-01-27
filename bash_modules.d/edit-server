@@ -11,11 +11,18 @@ spawn_edit_server() {
         shift
         local kill_server=1
         ;;
+      -r|--restart)
+        [[ $quiet ]] && local q="-q"
+        spawn_edit_server $q -k
+        spawn_edit_server $q
+        return
+        ;;
       -h|--help)
         echo "Usage: spawn_edit_server [options]"
-        echo "  -q, --quiet  Don't print anything"
-        echo "  -k, --kill   kill edit-server"
-        echo "  -h, --help   This cruft"
+        echo "  -q, --quiet    Don't print anything"
+        echo "  -r, --restart  Reboot the server"
+        echo "  -k, --kill     kill edit-server"
+        echo "  -h, --help     This cruft"
         return
         ;;
     esac
@@ -37,7 +44,8 @@ spawn_edit_server() {
     [[ $quiet ]] || echo "edit-server currently running. ($pid)" >&2
   else
     ${BASH_LOADER_HOME}/bin/edit-server &
-    echo $! > "$pid_file"
+    local pid=$!
+    echo $pid > "$pid_file"
     [[ $quiet ]] || echo "edit-server spawned. ($pid)" >&2
   fi
 }
