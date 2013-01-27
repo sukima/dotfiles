@@ -99,6 +99,19 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# Find bash_loader repository directory
+if [ -z "$BASH_LOADER_HOME" ]; then
+    if command_exists "readlink" ; then
+        BASH_LOADER_HOME=$(dirname "$(readlink $HOME/.bash_loader)")
+        BASH_LOADER_HOME=$(cd "$BASH_LOADER_HOME/.." && pwd)
+    elif test -d "${HOME}/.dotty/default/dotfiles" ; then
+        BASH_LOADER_HOME="${HOME}/.dotty/default/dotfiles"
+    else
+        BASH_LOADER_HOME="${HOME}"
+    fi
+    export BASH_LOADER_HOME
+fi
+
 # Utility functions to manipulate the PATH.
 # Used to prevent duplicates on multiple calls.
 inPath() {
@@ -127,29 +140,40 @@ prependToPath() {
 # Modules
 # Loading of other bash modules
 load_bash_modules() {
-    if test -e "$HOME/.bash_modules" ; then
-        if command_exists "readlink" ; then
-            mod_path=$(dirname "$(readlink $HOME/.bash_loader)")
-            mod_path=$(cd "$mod_path/../bash_modules.d" && pwd)
-        elif test -d "$HOME/.dotty/default/dotfiles/bash_modules.d" ; then
-            mod_path="$HOME/.dotty/default/dotfiles/bash_modules.d"
-        else
-            mod_path="$HOME/.bash_modules.d"
-        fi
+    case "$1" in
+        -q|--quiet)
+            quiet=1
+            ;;
+        -h|--help)
+            echo "Usage: load_bash_modules [-q|--quiet]"
+            return
+            ;;
+    esac
+    if [ -e "$HOME/.bash_modules" ]; then
+        mod_path="${BASH_LOADER_HOME}/bash_modules.d"
         mod_files=$(sed -e 's/#.*//' -e 's/[ 	]*$//' -e 's/^[ 	]*//' -e '/^$/ d' "$HOME/.bash_modules")
-        OLDIFS=IFS
+        OLDIFS="${IFS}"
         IFS=$'\n'
         for confline in $mod_files; do
-            [[ -r "$mod_path/$confline" ]] && source "$mod_path/$confline"
+            if [ -r "${mod_path}/${confline}" ]; then
+                source "${mod_path}/${confline}"
+                [[ ! $quiet ]] && echo "Loaded ${confline}"
+            else
+                [[ ! $quiet ]] && echo "Not found: ${mod_path}/${confline}"
+            fi
         done
-        IFS=$OLDIFS
+        IFS="${OLDIFS}"
     fi
-    if test -z "$1"; then
+    if test ! $quiet; then
         echo "Modules loaded."
     fi
+    unset quiet
+    unset mod_path
+    unset mod_files
+    unset OLDIFS
 }
 
-load_bash_modules -quiet
+load_bash_modules --quiet
 
 # Fix PS1 if git-completion module was loaded
 if command_exists "__git_ps1" ; then
