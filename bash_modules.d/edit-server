@@ -20,19 +20,25 @@ spawn_edit_server() {
         ;;
     esac
   done
-  if [ $kill_server ]; then
-    kill $EDIT_SERVER_PID
-    unset EDIT_SERVER_PID
-    [ $quiet ] || echo "edit-server process killed" >&2
+  if [[ -d "${HOME}/tmp" ]]; then
+    local pid_file="${HOME}/tmp/edit-server.pid"
+  else
+    local pid_file="/var/run/edit-server.pid"
+  fi
+  [[ -e "$pid_file" ]] && local pid=$(cat "$pid_file")
+  if [[ $kill_server ]]; then
+    rm "$pid_file" > /dev/null 2>&1
+    kill $pid > /dev/null 2>&1
+    [[ $quiet ]] || echo "edit-server process killed. ($pid)" >&2
     return
   fi
-  if [ -n "$EDIT_SERVER_PID" ]; then
+  if [[ -e "$pid_file" ]]; then
     # Server running, ignore.
-    [ $quiet ] || echo "edit-server currently running. ($EDIT_SERVER_PID)" >&2
+    [[ $quiet ]] || echo "edit-server currently running. ($pid)" >&2
   else
     ${BASH_LOADER_HOME}/bin/edit-server &
-    export EDIT_SERVER_PID=$!
-    [ $quiet ] || echo "edit-server spawned. ($EDIT_SERVER_PID)" >&2
+    echo $! > "$pid_file"
+    [[ $quiet ]] || echo "edit-server spawned. ($pid)" >&2
   fi
 }
 
