@@ -5,11 +5,11 @@ spawn_edit_server() {
     case "$1" in
       -q|--quiet)
         shift
-        quiet=1
+        local quiet=1
         ;;
       -k|--kill)
         shift
-        kill_server=1
+        local kill_server=1
         ;;
       -h|--help)
         echo "Usage: spawn_edit_server [options]"
@@ -24,18 +24,17 @@ spawn_edit_server() {
     kill $EDIT_SERVER_PID
     unset EDIT_SERVER_PID
     [ $quiet ] || echo "edit-server process killed" >&2
-  else
-    if [ -n "$EDIT_SERVER_PID" ]; then
-      # Server running, ignore.
-      [ $quiet ] || echo "edit-server currently running. ($EDIT_SERVER_PID)" >&2
-    else
-      ${BASH_LOADER_HOME}/bin/edit-server &
-      export EDIT_SERVER_PID=$!
-      [ $quiet ] || echo "edit-server spawned. ($EDIT_SERVER_PID)" >&2
-    fi
+    return
   fi
-  unset quiet
-  unset kill_server
+  if [ -n "$EDIT_SERVER_PID" ]; then
+    # Server running, ignore.
+    [ $quiet ] || echo "edit-server currently running. ($EDIT_SERVER_PID)" >&2
+  else
+    ${BASH_LOADER_HOME}/bin/edit-server &
+    export EDIT_SERVER_PID=$!
+    [ $quiet ] || echo "edit-server spawned. ($EDIT_SERVER_PID)" >&2
+  fi
 }
 
 spawn_edit_server --quiet
+# vim:set ft=sh sw=2:

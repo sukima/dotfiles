@@ -145,7 +145,7 @@ prependToPath() {
 load_bash_modules() {
     case "$1" in
         -q|--quiet)
-            quiet=1
+            local quiet=1
             ;;
         -h|--help)
             echo "Usage: load_bash_modules [-q|--quiet]"
@@ -153,27 +153,21 @@ load_bash_modules() {
             ;;
     esac
     if [ -e "$HOME/.bash_modules" ]; then
-        mod_path="${BASH_LOADER_HOME}/bash_modules.d"
-        mod_files=$(sed -e 's/#.*//' -e 's/[ 	]*$//' -e 's/^[ 	]*//' -e '/^$/ d' "$HOME/.bash_modules")
-        OLDIFS="${IFS}"
+        local mod_path="${BASH_LOADER_HOME}/bash_modules.d"
+        local mod_files=$(sed -e 's/#.*//' -e 's/[ 	]*$//' -e 's/^[ 	]*//' -e '/^$/ d' "$HOME/.bash_modules")
+        local OLDIFS="${IFS}"
         IFS=$'\n'
         for confline in $mod_files; do
             if [ -r "${mod_path}/${confline}" ]; then
                 source "${mod_path}/${confline}"
-                [[ ! $quiet ]] && echo "Loaded ${confline}"
+                [[ $quiet ]] || echo "Loaded ${confline}"
             else
-                [[ ! $quiet ]] && echo "Not found: ${mod_path}/${confline}"
+                [[ $quiet ]] || echo "Not found: ${mod_path}/${confline}"
             fi
         done
         IFS="${OLDIFS}"
     fi
-    if test ! $quiet; then
-        echo "Modules loaded."
-    fi
-    unset quiet
-    unset mod_path
-    unset mod_files
-    unset OLDIFS
+    [[ $quiet ]] || echo "Modules loaded."
 }
 
 load_bash_modules --quiet
