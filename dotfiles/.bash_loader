@@ -8,6 +8,9 @@
 # If this file loaded already, don't do anything
 [ -n "$BASH_LOADED" ] && return
 
+# Many utilities assume you have a ~/tmp directory.
+[ -d "$HOME/tmp" ] || echo "WARNING: Missing $HOME/tmp directory." >&2
+
 # This needs to be local. Do not export.
 BASH_LOADED=1
 
