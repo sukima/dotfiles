@@ -48,7 +48,7 @@ if (`uname` =~ /Darwin/) {
 # URL for the textarea's page will be included in the tmp file's filename.
 our $TMPDIR = "$ENV{HOME}/tmp";
 our $TMPTEMPLATE = 'edit-server-URL64-XXXXXX';
-our $TMPSUFFIX = '.txt';
+our $TMPSUFFIX = '.markdown';
 our $CLEAN_AFTER_HOURS = 4;
 
 &Getopt::Long::Configure('bundling');
