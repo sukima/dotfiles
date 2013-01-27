@@ -1,0 +1,60 @@
+#!/bin/bash
+#
+# Runs the edit-server for the chrome plugin.
+# Used for systems which don't handle command line programs on startup like Mac OS X
+while [ -n "$1" ]; do
+  case "$1" in
+    -q|--quiet)
+      shift
+      local quiet=1
+      ;;
+    -k|--kill)
+      shift
+      local kill_server=1
+      ;;
+    -r|--restart)
+      [[ $quiet ]] && local q="-q"
+      spawn_edit_server $q -k
+      spawn_edit_server $q
+      return
+      ;;
+    -h|--help)
+      echo "Usage: spawn-edit-server [options]"
+      echo "  -q, --quiet    Don't print anything"
+      echo "  -r, --restart  Reboot the server"
+      echo "  -k, --kill     kill edit-server"
+      echo "  -h, --help     This cruft"
+      return
+      ;;
+  esac
+done
+
+if [[ -d "${HOME}/tmp" ]]; then
+  local pid_file="${HOME}/tmp/edit-server.pid"
+else
+  local pid_file="/var/run/edit-server.pid"
+fi
+[[ -e "$pid_file" ]] && local pid=$(cat "$pid_file")
+
+if [[ $kill_server ]]; then
+  rm "$pid_file" > /dev/null 2>&1
+  kill $pid > /dev/null 2>&1
+  [[ $quiet ]] || echo "edit-server process killed. ($pid)" >&2
+  return
+fi
+
+if [[ -e "$pid_file" ]]; then
+  # Server running, ignore.
+  [[ $quiet ]] || echo "edit-server currently running. ($pid)" >&2
+else
+  if [[ -e "${BASH_LOADER_HOME}/bin/edit-server" ]]; then
+    local edit_server="${BASH_LOADER_HOME}/bin/edit-server"
+  else
+    local edit_server="edit-server"
+  fi
+  $edit_server &
+  local pid=$!
+  echo $pid > "$pid_file"
+  [[ $quiet ]] || echo "edit-server spawned. ($pid)" >&2
+fi
+# vim:set ft=sh sw=2:
