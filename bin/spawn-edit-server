@@ -6,14 +6,14 @@ while [ -n "$1" ]; do
   case "$1" in
     -q|--quiet)
       shift
-      local quiet=1
+      quiet=1
       ;;
     -k|--kill)
       shift
-      local kill_server=1
+      kill_server=1
       ;;
     -r|--restart)
-      [[ $quiet ]] && local q="-q"
+      [[ $quiet ]] && q="-q"
       spawn_edit_server $q -k
       spawn_edit_server $q
       return
@@ -30,11 +30,11 @@ while [ -n "$1" ]; do
 done
 
 if [[ -d "${HOME}/tmp" ]]; then
-  local pid_file="${HOME}/tmp/edit-server.pid"
+  pid_file="${HOME}/tmp/edit-server.pid"
 else
-  local pid_file="/var/run/edit-server.pid"
+  pid_file="/var/run/edit-server.pid"
 fi
-[[ -e "$pid_file" ]] && local pid=$(cat "$pid_file")
+[[ -e "$pid_file" ]] && pid=$(cat "$pid_file")
 
 if [[ $kill_server ]]; then
   rm "$pid_file" > /dev/null 2>&1
@@ -48,12 +48,12 @@ if [[ -e "$pid_file" ]]; then
   [[ $quiet ]] || echo "edit-server currently running. ($pid)" >&2
 else
   if [[ -e "${BASH_LOADER_HOME}/bin/edit-server" ]]; then
-    local edit_server="${BASH_LOADER_HOME}/bin/edit-server"
+    edit_server="${BASH_LOADER_HOME}/bin/edit-server"
   else
-    local edit_server="edit-server"
+    edit_server="edit-server"
   fi
   $edit_server &
-  local pid=$!
+  pid=$!
   echo $pid > "$pid_file"
   [[ $quiet ]] || echo "edit-server spawned. ($pid)" >&2
 fi
