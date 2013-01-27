@@ -34,10 +34,11 @@ our $LOCALHOST_ONLY = 1;
 # Configure the program that you want to run to handle the requests.
 # This editor invocation must NOT return control to this script until
 # you are done editing.
-if ("Darwin" eq `uname`) {
-  our $EDITOR_CMD = '/usr/local/bin/mvim -f "%s"';
+our $EDITOR_CMD;
+if (`uname` =~ /Darwin/) {
+  $EDITOR_CMD = '/usr/local/bin/mvim -f "%s"';
 } else {
-  our $EDITOR_CMD = '/usr/bin/gvim -f "%s"';
+  $EDITOR_CMD = '/usr/bin/gvim -f "%s"';
 }
   
 #our $EDITOR_CMD = '/usr/bin/emacsclient -c "%s"';
