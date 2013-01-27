@@ -1,0 +1,41 @@
+# Auto runs the edit-server for the chrome plugin.
+# Used for systems which don't handle command line programs on startup like Mac OS X
+spawn_edit_server() {
+  while [ -n "$1" ]; do
+    case "$1" in
+      -q|--quiet)
+        shift
+        quiet=1
+        ;;
+      -k|--kill)
+        shift
+        kill_server=1
+        ;;
+      -h|--help)
+        echo "Usage: spawn_edit_server [options]"
+        echo "  -q, --quiet  Don't print anything"
+        echo "  -k, --kill   kill edit-server"
+        echo "  -h, --help   This cruft"
+        return
+        ;;
+    esac
+  done
+  if [ $kill_server ]; then
+    kill $EDIT_SERVER_PID
+    unset EDIT_SERVER_PID
+    [ $quiet ] || echo "edit-server process killed" >&2
+  else
+    if [ -n "$EDIT_SERVER_PID" ]; then
+      # Server running, ignore.
+      [ $quiet ] || echo "edit-server currently running. ($EDIT_SERVER_PID)" >&2
+    else
+      ${BASH_LOADER_HOME}/bin/edit-server &
+      export EDIT_SERVER_PID=$!
+      [ $quiet ] || echo "edit-server spawned. ($EDIT_SERVER_PID)" >&2
+    fi
+  fi
+  unset quiet
+  unset kill_server
+}
+
+spawn_edit_server --quiet
