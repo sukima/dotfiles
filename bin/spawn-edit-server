@@ -36,7 +36,7 @@ fi
 [[ -e "$pid_file" ]] && pid=$(cat "$pid_file")
 
 if [[ $kill_server ]]; then
-  rm "$pid_file" > /dev/null 2>&1
+  rm -f "$pid_file" > /dev/null 2>&1
   kill $pid > /dev/null 2>&1
   [[ $quiet ]] || echo "edit-server process killed. ($pid)" >&2
   [[ $restart_server ]] || exit 0
@@ -54,6 +54,7 @@ else
   $edit_server &
   pid=$!
   echo $pid > "$pid_file"
+  chmod 400 "$pid_file"
   [[ $quiet ]] || echo "edit-server spawned. ($pid)" >&2
 fi
 # vim:set ft=sh sw=2:
