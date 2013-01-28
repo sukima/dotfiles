@@ -16,7 +16,7 @@ while [ -n "$1" ]; do
       [[ $quiet ]] && q="-q"
       spawn_edit_server $q -k
       spawn_edit_server $q
-      return
+      exit 0
       ;;
     -h|--help)
       echo "Usage: spawn-edit-server [options]"
@@ -24,7 +24,7 @@ while [ -n "$1" ]; do
       echo "  -r, --restart  Reboot the server"
       echo "  -k, --kill     kill edit-server"
       echo "  -h, --help     This cruft"
-      return
+      exit 0
       ;;
   esac
 done
@@ -40,7 +40,7 @@ if [[ $kill_server ]]; then
   rm "$pid_file" > /dev/null 2>&1
   kill $pid > /dev/null 2>&1
   [[ $quiet ]] || echo "edit-server process killed. ($pid)" >&2
-  return
+  exit 0
 fi
 
 if [[ -e "$pid_file" ]]; then
