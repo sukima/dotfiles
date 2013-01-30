@@ -28,14 +28,29 @@ while [ -n "$1" ]; do
   esac
 done
 
+if [[ -e "${BASH_LOADER_HOME}/bin/edit-server" ]]; then
+  edit_server="${BASH_LOADER_HOME}/bin/edit-server"
+else
+  edit_server="edit-server"
+fi
+
 if [[ -d "${HOME}/tmp" ]]; then
   pid_file="${HOME}/tmp/edit-server.pid"
 else
   pid_file="/var/run/edit-server.pid"
 fi
-[[ -e "$pid_file" ]] && pid=$(cat "$pid_file")
+if [[ -e "$pid_file" ]]; then
+  pid=$(cat "$pid_file")
+  stat=$(ps --no-headers -o command $pid)
+  if echo "$stat" | grep -v "$edit_server" > /dev/null 2>&1; then
+    [[ $quiet ]] || echo "edit-server is not running. Stale pid file ($pid)."
+    rm -f "$pid_file"
+    unset pid
+  fi
+  unset stat
+fi
 
-if [[ $kill_server ]]; then
+if [[ $kill_server && $pid ]]; then
   rm -f "$pid_file" > /dev/null 2>&1
   kill $pid > /dev/null 2>&1
   [[ $quiet ]] || echo "edit-server process killed. ($pid)" >&2
@@ -46,11 +61,6 @@ if [[ -e "$pid_file" ]]; then
   # Server running, ignore.
   [[ $quiet ]] || echo "edit-server currently running. ($pid)" >&2
 else
-  if [[ -e "${BASH_LOADER_HOME}/bin/edit-server" ]]; then
-    edit_server="${BASH_LOADER_HOME}/bin/edit-server"
-  else
-    edit_server="edit-server"
-  fi
   $edit_server &
   pid=$!
   echo $pid > "$pid_file"
