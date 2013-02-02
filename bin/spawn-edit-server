@@ -41,7 +41,7 @@ else
 fi
 if [[ -e "$pid_file" ]]; then
   pid=$(cat "$pid_file")
-  stat=$(ps --no-headers -o command $pid)
+  stat=$(ps -o command= $pid)
   if echo "$stat" | grep -v "$edit_server" > /dev/null 2>&1; then
     [[ $quiet ]] || echo "edit-server is not running. Stale pid file ($pid)."
     rm -f "$pid_file"
