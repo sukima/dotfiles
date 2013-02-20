@@ -15,7 +15,11 @@
   whitespace = fix
 
 [push]
-default = tracking
+  default = tracking
+
+[merge]
+  conflictstyle = diff3
+  tool = vimdiff
 
 [color]
   status = auto
@@ -28,8 +32,5 @@ default = tracking
   show-refs = yes        # Show references?
   show-line-numbers = no # Show line numbers?
 
-# vim:set sw=4 ts=4 et:
 [github]
   user = sukima
-[merge]
-  conflictstyle = diff3
