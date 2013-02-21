@@ -10,6 +10,9 @@
   patch = format-patch
   mylog = log --topo-order --decorate --first-parent
   rawdiff = diff --no-ext-diff -w
+  ignore = !git update-index --assume-unchanged 
+  unignore = !git update-index --no-assume-unchanged
+  ignored = !git ls-files -v | grep ^[a-z]
 
 [apply]
   whitespace = fix
