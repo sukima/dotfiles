@@ -140,6 +140,18 @@ prependToPath() {
     export PATH
 }
 
+# A util function to setup missing file paths that some programs and scrips
+# expect.
+setupTempPaths() {
+    mkdir -p ~/tmp
+    mkdir -p ~/tmp/sessions
+    touch ~/.tmux.conf.local
+    mkdir -p ~/vim
+    touch ~/.vim/local.vim
+    touch ~/.vim/local_gui.vim
+    touch .bash_aliases
+}
+
 # Modules
 # Loading of other bash modules
 load_bash_modules() {
