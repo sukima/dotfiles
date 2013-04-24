@@ -1,7 +1,0 @@
-# Path environments for SeeClickFix (Personal)
-addToPath "$HOME/source/seeClickFix_titanium/mobile/environment-manager/common/bin"
-export TITANIUM_ROOT="$HOME/source/seeClickFix_titanium"
-export ANDROID_TOOLS="/Applications/android/platform-tools/"
-export ANDROID_SDK_PATH="$HOME/Android"
-# export GOOGLE_DRIVE="$HOME/Documents/Google Drive/SCF_mobile/"
-# export DROPBOX="$HOME/Documents/Dropbox"
