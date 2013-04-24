@@ -179,7 +179,12 @@ load_bash_modules() {
         done
         IFS="${OLDIFS}"
     fi
-    [[ $quiet ]] || echo "Modules loaded."
+    if [ -d "$HOME/.bash_modules.d" ]; then
+        for module in $HOME/.bash_modules.d/*; do
+            source "${module}"
+            [[ $quiet ]] || echo "Loaded $(basename "$module")"
+        done
+    fi
 }
 
 load_bash_modules --quiet
