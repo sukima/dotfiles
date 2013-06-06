@@ -15,6 +15,9 @@
   unignore = !git update-index --no-assume-unchanged
   ignored = !git ls-files -v | grep ^[a-z]
 
+[core]
+  ignorecase = false
+
 [apply]
   whitespace = fix
 
@@ -35,6 +38,3 @@
   show-rev-graph = yes   # Show revision graph?
   show-refs = yes        # Show references?
   show-line-numbers = no # Show line numbers?
-
-[github]
-  user = sukima
