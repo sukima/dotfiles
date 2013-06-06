@@ -1,0 +1,2 @@
+# Sets Midnight Commander theme to Solarized
+export MC_SKIN=$HOME/.mc/solarized.ini
