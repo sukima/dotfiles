@@ -41,3 +41,5 @@
   show-rev-graph = yes   # Show revision graph?
   show-refs = yes        # Show references?
   show-line-numbers = no # Show line numbers?
+[github]
+	user = sukima
