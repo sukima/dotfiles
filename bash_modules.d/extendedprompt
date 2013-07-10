@@ -1,22 +1,25 @@
 # Extended prompt command
 prompt() {
     case "$1" in
-        simple)
+        si*) # simple
             PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
             ;;
-        color)
+        sm*) # small
+            PS1='[\!] \$ ~> '
+            ;;
+        c*) # color
             PS1='${debian_chroot:+($debian_chroot)}\[\e[34m\]\u\[\e[0m\]@\h:\[\e[36m\]\W\[\e[0m\]\$ '
             ;;
-        multis*)
+        m*s*) # multismall or msmall
             PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` \[\e[36m\]\W\[\e[0m\]\n\$ ~> '
             ;;
-        multi*)
+        m*) # multiline
             PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` \u@\h:\[\e[36m\]\w\[\e[0m\]\n\$ ${debian_chroot:+($debian_chroot)}~> '
             ;;
-        emot*)
+        e*) # emotive
             PS1='`if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`${debian_chroot:+($debian_chroot)} [\u@\h:\[\e[36m\]\W\[\e[0m\]]\$ '
             ;;
-        def*)
+        d*) # default
             prompt color
             return
             ;;
@@ -35,14 +38,16 @@ prompt() {
     # Fix PS1 if git-completion module was loaded
     if command_exists "__git_ps1" ; then
         case "$1" in
-            emot*|color)
+            e*|c*) # emotive or color
                 PS1=$(echo "$PS1" | sed -e 's/\\\$ */\$(__git_ps1 " (\\[\\e[33m\\]%s\\[\\e[0m\\])")\\\$ /')
                 ;;
-            multis*)
+            m*s*) # multismall or msmall
                 PS1=$(echo "$PS1" | sed -e 's/\\n\\\$/\$(__git_ps1 "\\n(\\[\\e[33m\\]%s\\[\\e[0m\\])")\\n\\\$/')
                 ;;
-            multi*)
+            m*) # multiline
                 PS1=$(echo "$PS1" | sed -e 's/\\n\\\$/\$(__git_ps1 " (\\[\\e[33m\\]%s\\[\\e[0m\\])")\\n\\\$/')
+                ;;
+            sm*) # small
                 ;;
             *)
                 PS1=$(echo "$PS1" | sed -e 's/\\\$ */\$(__git_ps1 " (%s)")\\\$ /')
