@@ -17,7 +17,7 @@ prompt() {
             PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]\n\$ ${debian_chroot:+($debian_chroot)}~> '
             ;;
         e*) # emotive
-            PS1='[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (\j)${debian_chroot:+($debian_chroot)} [\u@\h:\[\e[36m\]\W\[\e[0m\]]\$ '
+            PS1='[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`${debian_chroot:+($debian_chroot)} [\u@\h:\[\e[36m\]\W\[\e[0m\]]:\j\$ '
             ;;
         d*) # default
             prompt color
