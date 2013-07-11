@@ -1,0 +1,4 @@
+vimrc:
+  url: https://github.com/sukima/vimrc.git
+dotfiles:
+  url: https://github.com/sukima/dotfiles.git

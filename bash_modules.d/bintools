@@ -1,0 +1,2 @@
+# Adds custom tools in the repository bin/ to the PATH
+addToPath "${BASH_LOADER_HOME}/bin"

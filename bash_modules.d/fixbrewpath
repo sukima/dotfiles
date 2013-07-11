@@ -1,0 +1,5 @@
+# Places /usr/local/bin higher in the PATH (for Homebrew)
+if inPath "/usr/local/bin"; then
+  export PATH=$(echo $PATH | sed s+/usr/local/bin++g | sed s+::+:+g)
+fi
+prependToPath "/usr/local/bin"

@@ -1,0 +1,67 @@
+# Extended prompt command
+prompt() {
+    case "$1" in
+        si*) # simple
+            PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
+            ;;
+        sm*) # small
+            PS1='[\!] \$ ~> '
+            ;;
+        c*) # color
+            PS1='${debian_chroot:+($debian_chroot)}\[\e[34m\]\u\[\e[0m\]@\h:\[\e[36m\]\W\[\e[0m\]\$ '
+            ;;
+        m*s*) # multismall or msmall
+            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (\j) \[\e[36m\]\W\[\e[0m\]\n\$ ~> '
+            ;;
+        m*) # multiline
+            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]\n\$ ${debian_chroot:+($debian_chroot)}~> '
+            ;;
+        e*) # emotive
+            PS1='`if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`${debian_chroot:+($debian_chroot)} [\u@\h:\[\e[36m\]\W\[\e[0m\]]\$ '
+            ;;
+        d*) # default
+            prompt color
+            return
+            ;;
+        *)
+            echo "Usage prompt <option>"
+            echo "  default     Defaults to color"
+            echo "  simple      username@hostname:current_dir$"
+            echo "  color       simple prompt with color"
+            echo "  multiline   a multilined, emotive prompt"
+            echo "  multismall  a multilined, emotive, horizontally challenged prompt"
+            echo "  emotive     ^_^ [username@hostname:current_dir]$"
+            return
+            ;;
+    esac
+
+    # Fix PS1 if git-completion module was loaded
+    if command_exists "__git_ps1" ; then
+        case "$1" in
+            e*|c*) # emotive or color
+                PS1=$(echo "$PS1" | sed -e 's/\\\$ */\$(__git_ps1 " (\\[\\e[33m\\]%s\\[\\e[0m\\])")\\\$ /')
+                ;;
+            m*s*) # multismall or msmall
+                PS1=$(echo "$PS1" | sed -e 's/\\n\\\$/\$(__git_ps1 "\\n(\\[\\e[33m\\]%s\\[\\e[0m\\])")\\n\\\$/')
+                ;;
+            m*) # multiline
+                PS1=$(echo "$PS1" | sed -e 's/\\n\\\$/\$(__git_ps1 " (\\[\\e[33m\\]%s\\[\\e[0m\\])")\\n\\\$/')
+                ;;
+            sm*) # small
+                ;;
+            *)
+                PS1=$(echo "$PS1" | sed -e 's/\\\$ */\$(__git_ps1 " (%s)")\\\$ /')
+                ;;
+        esac
+    fi
+
+    # If this is an xterm set the title to user@host:dir
+    case "$TERM" in
+    xterm*|rxvt*)
+        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \W\a\]$PS1"
+        ;;
+    *)
+        ;;
+    esac
+}
+# vim:set ft=sh sw=4 ts=8 et fdm=marker :

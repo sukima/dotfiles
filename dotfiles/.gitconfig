@@ -1,34 +1,45 @@
 [user]
-    name = Devin Weaver
-    email = suki@tritarget.org
+  name = Devin Weaver
+  email = suki@tritarget.org
 
 [alias]
-    ci = commit
-    co = checkout
-    st = status
-    patch = format-patch
-    mylog = log --topo-order --decorate --first-parent
-    rawdiff = diff --no-ext-diff -w
+  s = status -sb
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
+  ci = commit
+  co = checkout
+  st = status
+  sb = show-branch
+  stats = shortlog --summary
+  patch = format-patch
+  rawdiff = diff --no-ext-diff -w
+  ignore = !git update-index --assume-unchanged 
+  unignore = !git update-index --no-assume-unchanged
+  ignored = !git ls-files -v | grep ^[a-z]
+
+[core]
+  ignorecase = false
 
 [apply]
-    whitespace = fix
+  whitespace = fix
 
 [push]
-    default = matching
+  default = tracking
+
+[merge]
+  conflictstyle = diff3
+  tool = vimdiff
 
 [color]
-    status = auto
-    branch = auto
+  ui = auto
+  interactive = auto
+  status = auto
+  branch = auto
 
 [tig]
-    show-author = full     # Show abbreviated/full/none author names.
-    show-date = relative   # Show relative commit date.
-    show-rev-graph = yes   # Show revision graph?
-    show-refs = yes        # Show references?
-    show-line-numbers = no # Show line numbers?
-
-# vim:set sw=4 ts=4 et:
+  show-author = full     # Show abbreviated/full/none author names.
+  show-date = relative   # Show relative commit date.
+  show-rev-graph = yes   # Show revision graph?
+  show-refs = yes        # Show references?
+  show-line-numbers = no # Show line numbers?
 [github]
 	user = sukima
-[merge]
-	conflictstyle = diff3
