@@ -1,6 +1,28 @@
 # Extended prompt command
 prompt() {
-    case "$1" in
+    local enable_git_prompt=1
+    local prompt='__help'
+
+    while test $# -gt 0; do
+        case "$1" in
+            -G|--disable-git)
+                enable_git_prompt=0
+                ;;
+            -g|--enable-git)
+                enable_git_prompt=1
+                ;;
+            -h|--help)
+                prompt='__help'
+                ;;
+            *)
+                prompt="$1"
+                ;;
+        esac
+
+        shift
+    done
+
+    case "$prompt" in
         si*) # simple
             PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
             ;;
@@ -24,7 +46,9 @@ prompt() {
             return
             ;;
         *)
-            echo "Usage prompt <option>"
+            echo "Usage prompt [-G] <prompt name>"
+            echo "  -G, --disable-git  disable the git prompt plugin"
+            echo "prompt names:"
             echo "  default     Defaults to color"
             echo "  simple      username@hostname:current_dir$"
             echo "  color       simple prompt with color"
@@ -37,22 +61,24 @@ prompt() {
 
     # Fix PS1 if git-completion module was loaded
     if command_exists "__git_ps1" ; then
-        case "$1" in
-            e*|c*) # emotive or color
-                PS1=$(echo "$PS1" | sed -e 's/\\\$ */\$(__git_ps1 " (\\[\\e[33m\\]%s\\[\\e[0m\\])")\\\$ /')
-                ;;
-            m*s*) # multismall or msmall
-                PS1=$(echo "$PS1" | sed -e 's/\\n\\\$/\$(__git_ps1 "\\n(\\[\\e[33m\\]%s\\[\\e[0m\\])")\\n\\\$/')
-                ;;
-            m*) # multiline
-                PS1=$(echo "$PS1" | sed -e 's/\\n\\\$/\$(__git_ps1 " (\\[\\e[33m\\]%s\\[\\e[0m\\])")\\n\\\$/')
-                ;;
-            sm*) # small
-                ;;
-            *)
-                PS1=$(echo "$PS1" | sed -e 's/\\\$ */\$(__git_ps1 " (%s)")\\\$ /')
-                ;;
-        esac
+        if [ "$enable_git_prompt" = "1" ]; then
+            case "$prompt" in
+                e*|c*) # emotive or color
+                    PS1=$(echo "$PS1" | sed -e 's/\\\$ */\$(__git_ps1 " (\\[\\e[33m\\]%s\\[\\e[0m\\])")\\\$ /')
+                    ;;
+                m*s*) # multismall or msmall
+                    PS1=$(echo "$PS1" | sed -e 's/\\n\\\$/\$(__git_ps1 "\\n(\\[\\e[33m\\]%s\\[\\e[0m\\])")\\n\\\$/')
+                    ;;
+                m*) # multiline
+                    PS1=$(echo "$PS1" | sed -e 's/\\n\\\$/\$(__git_ps1 " (\\[\\e[33m\\]%s\\[\\e[0m\\])")\\n\\\$/')
+                    ;;
+                sm*) # small
+                    ;;
+                *)
+                    PS1=$(echo "$PS1" | sed -e 's/\\\$ */\$(__git_ps1 " (%s)")\\\$ /')
+                    ;;
+            esac
+        fi
     fi
 
     # If this is an xterm set the title to user@host:dir
