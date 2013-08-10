@@ -238,6 +238,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+bind TAB:menu-complete
+
 # Instalation specific config
 if [ -f "$HOME/.bash_local" ]; then
     . "$HOME/.bash_local"
