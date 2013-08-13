@@ -238,7 +238,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-bind TAB:menu-complete
+set show-all-if-ambiguous on
 
 # Instalation specific config
 if [ -f "$HOME/.bash_local" ]; then
