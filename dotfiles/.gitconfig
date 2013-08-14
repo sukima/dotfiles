@@ -32,7 +32,7 @@
 
 [mergetool "diffconflicts"]
 	cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
-  trustExitCode = true
+  trustExitCode = false
   keepBackup = false
 
 [color]

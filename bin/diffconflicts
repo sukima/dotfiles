@@ -19,13 +19,15 @@
 #       |  LOCAL   |   BASE   |  REMOTE  |
 #       +--------------------------------+
 #   Tab3 is the MERGED or 'result' file that contains the conflict markers.
-#       +--------------------------------+
-#       |       <<<<<<< HEAD             |
-#       |        LCONFL                  |
-#       |       =======                  |
-#       |        RCONFL                  |
-#       |       >>>>>>> someref          |
-#       +--------------------------------+
+#       +---------------------------------------+
+#       |       <<<<<<< HEAD                    |
+#       |        LCONFL                         |
+#       |       ||||||| merged common ancestors |
+#       |        BASE                           |
+#       |       =======                         |
+#       |        RCONFL                         |
+#       |       >>>>>>> someref                 |
+#       +---------------------------------------+
 #
 # Workflow:
 #
@@ -35,6 +37,9 @@
 #       second tabpage if you want to look at them.
 # 3.    When vimdiff exits cleanly, the file containing the conflict markers
 #       will be updated with the contents of your LCONFL file edits.
+# 4.    Sometimes it helps to edit the MERGED file manually. Making changes in
+#       Tab3 will overwrite / destroy changes in Tab1. In other words only
+#       edit one or the other.
 #
 # NOTE: Use :cq to abort the merge and exit Vim with an error code.
 #
@@ -57,28 +62,37 @@ REMOTE=$4
 MERGED=$5
 
 # Temporary files for left and right side
-LCONFL=$MERGED.REMOTE.$$.tmp
-RCONFL=$LOCAL
+LCONFL=$MERGED.LOCAL.$$.tmp
+RCONFL=$MERGED.REMOTE.$$.tmp
 
 # Always delete our temp files; Git will handle it's own temp files
-trap 'rm -f '$LCONFL' '$RCONFL SIGINT SIGTERM EXIT
+trap "rm -f '$LCONFL' '$RCONFL'" SIGINT SIGTERM EXIT
 
 # Remove the conflict markers for each 'side' and put each into a temp file
-# sed -e '/^<<<<<<< /,/^=======$/d' -e '/^>>>>>>> /d' $MERGED > $LCONFL
-# sed -e '/^=======$/,/^>>>>>>> /d' -e '/^<<<<<<< /d' $MERGED > $RCONFL
-cat $REMOTE > $LCONFL
+sed -e '/^||||||| /,/^>>>>>>> /d' -e '/^=======$/,/^>>>>>>> /d' -e '/^<<<<<<< /d' $MERGED > $LCONFL
+sed -e '/^<<<<<<< /,/^=======$/d' -e '/^>>>>>>> /d' $MERGED > $RCONFL
+
+LCONFL_HASH=`md5 -q $LCONFL`
+MERGED_HASH=`md5 -q $MERGED`
 
 # Fire up vimdiff
 $cmd -f -R -d $LCONFL $RCONFL \
     -c ":set noro" \
     -c ":tabe $LOCAL" -c ":vert diffs $BASE" -c ":vert diffs $REMOTE" \
-    -c ":winc t" -c ":tabe $MERGED" -c ":tabfir"
+    -c ":winc t" -c ":tabe $MERGED" -c ":set noro" # -c ":tabfir"
 
 EC=$?
 
-# Overwrite $MERGED only if vimdiff exits cleanly.
+# Overwrite $MERGED only if vimdiff exits cleanly and the files have changed.
 if [[ $EC == "0" ]] ; then
-    cat $LCONFL > $MERGED
+  if [[ `md5 -q $MERGED` = $MERGED_HASH ]]; then
+    if [[ `md5 -q $LCONFL` = $LCONFL_HASH ]]; then
+      echo "Nothing has changed!"
+      EC=1
+    else
+      cat $LCONFL > $MERGED
+    fi
+  fi
 fi
 
 exit $EC
