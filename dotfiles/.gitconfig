@@ -28,7 +28,12 @@
 
 [merge]
   conflictstyle = diff3
-  tool = vimdiff
+  tool = diffconflicts
+
+[mergetool "diffconflicts"]
+	cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
+  trustExitCode = true
+  keepBackup = false
 
 [color]
   ui = auto
@@ -42,5 +47,6 @@
   show-rev-graph = yes   # Show revision graph?
   show-refs = yes        # Show references?
   show-line-numbers = no # Show line numbers?
+
 [github]
 	user = sukima
