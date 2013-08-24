@@ -1,6 +1,7 @@
 [user]
   name = Devin Weaver
   email = suki@tritarget.org
+  signingkey = DE767C8A
 
 [alias]
   s = status -sb
