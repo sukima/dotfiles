@@ -1,6 +1,7 @@
 # A set of aliases for easy use of git commands
-alias gst='git status'
 alias gs='git status -sb'
+alias gss='git status'
+alias gst='git stash'
 alias grl='git revlog'
 alias gco='git checkout'
 alias gci='git commit'
