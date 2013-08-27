@@ -38,6 +38,9 @@ prompt() {
         m*) # multiline
             PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]\n\$ ${debian_chroot:+($debian_chroot)}~> '
             ;;
+        f*) # full
+            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]\n                 $(~/.rvm/bin/rvm-prompt)\r\$ ${debian_chroot:+($debian_chroot)}~> '
+            ;;
         e*) # emotive
             PS1='[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`${debian_chroot:+($debian_chroot)} [\u@\h:\[\e[36m\]\W\[\e[0m\]]:\j\$ '
             ;;
@@ -52,6 +55,7 @@ prompt() {
             echo "  default     Defaults to color"
             echo "  simple      username@hostname:current_dir$"
             echo "  color       simple prompt with color"
+            echo "  full        a multilined, emotive, verbose prompt"
             echo "  multiline   a multilined, emotive prompt"
             echo "  multismall  a multilined, emotive, horizontally challenged prompt"
             echo "  emotive     ^_^ [username@hostname:current_dir]$"
@@ -69,7 +73,7 @@ prompt() {
                 m*s*) # multismall or msmall
                     PS1=$(echo "$PS1" | sed -e 's/\\n\\\$/\$(__git_ps1 "\\n(\\[\\e[33m\\]%s\\[\\e[0m\\])")\\n\\\$/')
                     ;;
-                m*) # multiline
+                m*|f*) # multiline
                     PS1=$(echo "$PS1" | sed -e 's/\\n\\\$/\$(__git_ps1 " (\\[\\e[33m\\]%s\\[\\e[0m\\])")\\n\\\$/')
                     ;;
                 sm*) # small
