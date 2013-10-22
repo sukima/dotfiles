@@ -22,6 +22,7 @@
 
 [core]
   ignorecase = false
+  pager = less -E
 
 [apply]
   whitespace = fix
