@@ -11,6 +11,8 @@
   co = checkout
   st = status
   sb = show-branch
+  diffc = diff --cached
+  diffs = diff --stat
   stats = shortlog --summary
   patch = format-patch
   rawdiff = diff --no-ext-diff -w
