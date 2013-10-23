@@ -3,14 +3,22 @@
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 
 # Set correct term for tmux so solarized theme works in vim
-alias tmux="TERM=screen-256color-bce tmux"
+export TERM=screen-256color-bce
 
 tmux_start() {
-  if tmux has-session; then
-    tmux attach
+  if [[ -z "$1" ]]; then
+    session="main"
   else
-    tmux new-session
+    session="$1"
+  fi
+
+  if tmux has-session -t $session; then
+    tmux attach -t $session
+  else
+    tmux new-session -s $session
   fi
 }
 
 alias t='tmux_start'
+
+# vim:set ft=sh:
