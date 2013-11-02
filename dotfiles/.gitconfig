@@ -25,6 +25,7 @@
 [core]
   ignorecase = false
   pager = less -E
+  excludesfile = ~/.gitignore_global
 
 [apply]
   whitespace = fix
