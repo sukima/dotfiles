@@ -1,4 +1,19 @@
 # Extended prompt command
+dateBasedEmoji() {
+    case `date +%m-%d` in
+        04-01) echo -n "🃏";;
+        07*)   echo -n "🎆";;
+        10*)   echo -n "🎃";;
+        11*)   echo -n "🎄";;
+        12-2*) echo -n "🎅";;
+        12*)   echo -n "🎄";;
+        01-01) echo -n "🎉";;
+        02-14) echo -n "💝";;
+        03-18) echo -n "🎂";;
+        *)     echo -n "🐉";;
+    esac
+}
+
 prompt() {
     local enable_git_prompt=1
     local prompt='__help'
@@ -41,8 +56,11 @@ prompt() {
         f*) # full
             PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]\n                 $(~/.rvm/bin/rvm-prompt)\r\$ ${debian_chroot:+($debian_chroot)}~> '
             ;;
-        e*) # emotive
+        emot*) # emotive
             PS1='[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`${debian_chroot:+($debian_chroot)} [\u@\h:\[\e[36m\]\W\[\e[0m\]]:\j\$ '
+            ;;
+        emoj*) # emoji
+            PS1='\n[\!] `if [ $? = 0 ]; then echo "😄 "; else echo "😡 "; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]\n`if [ $EUID = 0 ]; then echo "🔮"; else dateBasedEmoji; fi` ${debian_chroot:+($debian_chroot)}☞  '
             ;;
         d*) # default
             prompt color
@@ -59,6 +77,7 @@ prompt() {
             echo "  multiline   a multilined, emotive prompt"
             echo "  multismall  a multilined, emotive, horizontally challenged prompt"
             echo "  emotive     ^_^ [username@hostname:current_dir]$"
+            echo "  emoji       Icons! Oh My! (multiline)"
             return
             ;;
     esac
