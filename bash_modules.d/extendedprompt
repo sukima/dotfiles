@@ -1,15 +1,15 @@
 # Extended prompt command
 dateBasedEmoji() {
     case `date +%m-%d` in
-        04-01) echo -n "🃏";;
-        07*)   echo -n "🎆";;
-        10*)   echo -n "🎃";;
-        11*)   echo -n "🎄";;
-        12-2*) echo -n "🎅";;
-        12*)   echo -n "🎄";;
         01-01) echo -n "🎉";;
         02-14) echo -n "💝";;
+        03-17) echo -n "🍀";;
         03-18) echo -n "🎂";;
+        04-01) echo -n "🃏";;
+        07-04) echo -n "🎆";;
+        10*)   echo -n "🎃";;
+        12-2*) echo -n "🎅";;
+        12*)   echo -n "🎄";;
         *)     echo -n "🐉";;
     esac
 }
