@@ -39,28 +39,28 @@ prompt() {
 
     case "$prompt" in
         si*) # simple
-            PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
+            PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W#GIT#\$ '
             ;;
         sm*) # small
             PS1='[\!] \$ ~> '
             ;;
         c*) # color
-            PS1='${debian_chroot:+($debian_chroot)}\[\e[34m\]\u\[\e[0m\]@\h:\[\e[36m\]\W\[\e[0m\]\$ '
+            PS1='${debian_chroot:+($debian_chroot)}\[\e[34m\]\u\[\e[0m\]@\h:\[\e[36m\]\W\[\e[0m\]#GIT#\$ '
             ;;
         m*s*) # multismall or msmall
-            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (\j) \[\e[36m\]\W\[\e[0m\]\n\$ ~> '
+            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (\j) \[\e[36m\]\W\[\e[0m\]#GIT#\n\$ ~> '
             ;;
         m*) # multiline
-            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]\n\$ ${debian_chroot:+($debian_chroot)}~> '
+            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]#GIT#\n\$ ${debian_chroot:+($debian_chroot)}~> '
             ;;
         f*) # full
-            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]\n                 $(~/.rvm/bin/rvm-prompt)\r\$ ${debian_chroot:+($debian_chroot)}~> '
+            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]#GIT#\n                 $(~/.rvm/bin/rvm-prompt)\r\$ ${debian_chroot:+($debian_chroot)}~> '
             ;;
         emot*) # emotive
-            PS1='[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`${debian_chroot:+($debian_chroot)} [\u@\h:\[\e[36m\]\W\[\e[0m\]]:\j\$ '
+            PS1='[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`${debian_chroot:+($debian_chroot)} [\u@\h:\[\e[36m\]\W\[\e[0m\]]:\j#GIT#\$ '
             ;;
         emoj*) # emoji
-            PS1='\n[\!] `if [ $? = 0 ]; then echo "😄 "; else echo "😡 "; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]\n`if [ $EUID = 0 ]; then echo "🔮"; else dateBasedEmoji; fi` ${debian_chroot:+($debian_chroot)}☞  '
+            PS1='\n[\!] `if [ $? = 0 ]; then echo "😄 "; else echo "😡 "; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]#GIT#\n`if [ $EUID = 0 ]; then echo "🔮"; else dateBasedEmoji; fi` ${debian_chroot:+($debian_chroot)}☞  '
             ;;
         d*) # default
             prompt color
@@ -86,23 +86,22 @@ prompt() {
     if command_exists "__git_ps1" ; then
         if [ "$enable_git_prompt" = "1" ]; then
             case "$prompt" in
-                e*|c*) # emotive or color
-                    PS1=$(echo "$PS1" | sed -e 's/\\\$ */\$(__git_ps1 " (\\[\\e[33m\\]%s\\[\\e[0m\\])")\\\$ /')
+                e*|c*|m*|f*) # emotive, color, or multiline
+                    PS1=$(echo "$PS1" | sed -e 's/#GIT#/\$(__git_ps1 " (\\[\\e[33m\\]%s\\[\\e[0m\\])")/')
                     ;;
                 m*s*) # multismall or msmall
-                    PS1=$(echo "$PS1" | sed -e 's/\\n\\\$/\$(__git_ps1 "\\n(\\[\\e[33m\\]%s\\[\\e[0m\\])")\\n\\\$/')
-                    ;;
-                m*|f*) # multiline
-                    PS1=$(echo "$PS1" | sed -e 's/\\n\\\$/\$(__git_ps1 " (\\[\\e[33m\\]%s\\[\\e[0m\\])")\\n\\\$/')
+                    PS1=$(echo "$PS1" | sed -e 's/#GIT#/\$(__git_ps1 "\\n(\\[\\e[33m\\]%s\\[\\e[0m\\])")/')
                     ;;
                 sm*) # small
                     ;;
                 *)
-                    PS1=$(echo "$PS1" | sed -e 's/\\\$ */\$(__git_ps1 " (%s)")\\\$ /')
+                    PS1=$(echo "$PS1" | sed -e 's/#GIT#/\$(__git_ps1 " (%s)")/')
                     ;;
             esac
         fi
     fi
+
+    PS1=$(echo "$PS1" | sed -e 's/#GIT#//g')
 
     # If this is an xterm set the title to user@host:dir
     case "$TERM" in
