@@ -21,6 +21,7 @@
   ignored = !git ls-files -v | grep ^[a-z]
   ap = add -p
   cim = commit -m
+  serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
 
 [core]
   ignorecase = false
