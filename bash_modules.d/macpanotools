@@ -11,3 +11,38 @@
 # [2]: http://panotools.sourceforge.net/
 
 prependToPath /Applications/Hugin/HuginTools
+
+panohelp() {
+  echo
+  echo "Install Hugin then Panotools::Script"
+  echo "  $ sudo cpan -i Panotools::Script"
+  echo
+  echo "Optional: Panini, Gimp"
+  echo
+}
+
+panocubic() {
+  if [ -z "$1" ]; then
+    echo "Usage: panocubic erect_file.tif"
+    echo "  will create cube0000.tif .. cube0005.tif"
+    return
+  fi
+  erect2cubic --erect=$1 --ptofile=cubic.pto
+  nona -o cube cubic.pto
+}
+
+panoerect() {
+  if [ -z "$1" ]; then
+    echo "Usage: panoerect output_name [nadir_file.tif]"
+    echo "  will create output_name.tif"
+    return
+  fi
+  if [ -z "$2" ]; then
+    nadir="cube0005.tif"
+  else
+    nadir="$2"
+  fi
+  cubic2erect cube0000.tif cube0001.tif cube0002.tif cube0003.tif cube0004.tif $nadir ${1}.tif
+}
+
+# vim:set sw=2 ts=2 et ft=sh:
