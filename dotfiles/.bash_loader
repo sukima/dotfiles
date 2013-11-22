@@ -9,7 +9,7 @@
 [ -n "$BASH_LOADED" ] && return
 
 # Many utilities assume you have a ~/tmp directory.
-[ -d "$HOME/tmp" ] || echo "WARNING: Missing $HOME/tmp directory." >&2
+[ -d "$HOME/tmp" ] || echo "WARNING: Missing $HOME/tmp directory. Run setupTempPaths" >&2
 
 # This needs to be local. Do not export.
 BASH_LOADED=1
