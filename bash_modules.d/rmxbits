@@ -1,0 +1,9 @@
+# Function to remove executable bits recursivly (for bad ZIP files and files from FAT32)
+
+rmxbits() {
+  local dir=$1
+  if [ -z "$dir" ]; then
+    dir="."
+  fi
+  find "$dir" ! -type d -exec chmod -x {} +
+}
