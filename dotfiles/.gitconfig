@@ -7,7 +7,7 @@
   s = status -sb
   l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
   sl = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative -n 10
-  ci = commit
+  ci = commit -v
   co = checkout
   st = status
   sb = show-branch
