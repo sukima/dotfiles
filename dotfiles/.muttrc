@@ -1,0 +1,88 @@
+# A basic .muttrc for use with Gmail
+
+source ~/.mutt/account
+source ~/.mutt/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
+source ~/.mutt/gpg.rc
+
+# Change the following line to a different editor you prefer.
+set editor = 'vim -c "silent call SetSpellingNavigation(1)"'
+# Allow vim to autocomplete with muttqt. See vim script #3128; then set this to yes.
+set autoedit = no
+set edit_headers = yes
+
+# GPG
+set pgp_use_gpg_agent = no
+set pgp_timeout = 3600
+set crypt_autosign = no
+set crypt_autoencrypt = no
+set crypt_replysign = yes
+set crypt_replyencrypt = yes
+set crypt_replysignencrypted = yes
+
+# muttqt
+set query_command="/usr/local/bin/muttqt -q '%s'"
+
+# Basic config, you can leave this as is
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set imap_check_subscribed
+set hostname = gmail.com
+set mail_check = 120
+set timeout = 300
+set imap_keepalive = 300
+set postponed = "+[GMail]/Drafts"
+set record = "+[GMail]/Sent Mail"
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+set certificate_file=~/.mutt/certificates
+set alias_file=~/.mutt/aliases
+set move = no
+set include
+set sort = 'threads'
+set sort_aux = 'reverse-last-date-received'
+set auto_tag = yes
+set implicit_autoview
+ignore "Authentication-Results:"
+ignore "DomainKey-Signature:"
+ignore "DKIM-Signature:"
+hdr_order Date From To Cc
+alternative_order text/plain text/html *
+auto_view text/html
+bind editor <Tab> complete-query
+bind editor ^T complete
+bind editor <space> noop 
+
+# Gmail-style keyboard shortcuts
+bind  editor <space> noop
+bind  index,pager c  mail     #Compose
+macro index,pager e  "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive conversation"
+bind  generic     x  tag-entry    #Select Conversation
+bind  index       x  tag-thread   #Select Conversation
+bind  pager       x  tag-message  #Select Conversation
+bind  index,pager s  flag-message #Star a message
+macro index,pager +  <save-message>=[Gmail]/Important<enter><enter> "Mark as important"
+macro index,pager !  <save-message>=[Gmail]/Spam<enter><enter> "Report spam"
+bind  index,pager a  group-reply  #Reply all
+bind  index,pager \# delete-thread  #Delete
+bind  index,pager l  copy-message #Label
+bind  index,pager v  save-message #Move to
+macro index,pager I  <set-flag>O  "Mark as read"
+macro index,pager U  <clear-flag>O  "Mark as unread"
+macro index,pager ga "<change-folder>=[Gmail]/All Mail<enter>"  "Go to all mail"
+macro index,pager gs <change-folder>=[Gmail]/Starred<enter> "Go to 'Starred'"
+macro index,pager gd <change-folder>=[Gmail]/Drafts<enter>  "Go to 'Drafts'"
+macro index,pager gl <change-folder>?       "Go to 'Label'"
+macro index,pager gi <change-folder>=INBOX<enter>     "Go to inbox"
+macro index,pager gt "<change-folder>=[Gmail]/Sent Mail<enter>" "Go to 'Sent Mail'"
+folder-hook +INBOX 'macro index,pager y "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive conversation"'
+folder-hook +[Gmail]/Trash macro index,pager y <save-message>=INBOX<enter><enter> "Move to inbox"
+folder-hook +[Gmail]/Starred bind  index,pager y flag-message #"Toggle star"
+
+# This should be ' »›-‹L' to match Gmail, but $to_chars breaks on unicode.
+set to_chars    = ' +>-<L'
+# Don't move read mail.
+set move    = no
+
+# Sort by newest conversation first.
+set sort     = threads
+set sort_aux = last-date-received
