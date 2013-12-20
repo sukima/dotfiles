@@ -6,8 +6,7 @@ source ~/.mutt/gpg.rc
 
 # Change the following line to a different editor you prefer.
 set editor = 'vim -c "silent call SetSpellingNavigation(1)"'
-# Allow vim to autocomplete with muttqt. See vim script #3128; then set this to yes.
-set autoedit = no
+set autoedit = yes
 set edit_headers = yes
 
 # GPG
