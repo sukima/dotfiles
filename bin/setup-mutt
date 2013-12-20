@@ -1,14 +1,23 @@
 #!/bin/bash
 
 INSTALL=no
+FORCE=no
 case "$1" in
   -i|--install)
     INSTALL=yes
+    ;;
+  -f|--force)
+    FORCE=yes
     ;;
   -h|--help)
     echo "Usage: setup-mutt [-i]"
     echo "  -i, --install  install programs with brew and pip"
 esac
+
+if [ -e ~/.mutt/account -a "$FORCE" = "no" ]; then
+  echo "Previous install exists. Use --force to override." >&2
+  exit 1
+fi
 
 if [ "$INSTALL" = yes ]; then
   brew install mutt
@@ -30,6 +39,8 @@ set smtp_pass = "xxxxxxxxxxx"
 set from = "doe.jane@gmail.com"
 set realname = "Jane Doe"
 # set pgp_sign_as = "XXXXXXXX"
+
+# vim:set ft=muttrc:
 EOF
 
 # muttqt
