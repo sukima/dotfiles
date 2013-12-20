@@ -50,7 +50,8 @@ alternative_order text/plain text/html *
 auto_view text/html
 bind editor <Tab> complete-query
 bind editor ^T complete
-bind editor <space> noop 
+bind editor <space> noop
+bind index,pager A view-attachments
 
 # Gmail-style keyboard shortcuts
 bind  editor <space> noop
