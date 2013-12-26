@@ -36,9 +36,9 @@ our $LOCALHOST_ONLY = 1;
 # you are done editing.
 our $EDITOR_CMD;
 if (`uname` =~ /Darwin/) {
-  $EDITOR_CMD = '/usr/local/bin/mvim -f "%s"';
+  $EDITOR_CMD = '/usr/local/bin/mvim -f -c "call SetupEditServer()" "%s"';
 } else {
-  $EDITOR_CMD = '/usr/bin/gvim -f "%s"';
+  $EDITOR_CMD = '/usr/bin/gvim -f -c "call SetupEditServer()" "%s"';
 }
   
 #our $EDITOR_CMD = '/usr/bin/emacsclient -c "%s"';
