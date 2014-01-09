@@ -86,3 +86,5 @@ set move    = no
 # Sort by newest conversation first.
 set sort     = threads
 set sort_aux = last-date-received
+
+set text_flowed = yes
