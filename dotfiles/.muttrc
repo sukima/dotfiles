@@ -10,7 +10,7 @@ set autoedit = yes
 set edit_headers = yes
 
 # GPG
-set pgp_use_gpg_agent = no
+set pgp_use_gpg_agent = yes
 set pgp_timeout = 3600
 set crypt_autosign = no
 set crypt_autoencrypt = no
@@ -29,8 +29,8 @@ set hostname = gmail.com
 set mail_check = 120
 set timeout = 300
 set imap_keepalive = 300
-set postponed = "+[GMail]/Drafts"
-set record = "+[GMail]/Sent Mail"
+set postponed = "+[Gmail]/Drafts"
+set record = "+[Gmail]/Sent Mail"
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=~/.mutt/certificates
@@ -59,9 +59,9 @@ macro index,pager e  "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive co
 bind  generic     x  tag-entry    #Select Conversation
 bind  index       x  tag-thread   #Select Conversation
 bind  pager       x  tag-message  #Select Conversation
-bind  index,pager s  flag-message #Star a message
+bind  index,pager !  flag-message #Star a message
 macro index,pager +  <save-message>=[Gmail]/Important<enter><enter> "Mark as important"
-macro index,pager !  <save-message>=[Gmail]/Spam<enter><enter> "Report spam"
+macro index,pager S  <save-message>=[Gmail]/Spam<enter><enter> "Report spam"
 bind  index,pager a  group-reply  #Reply all
 bind  index,pager \# delete-thread  #Delete
 bind  index,pager l  copy-message #Label
