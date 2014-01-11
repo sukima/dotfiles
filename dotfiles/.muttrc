@@ -51,6 +51,11 @@ bind editor <Tab> complete-query
 bind editor ^T complete
 bind editor <space> noop
 bind index,pager A view-attachments
+set pager="builtin"
+set pager_index_lines=4
+set pager_context=5
+set tilde
+unset resolve
 
 # Gmail-style keyboard shortcuts
 bind  editor <space> noop
