@@ -15,10 +15,26 @@ prependToPath /Applications/Hugin/HuginTools
 panohelp() {
   echo
   echo "Install Hugin then Panotools::Script"
-  echo "  $ sudo cpan -i Panotools::Script"
-  echo
   echo "Optional: Panini, Gimp"
   echo
+cat <<EOF
+CPAN has mad some significant changes. See homebrew wiki for details.
+https://github.com/Homebrew/homebrew/wiki/Gems,-Eggs-and-Perl-Modules#wiki-perl-cpan-modules-without-sudo
+
+Quick Install:
+
+    $ sudo cpan local::lib
+
+Edit ~/.bash_local and add
+
+    ### CPAN
+    eval \$(perl -I\$HOME/perl5/lib/perl5 -Mlocal::lib)
+
+Restart shell
+
+    $ cpan Panotools::Script
+
+EOF
 }
 
 panocubic() {
