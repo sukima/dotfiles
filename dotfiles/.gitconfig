@@ -41,6 +41,9 @@
   conflictstyle = diff3
   tool = diffconflicts
 
+[diff]
+  tool = vimdiff
+
 [mergetool "diffconflicts"]
   cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
   trustExitCode = false
