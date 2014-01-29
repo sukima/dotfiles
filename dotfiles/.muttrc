@@ -56,7 +56,7 @@ set pager="builtin"
 set pager_index_lines=4
 set pager_context=5
 set tilde
-unset resolve
+# unset resolve
 
 # Gmail-style keyboard shortcuts
 bind  editor <space> noop
