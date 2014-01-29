@@ -23,6 +23,8 @@
   cim = commit -m
   serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
   pr = !hub pull-request
+  pushtags = push --follow-tags
+  pushorigin = push -u origin
 
 [core]
   ignorecase = false
