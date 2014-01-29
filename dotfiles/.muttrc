@@ -30,7 +30,8 @@ set mail_check = 120
 set timeout = 300
 set imap_keepalive = 300
 set postponed = "+[Gmail]/Drafts"
-set record = "+[Gmail]/Sent Mail"
+# Gmail does this automatically. This creates two copies of the same email:
+# set record = "+[Gmail]/Sent Mail"
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=~/.mutt/certificates
