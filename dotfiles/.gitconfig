@@ -40,7 +40,7 @@
   tool = diffconflicts
 
 [mergetool "diffconflicts"]
-	cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
+  cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
   trustExitCode = false
   keepBackup = false
 
@@ -58,4 +58,4 @@
   show-line-numbers = no # Show line numbers?
 
 [github]
-	user = sukima
+  user = sukima
