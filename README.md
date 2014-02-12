@@ -92,4 +92,25 @@ Future plans (patches welcome)
 
  - Visual progress bar indicator
 
-[1]: https://github.com/tomislav/osx-lion-terminal.app-colors-solarized
+### CA Certificates
+
+To rebuild the `.certs/ca-bundle.crt` file follow the following:
+
+1. Download latest cURL dist from http://curl.haxx.se/download/
+2. Uncompress it in a tmp dir
+3. cd to the distro’s lib directory
+4. Run `./mk-ca-bundle.pl`
+5. Copy the resulting `ca-bundle.crt` file to a convenient location.
+   I put mine in `~/.dotty/default/dotfiles/dotfiles/.certs/ca-bundle.crt`
+
+Or use `brew install curl-ca-bundle` also available when installing msmtp:
+`brew install msmtp --with-curl-ca-bundle`. Then add the following to your
+`~/.bash_local`:
+
+    export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
+
+And link it:
+
+    $ ln -s /usr/local/opt/curl-ca-bundle/share/ca-bundle.crt ~/.certs/ca-bundle.crt
+
+1[]: https://github.com/tomislav/osx-lion-terminal.app-colors-solarized
