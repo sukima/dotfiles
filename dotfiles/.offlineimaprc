@@ -1,0 +1,35 @@
+# vim: ft=cfg
+
+[general]
+ui = ttyui
+accounts = Gmail
+maxsyncaccounts = 2
+pythonfile = ~/.offlineimap.py
+
+[mbnames]
+enabled = yes
+filename = ~/.mutt/mailboxes
+header = "mailboxes \\\n  "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " \\\n  "
+footer = "\n"
+
+[Account Gmail]
+localrepository = Gmail-Local
+remoterepository = Gmail-Remote
+# postsynchook = notmuch new
+
+[Repository Gmail-Local]
+type = Maildir
+localfolders = ~/Mail/Gmail
+nametrans = nt_local
+
+[Repository Gmail-Remote]
+type = Gmail
+remoteusereval = get_username("Gmail")
+remotepasseval = get_password("Gmail")
+realdelete = no
+maxconnections = 3
+nametrans = nt_remote
+sslcacertfile = ~/.certs/ca-bundle.crt
+folderfilter = exclude(['[Gmail]/All Mail', '[Gmail]/Spam'])
