@@ -30,6 +30,7 @@
   ignorecase = false
   pager = less -E
   excludesfile = ~/.gitignore_global
+  autocrlf = input
 
 [apply]
   whitespace = fix
