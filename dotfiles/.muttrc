@@ -1,6 +1,18 @@
 # A basic .muttrc for use with Gmail
 
+# Template for mutt_account.gpg
+#
+#     # Change the following six lines to match your Gmail account details
+#     set imap_user = "example@gmail.com"
+#     set imap_pass = "secret"
+#     set smtp_url = "smtp://example@smtp.gmail.com:587/"
+#     set smtp_pass = "secret"
+#     set from = "example@gmail.com"
+#     set realname = "Jane Doe"
+#     set pgp_sign_as = "KEY_ID"
+#     # vim:set ft=muttrc:
 source "gpg --use-agent --no-tty -q -d ~/.secure/mutt_account.gpg |"
+
 source ~/.mutt/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
 source ~/.mutt/gpg.rc
 
