@@ -1,0 +1,9 @@
+# gpg
+color index brightdefault default "~g"
+color index brightdefault default "~G"
+color index brightdefault default "~k"
+color body  brightgreen   default "^gpg: Good signature.*"
+color body  brightred     default "^gpg: BAD signature.*"
+color body  yellow        default "^gpg: Can't check signature.*"
+
+# vim: ft=muttrc:

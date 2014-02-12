@@ -14,6 +14,7 @@
 source "gpg --use-agent --no-tty -q -d ~/.secure/mutt_account.gpg |"
 
 source ~/.mutt/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
+source ~/.mutt/custom_colors.rc
 source ~/.mutt/gpg.rc
 
 # Change the following line to a different editor you prefer.
