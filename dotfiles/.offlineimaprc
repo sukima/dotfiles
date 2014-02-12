@@ -17,7 +17,7 @@ footer = "\n"
 [Account Gmail]
 localrepository = Gmail-Local
 remoterepository = Gmail-Remote
-# postsynchook = notmuch new
+postsynchook = notmuch new
 
 [Repository Gmail-Local]
 type = Maildir
