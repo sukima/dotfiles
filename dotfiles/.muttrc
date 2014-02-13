@@ -107,3 +107,4 @@ set sort     = threads
 set sort_aux = last-date-received
 
 set text_flowed = yes
+unset mark_old
