@@ -1,0 +1,30 @@
+# This is for when you have setup up offlineimap
+# offlineimap does all authentication and Gmail mangement
+# mutt is now back to the basics
+
+set sendmail  = msmtp
+
+set mbox_type  = Maildir
+set folder     = ~/Mail
+# set mbox       = "+[Gmail]/All Mail"
+# set record     = "+Gmail/sent_mail"
+set postponed  = "+Gmail/drafts"
+set spoolfile  = "+Gmail/INBOX"
+set mail_check = 0
+
+source ~/.mutt/mailboxes
+
+# Gmail-style keyboard shortcuts
+macro index,pager e  "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive conversation"
+macro index,pager +  <save-message>=Gmail/important<enter><enter> "Mark as important"
+macro index,pager S  <save-message>=[Gmail]/Spam<enter><enter> "Report spam"
+macro index,pager ga "<change-folder>=[Gmail]/All Mail<enter>"  "Go to all mail"
+macro index,pager gs <change-folder>=Gmail/starred<enter> "Go to 'Starred'"
+macro index,pager gd <change-folder>=Gmail/drafts<enter>  "Go to 'Drafts'"
+macro index,pager gi <change-folder>=INBOX<enter>     "Go to inbox"
+macro index,pager gt "<change-folder>=Gmail/sent_mail<enter>" "Go to 'Sent Mail'"
+folder-hook +INBOX 'macro index,pager y "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive conversation"'
+folder-hook +Gmail/trash macro index,pager y <save-message>=INBOX<enter><enter> "Move to inbox"
+folder-hook +Gmail/starred bind  index,pager y flag-message #"Toggle star"
+
+# vim:set ft=muttrc:

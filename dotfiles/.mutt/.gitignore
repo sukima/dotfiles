@@ -3,3 +3,4 @@ aliases
 cache/
 certificates
 mailboxes
+local.rc

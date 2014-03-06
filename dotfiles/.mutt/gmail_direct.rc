@@ -1,0 +1,27 @@
+# Used when you don't have offlineimap and you connect directly to Gmail
+
+source "gpg --use-agent --no-tty -q -d ~/.secure/mutt_account.gpg |"
+
+set folder = "imaps://imap.gmail.com:993"
+set imap_check_subscribed
+set hostname = gmail.com
+set mail_check = 120
+set timeout = 300
+set imap_keepalive = 300
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+unset record
+
+# Gmail-style keyboard shortcuts
+macro index,pager e  "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive conversation"
+macro index,pager +  <save-message>=[Gmail]/Important<enter><enter> "Mark as important"
+macro index,pager S  <save-message>=[Gmail]/Spam<enter><enter> "Report spam"
+macro index,pager ga "<change-folder>=[Gmail]/All Mail<enter>"  "Go to all mail"
+macro index,pager gs <change-folder>=[Gmail]/Starred<enter> "Go to 'Starred'"
+macro index,pager gd <change-folder>=[Gmail]/Drafts<enter>  "Go to 'Drafts'"
+macro index,pager gi <change-folder>=INBOX<enter>     "Go to inbox"
+macro index,pager gt "<change-folder>=[Gmail]/Sent Mail<enter>" "Go to 'Sent Mail'"
+folder-hook +[Gmail]/Trash macro index,pager y <save-message>=INBOX<enter><enter> "Move to inbox"
+folder-hook +[Gmail]/Starred bind  index,pager y flag-message #"Toggle star"
+
+# vim:set ft=muttrc:
