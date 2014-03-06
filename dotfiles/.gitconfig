@@ -16,7 +16,7 @@
   stats = shortlog --summary
   patch = format-patch
   rawdiff = diff --no-ext-diff -w
-  ignore = !git update-index --assume-unchanged 
+  ignore = !git update-index --assume-unchanged
   unignore = !git update-index --no-assume-unchanged
   ignored = !git ls-files -v | grep ^[a-z]
   ap = add -p
@@ -24,7 +24,7 @@
   serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
   pr = !hub pull-request
   pushtags = push --follow-tags
-  pushorigin = push -u origin
+  pushorigin = push -u origin head
 
 [core]
   ignorecase = false
