@@ -2,25 +2,40 @@
 # Use like so:
 #   sleep 10; alert
 
-prowl_alert() {
-    if [ -z "$PROWL_API_KEY" ]; then
-        echo "Environment variable PROWL_API_KEY not set."
+# TODO: Add tmux & growl support
+notify_alert() {
+    if [ -z "$1" ]; then
+        echo "Usage: notify_alert <event name> <message>"
+        return
+    elif [ -z "$2" ]; then
+        local event="alert"
+        local message="$1"
     else
-        curl -X POST --no-progress-bar \
+        local event="$1"
+        local message="$2"
+    fi
+
+    if command_exists "notify-send"; then
+        notify-send --urgency=low -i "$event" "$message"
+    elif command_exists "growlnotify"; then
+        growlnotify -s "$event" -m "$message"
+    fi
+
+    if [ -n "$TMUX" ]; then
+        tmux display-message "$event: $message"
+    else
+        echo "$event: $message" | write $USER
+    fi
+
+    if [ -n "$PROWL_API_KEY" ]; then
+        (curl -X POST -ss \
             -d "apikey=$PROWL_API_KEY" \
             -d "application=prowl-alert" \
-            --data-urlencode "event=$1" \
-            --data-urlencode "description=$2" \
-            https://api.prowlapp.com/publicapi/add > /dev/null
+            --data-urlencode "event=$event" \
+            --data-urlencode "description=$message" \
+            https://api.prowlapp.com/publicapi/add > /dev/null &)
     fi
 }
 
-if [ -n "$PROWL_API_KEY" ]; then
-    alias alert='prowl_alert "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-elif command_exists "notify-send" ; then
-    alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-else
-    alias alert='echo "$([ $? = 0 ] && echo terminal || echo error) $(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')" | write $USER'
-fi
-
+alias alert='notify_alert "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 # vim:set sw=4 ts=4 et ft=sh:
