@@ -6,7 +6,7 @@ prowl_alert() {
     if [ -z "$PROWL_API_KEY" ]; then
         echo "Environment variable PROWL_API_KEY not set."
     else
-        curl -X POST \
+        curl -X POST --no-progress-bar \
             -d "apikey=$PROWL_API_KEY" \
             -d "application=prowl-alert" \
             --data-urlencode "event=$1" \
