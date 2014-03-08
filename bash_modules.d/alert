@@ -3,9 +3,9 @@
 #   sleep 10; alert
 
 # TODO: Add tmux & growl support
-notify_alert() {
+notifyme() {
     if [ -z "$1" ]; then
-        echo "Usage: notify_alert <event name> <message>"
+        echo "Usage: notifyme <event name> <message>"
         return
     elif [ -z "$2" ]; then
         local event="alert"
@@ -37,5 +37,5 @@ notify_alert() {
     fi
 }
 
-alias alert='notify_alert "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias alertme='notifyme "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 # vim:set sw=4 ts=4 et ft=sh:
