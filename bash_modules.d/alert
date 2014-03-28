@@ -35,6 +35,10 @@ notifyme() {
             --data-urlencode "description=$message" \
             https://api.prowlapp.com/publicapi/add > /dev/null &)
     fi
+
+    if command_exists say; then
+        say "Hey! Listen to me!"
+    fi
 }
 
 alias alertme='notifyme "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
