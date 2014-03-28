@@ -63,11 +63,18 @@ tmpdir="$HOME/tmp/mutt_attach"
 debug_file=$tmpdir/debug
 
 # debug.  yes or no.  
-#debug="no"
-debug="yes"
+debug="no"
+#debug="yes"
 
-type=$2
-open_with=$3
+if [ "$2" = "-p" ]; then
+    quicklook="yes"
+    type=$3
+    open_with="" # ignore this
+else
+    quicklook="no"
+    type=$2
+    open_with=$3
+fi
 
 # make sure the tmpdir exists.
 mkdir -p $tmpdir
@@ -119,11 +126,19 @@ fi
 # If there's no 'open with' then we can let preview do it's thing.
 # Otherwise we've been told what to use.  So do an open -a.
 
-if [ -z $open_with ]; then
+if [ $quicklook = "yes" ]; then
+    if [ $debug = "yes" ]; then
+        outfile=$debug_file
+    else
+        outfile=/dev/null
+    fi
+    qlmanage -p $newfile > $outfile 2>&1
+elif [ -z $open_with ]; then
     open $newfile
+    sleep 1
 else
     open -a "$open_with" $newfile
+    sleep 1
 fi
 
-sleep 1
 rm $newfile
