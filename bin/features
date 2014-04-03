@@ -1,0 +1,83 @@
+#!/usr/bin/env ruby
+
+# Original source:
+# https://gist.github.com/gwright/9961265
+
+#require 'pry'
+#require 'pry-byebug'
+
+def branch(group:nil)
+  case group
+  when :remote
+    flag = "-r"
+  when :all
+    flag = "-a"
+  when nil, :local
+    flag = ""
+  end
+
+  `git branch #{flag}`.lines.map do |line|
+    fields = line.split
+
+    if fields.first['*']
+      fields[1].strip
+    else
+      fields.first.strip
+    end
+  end
+end
+
+RemoteBranches = branch(group: :remote)
+LocalBranches = branch(group: :local)
+
+base = LocalBranches.include?('develop') ? 'develop' : 'master'
+
+merged = "git branch --no-color --merged #{base}"
+nomerged = "git branch --no-color --no-merged #{base}"
+
+
+prepend = ->(prefix, source) { `#{source}`.lines.map { |l| [prefix, l] } }
+
+case ARGV[0]
+when '-u'
+  branches = prepend['U', nomerged]
+when '-m'
+  branches = prepend['M', merged]
+else
+  branches = prepend['U', nomerged] + prepend['M', merged]
+end
+
+branches = branches.map do |(prefix, branch)| 
+  [prefix, branch.chomp.strip]
+end.select do |(prefix, branch)|
+  branch.sub!('* ','')
+  not %w{master develop}.include?(branch)
+end
+
+width = branches.map { |(p, b)| p.length + b.length }.max
+
+def log(branch)
+  `git log -1 --pretty=format:"%Cgreen%ci %Cred%cr%Creset" #{branch}`
+end
+
+def status(branch)
+  remote = "origin/#{branch}"
+  if RemoteBranches.include?(remote)
+    ahead = `git rev-list #{branch} ^#{remote}`.lines.count
+    behind = `git rev-list ^#{branch} #{remote}`.lines.count
+  else
+    ahead, behind = '-', '-'
+  end
+  [ahead, behind]
+end
+
+lines = branches.map do |prefix, branch|
+  [prefix, branch, log(branch)]
+end.sort_by do |(prefix, branch, info)|
+  info.split[0..1]
+end.reverse.map do |prefix, branch, info|
+  a, b = status(branch)
+  [prefix, a, b, [branch, info].join(" " * (width - branch.length + 1))].join(" ")
+end
+
+puts lines
