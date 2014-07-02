@@ -25,18 +25,26 @@
   pr = !hub pull-request
   pushtags = push --follow-tags
   pushorigin = push -u origin head
+  amend = commit -v --amend
+  fixup = commit --fixup
+  prune = remote prune
+  pruneo = remote prune origin
 
 [core]
   ignorecase = false
   pager = less -E
   excludesfile = ~/.gitignore_global
-  autocrlf = input
+  autocrlf = false
+  whitespace = cr-at-eol
 
 [apply]
   whitespace = fix
 
 [push]
   default = tracking
+
+[rebase]
+  autosquash = true
 
 [merge]
   conflictstyle = diff3
