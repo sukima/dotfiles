@@ -3,6 +3,8 @@
 " Used on a mac
 " set "editor=bash -lc \"mvim -f \\$*\" mvim "
 
+imap <C-S-I> <C-i>
+
 source! /Users/suki/.vimperatorrc.local
 
 " vim: set ft=vimperator:
