@@ -93,6 +93,8 @@ macro index,pager gt "<change-folder>=[Gmail]/Sent Mail<enter>" "Go to 'Sent Mai
 folder-hook +[Gmail]/Trash macro index,pager y <save-message>=INBOX<enter><enter> "Move to inbox"
 folder-hook +[Gmail]/Starred bind  index,pager y flag-message #"Toggle star"
 
+macro index D\# "T!~F!~D<enter>;<save-message>=[Gmail]/Trash<enter><enter>$" "Delete ALL non-flagged messages!"
+
 # This should be ' »›-‹L' to match Gmail, but $to_chars breaks on unicode.
 set to_chars    = ' +>-<L'
 
