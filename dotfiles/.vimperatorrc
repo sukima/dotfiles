@@ -5,6 +5,10 @@
 
 imap <C-S-I> <C-i>
 
+command console emenu Tools.Web Developer.Toggle Tools
+
+cabbrev tabe tabgroups
+
 source! /Users/suki/.vimperatorrc.local
 
 " vim: set ft=vimperator:
