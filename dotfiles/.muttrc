@@ -15,7 +15,7 @@ source ~/.mutt/custom_colors.rc
 source ~/.mutt/gpg.rc
 
 # Who Am I?
-set from = "weaver.devin@gmail.com"
+set from = "weaverdevin@gmail.com"
 set realname = "Devin Weaver"
 set pgp_sign_as = "DE767C8A"
 
