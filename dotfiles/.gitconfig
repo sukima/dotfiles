@@ -65,12 +65,5 @@
   status = auto
   branch = auto
 
-[tig]
-  show-author = full     # Show abbreviated/full/none author names.
-  show-date = relative   # Show relative commit date.
-  show-rev-graph = yes   # Show revision graph?
-  show-refs = yes        # Show references?
-  show-line-numbers = no # Show line numbers?
-
 [github]
   user = sukima
