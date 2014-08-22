@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ssh -p 2222 -R1337:localhost:22 -N -n suki@cerberus.tritarget.org &
+echo $! > /tmp/pairing_pid
+wemux
+cat /tmp/pairing_pid | xargs kill -HUP
+rm /tmp/pairing_pid
