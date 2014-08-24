@@ -1,0 +1,18 @@
+#!/bin/bash
+system=`uname -a`
+if [[ "$system" =~ "Linux" || $system =~ "AppleTV" ]]; then
+	printf 'Linux'
+	exit 0
+fi
+if [[ $system =~ "Darwin" && ! $system =~ "AppleTV" ]]; then
+	printf 'OSX'
+	exit 0
+fi
+if [[ $system == "MINGW32_NT-6.1" ]]; then
+	printf 'MinGW'
+	exit 0
+fi
+
+printf 'Unknown system' > &2
+exit 1
+# vim: ft=sh sw=2 ts=2 noet fdm=marker
