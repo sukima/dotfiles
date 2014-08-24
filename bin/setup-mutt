@@ -1,0 +1,59 @@
+#!/bin/bash
+
+INSTALL=no
+FORCE=no
+case "$1" in
+  -i|--install)
+    INSTALL=yes
+    ;;
+  -f|--force)
+    FORCE=yes
+    ;;
+  -h|--help)
+    echo "Usage: setup-mutt [-i]"
+    echo "  -i, --install  install programs with brew and pip"
+esac
+
+if [ -e ~/.mutt/account -a "$FORCE" = "no" ]; then
+  echo "Previous install exists. Use --force to override." >&2
+  exit 1
+fi
+
+if [ "$INSTALL" = yes ]; then
+  brew install mutt
+  brew install https://raw.github.com/tgrey/homebrew-tgbrew/master/muttqt.rb
+  brew install https://raw.github.com/tgrey/homebrew-tgbrew/master/contacts2.rb
+  pip install goobook
+fi
+
+# mutt
+mkdir -p ~/.mutt/cache
+touch ~/.mutt/aliases
+touch ~/.mutt/certificates
+cat > ~/.mutt/account <<EOF
+# Change the following six lines to match your Gmail account details
+set imap_user = "doe.jane@gmail.com"
+set imap_pass = "xxxxxxxxxxx"
+set smtp_url = "smtp://doe.jane@smtp.gmail.com:587/"
+set smtp_pass = "xxxxxxxxxxx"
+set from = "doe.jane@gmail.com"
+set realname = "Jane Doe"
+# set pgp_sign_as = "XXXXXXXX"
+
+# vim:set ft=muttrc:
+EOF
+
+# muttqt
+
+# GooBook
+mkdir -p ~/.goobook
+touch ~/.goobook/cache
+goobook config-template > ~/.goobook/goobook.conf
+
+# Finished
+echo "Be sure to edit the following files for account credentials:"
+echo
+echo "  ~/.mutt/account"
+echo "  ~/.goobook/goobook.conf"
+
+# vim:set ft=sh:
