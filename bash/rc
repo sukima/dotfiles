@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# Bail when in non-interactive shell (scp)
+if [[ $- != *i* ]]; then
+	return 0
+fi
+
 rcfiles=$HOME/.homesick/repos/dotfiles
 
 system=`$rcfiles/system`
