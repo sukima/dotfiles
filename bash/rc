@@ -1,0 +1,66 @@
+#!/bin/bash
+rcfiles=$HOME/.homesick/repos/dotfiles
+
+system=`$rcfiles/system`
+
+# CTRL-D will logout of shell after 2 tries (ignore 1st CTRL-D)
+IGNOREEOF=1
+
+# allow CTRL-S to work
+stty stop undef
+
+if [ ! -n "$HOSTNAME" ]; then
+	HOSTNAME=`hostname -s`
+fi
+
+# homeshick stuff
+source $HOME/.homesick/repos/homeshick/homeshick.sh
+# Check if castles need refreshing
+homeshick --quiet refresh 14 $HOMESHICK_REFRESH_REPOS
+source $HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash
+
+source $rcfiles/bash/colors
+source $rcfiles/tools
+source $rcfiles/aliases
+source $rcfiles/bash/completion
+source $rcfiles/bash/prompt
+source $rcfiles/bash/modules
+
+if [ "$system" == 'Linux' ]; then
+	source $rcfiles/bash/rc.linux
+fi
+if [ "$system" == 'OSX' ]; then
+	source $rcfiles/bash/rc.osx
+fi
+if [ "$system" == 'MinGW' ]; then
+	source $rcfiles/bash/rc.mingw
+fi
+
+if [[ -f ~/.dir_colors && ( -x /usr/local/bin/dircolors || -x /usr/bin/dircolors ) ]]; then
+	eval `dircolors ~/.dir_colors`
+fi
+
+if [[ -e ~/.ssh/ssh_auth_sock ]]; then
+	export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.bin" ] ; then
+    PATH="$HOME/.bin:$PATH"
+fi
+
+if [[ -e ~/.bash_aliases ]]; then
+	source ~/.bash_aliases 
+fi
+
+if [[ -e ~/.bash_local ]]; then
+	source ~/.bash_local 
+fi
+
+# Many utilities assume you have a ~/tmp directory.
+[[ -d "$HOME/tmp" ]] || echo "WARNING: Missing $HOME/tmp directory. Run setupTempPaths" >&2
+
+unset rcfiles
+unset system
+
+# vim: ft=sh sw=2 ts=2 noet fdm=marker

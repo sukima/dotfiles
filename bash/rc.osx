@@ -1,0 +1,13 @@
+#!/bin/bash
+export CLICOLOR=1
+export LSCOLORS="gxfxcxdxbxegedabagacad"
+
+if [ -x /usr/local/bin/ls ]; then
+	alias ls='/usr/local/bin/ls -h --color=auto'
+else
+	alias ls='ls -hG'
+fi
+
+prompt default
+
+# vim: ft=sh sw=2 ts=2 noet fdm=marker

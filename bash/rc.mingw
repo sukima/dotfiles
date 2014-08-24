@@ -1,0 +1,28 @@
+#!/bin/bash
+export HISTCONTROL=ignoreboth
+shopt -s histappend
+shopt -s checkwinsize
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+	cygwin) color_prompt=yes;;
+esac
+
+# if [[ !`which __git_ps1` ]]; then
+	. /c/Program\ Files\ \(x86\)/Git/etc/git-completion.bash
+# fi
+
+PS1="$bldcyn\u$txtwht@$txtgrn$HOSTNAME$txtwht:$txtblu\w"'$(__git_ps1)'"$txtwht\$ $txtdef"
+
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+	eval "`dircolors -b`"
+	alias ls='/bin/ls --color=auto'
+fi
+
+alias grep='grep -Hn'
+alias egrep='egrep'
+alias fgrep='fgrep'
+
+# vim: ft=sh sw=2 ts=2 noet fdm=marker

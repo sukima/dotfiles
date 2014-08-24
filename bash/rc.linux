@@ -1,0 +1,23 @@
+#!/bin/bash
+export HISTCONTROL=ignoreboth
+shopt -s histappend
+shopt -s checkwinsize
+
+if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	prompt default
+else
+	PS1="\u@$HOSTNAME:\w\$ "
+fi
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+	eval "`dircolors -b`"
+	alias ls='/bin/ls --color=auto'
+fi
+
+alias grep='grep -Hn --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias rm='rm -I'
+
+# vim: ft=sh sw=2 ts=2 noet fdm=marker
