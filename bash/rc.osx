@@ -3,9 +3,9 @@ export CLICOLOR=1
 export LSCOLORS="gxfxcxdxbxegedabagacad"
 
 if [ -x /usr/local/bin/ls ]; then
-	alias ls='/usr/local/bin/ls -h --color=auto'
+	alias ls='/usr/local/bin/ls -hF --color=auto'
 else
-	alias ls='ls -hG'
+	alias ls='ls -hFG'
 fi
 
 prompt default

@@ -12,7 +12,7 @@ fi
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
 	eval "`dircolors -b`"
-	alias ls='/bin/ls --color=auto'
+	alias ls='/bin/ls -F --color=auto'
 fi
 
 alias grep='grep -Hn --color=auto'

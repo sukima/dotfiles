@@ -1,7 +1,6 @@
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -al'
 alias la='ls -A'
-alias l='ls -CF'
 
 # Just for fun some common typos.
 alias lsd="echo 'Wow, pretty colors, taste yummy.'; ls"
