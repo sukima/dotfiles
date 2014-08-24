@@ -1,0 +1,14 @@
+"3.8.2 (created: 2014/02/13 23:52:43)
+
+" Used on a mac
+" set "editor=bash -lc \"mvim -f \\$*\" mvim "
+
+imap <C-S-I> <C-i>
+
+command console emenu Tools.Web Developer.Toggle Tools
+
+cabbrev tabe tabgroups
+
+source! /Users/suki/.vimperatorrc.local
+
+" vim: set ft=vimperator:

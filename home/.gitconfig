@@ -1,0 +1,69 @@
+[user]
+  name = Devin Weaver
+  email = suki@tritarget.org
+  signingkey = DE767C8A
+
+[alias]
+  s = status -sb
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
+  sl = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative -n 10
+  ci = commit -v
+  co = checkout
+  st = status
+  sb = show-branch
+  diffc = diff --cached
+  diffs = diff --stat
+  stats = shortlog --summary
+  patch = format-patch
+  rawdiff = diff --no-ext-diff -w
+  ignore = !git update-index --assume-unchanged
+  unignore = !git update-index --no-assume-unchanged
+  ignored = !git ls-files -v | grep ^[a-z]
+  ap = add -p
+  cim = commit -m
+  serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
+  pr = !hub pull-request
+  prdev = !hub pull-request -b develop
+  pushtags = push --follow-tags
+  pushorigin = push -u origin head
+  amend = commit -v --amend
+  fixup = commit --fixup
+  prune = remote prune
+  pruneo = remote prune origin
+
+[core]
+  ignorecase = false
+  pager = less -E
+  excludesfile = ~/.gitignore_global
+  autocrlf = false
+  whitespace = cr-at-eol
+
+[apply]
+  whitespace = fix
+
+[push]
+  default = tracking
+
+[rebase]
+  autosquash = true
+
+[merge]
+  conflictstyle = diff3
+  tool = diffconflicts
+
+[diff]
+  tool = vimdiff
+
+[mergetool "diffconflicts"]
+  cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
+  trustExitCode = false
+  keepBackup = false
+
+[color]
+  ui = auto
+  interactive = auto
+  status = auto
+  branch = auto
+
+[github]
+  user = sukima
