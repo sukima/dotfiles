@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+	debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+prompt() {
+	case "$1" in
+		simple)
+			PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
+			;;
+		color)
+	PS1="$bldcyn\u$txtwht@$txtgrn$HOSTNAME$txtwht:$txtblu\w$txtwht\$ $txtdef"
+	if type __git_ps1 >/dev/null 2>&1; then
+		PS1="$bldcyn\u$txtwht@$txtgrn$HOSTNAME$txtwht:$txtblu\w"'$(__git_ps1 " (%s)")'"$txtwht\$ $txtdef"
+	fi
+			PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+			;;
+		def*)
+			prompt simple
+			return
+			;;
+		*)
+			echo "Usage prompt <option>"
+			echo "  default     Defaults to simple"
+			echo "  simple      username@hostname:current_dir$"
+			echo "  color       simple prompt with color"
+			echo " Use the extendedprompt bash module for more options"
+			return
+			;;
+	esac
+	# Fix PS1 if git-completion module was loaded
+	if command_exists "__git_ps1" ; then
+		PS1=$(echo "$PS1" | sed -e 's/\\\$ */\$(__git_ps1 " (%s)")\\\$ /')
+	fi
+	# If this is an xterm set the title to user@host:dir
+	case "$TERM" in
+		xterm*|rxvt*)
+			PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \W\a\]$PS1"
+			;;
+	esac
+}
+# vim: ft=sh sw=2 ts=2 noet fdm=marker
