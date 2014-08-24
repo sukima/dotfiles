@@ -1,0 +1,16 @@
+# Make typing more efficient
+set editing-mode vi
+
+# Ask before displaying >40 items
+set completion-query-items 40
+
+# Ignore case for the command-line-completion functionality
+set completion-ignore-case on
+
+# visible-stats
+# Append a mark according to the file type in a listing
+set visible-stats off
+set mark-directories on
+
+# Show all instead of beeping first
+set show-all-if-ambiguous off
