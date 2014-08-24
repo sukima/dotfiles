@@ -1,0 +1,19 @@
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Just for fun some common typos.
+alias lsd="echo 'Wow, pretty colors, taste yummy.'; ls"
+alias xs="echo 'Have you gone mad?'; cd"
+alias ks="echo 'Take a typing lesson or something!'; ls"
+alias vf="echo 'Ha Ha, Very Funny.'; cd"
+alias csd="echo 'OK, I get the idea, you can not type!'; cd"
+alias cds="echo 'Please try to type like a SANE person!'; cd"
+if hash sl > /dev/null 2>&1; then
+	alias sl="sl; ls" # sl is a typo program. "brew info sl"
+else
+	alias sl="echo 'Are you dyslexic?'; ls"
+fi
+
+# vim: ft=sh sw=2 ts=2 noet fdm=marker
