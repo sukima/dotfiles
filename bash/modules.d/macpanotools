@@ -1,0 +1,64 @@
+# Add Hugin tools to path on Mac OS X
+
+# This assumes you have installed [Hugin][1] and the [Panotools][2]
+# To install Panotools you will need to run as root:
+#     $ sudo perl -MCPAN -e shell
+#     > install CPAN
+#     > reload CPAN
+#     > install Panotools::Script
+# 
+# [1]: http://hugin.sourceforge.net/
+# [2]: http://panotools.sourceforge.net/
+
+prependToPath /Applications/Hugin/HuginTools
+
+panohelp() {
+  echo
+  echo "Install Hugin then Panotools::Script"
+  echo "Optional: Panini, Gimp"
+  echo
+cat <<EOF
+CPAN has mad some significant changes. See homebrew wiki for details.
+https://github.com/Homebrew/homebrew/wiki/Gems,-Eggs-and-Perl-Modules#wiki-perl-cpan-modules-without-sudo
+
+Quick Install:
+
+    $ sudo cpan local::lib
+
+Edit ~/.bash_local and add
+
+    ### CPAN
+    eval \$(perl -I\$HOME/perl5/lib/perl5 -Mlocal::lib)
+
+Restart shell
+
+    $ cpan Panotools::Script
+
+EOF
+}
+
+panocubic() {
+  if [ -z "$1" ]; then
+    echo "Usage: panocubic erect_file.tif"
+    echo "  will create cube0000.tif .. cube0005.tif"
+    return
+  fi
+  erect2cubic --erect=$1 --ptofile=cubic.pto
+  nona -o cube cubic.pto
+}
+
+panoerect() {
+  if [ -z "$1" ]; then
+    echo "Usage: panoerect output_name [nadir_file.tif]"
+    echo "  will create output_name.tif"
+    return
+  fi
+  if [ -z "$2" ]; then
+    nadir="cube0005.tif"
+  else
+    nadir="$2"
+  fi
+  cubic2erect cube0000.tif cube0001.tif cube0002.tif cube0003.tif cube0004.tif $nadir ${1}.tif
+}
+
+# vim:set sw=2 ts=2 et ft=sh:

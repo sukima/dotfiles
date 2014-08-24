@@ -1,0 +1,9 @@
+# Alias to python's SimpleHTTPServer
+
+if command_exists asdf; then
+    alias server-here="asdf"
+else
+    alias server-here="echo \"Please consider 'gem install asdf', it is better.\"; python -m SimpleHTTPServer"
+fi
+
+# vim:set ft=sh sw=4 et fdm=marker :

@@ -1,0 +1,11 @@
+# Make VIM the default editor over 'vi'
+
+export EDITOR=vim
+
+if command_exists mvim; then
+  export XEDITOR=mvim
+elif command_exists gvim; then
+  export XEDITOR=gvim
+fi
+
+alias vi='vim'

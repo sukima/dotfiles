@@ -1,0 +1,7 @@
+# Setup NVM if it is installed (nvm_install aliased if not)
+if test -r "$HOME/.nvm/nvm.sh" ; then
+    . "$HOME/.nvm/nvm.sh"  # This loads NVM into a shell session.
+else
+    alias nvm_install="curl https://raw.github.com/creationix/nvm/master/install.sh | sh"
+fi
+# vim:set ft=sh sw=4 et fdm=marker :

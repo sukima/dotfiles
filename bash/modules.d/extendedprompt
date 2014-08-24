@@ -1,0 +1,118 @@
+# Extended prompt command
+dateBasedEmoji() {
+    case `date +%m-%d` in
+        01-01) echo -n "🎉";;
+        02-14) echo -n "💝";;
+        02*)   echo -n "⛄";;
+        03-17) echo -n "🍀";;
+        03*)   echo -n "⛄";;
+        03-18) echo -n "🎂";;
+        04-01) echo -n "🃏";;
+        07-04) echo -n "🎆";;
+        10*)   echo -n "🎃";;
+        11-2*) echo -n "🍗";;
+        12-2*) echo -n "🎅";;
+        12*)   echo -n "🎄";;
+        *)     echo -n "🐉";;
+    esac
+}
+
+prompt() {
+    local enable_git_prompt=1
+    local prompt='__help'
+
+    while test $# -gt 0; do
+        case "$1" in
+            -G|--disable-git)
+                enable_git_prompt=0
+                ;;
+            -g|--enable-git)
+                enable_git_prompt=1
+                ;;
+            -h|--help)
+                prompt='__help'
+                ;;
+            *)
+                prompt="$1"
+                ;;
+        esac
+
+        shift
+    done
+
+    case "$prompt" in
+        si*) # simple
+            PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W#GIT#\$ '
+            ;;
+        sm*) # small
+            PS1='[\!] \$ ~> '
+            ;;
+        c*) # color
+            PS1='${debian_chroot:+($debian_chroot)}\[\e[34m\]\u\[\e[0m\]@\h:\[\e[36m\]\W\[\e[0m\]#GIT#\$ '
+            ;;
+        m*s*) # multismall or msmall
+            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (\j) \[\e[36m\]\W\[\e[0m\]#GIT#\n\$ ~> '
+            ;;
+        m*) # multiline
+            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]#GIT#\n\$ ${debian_chroot:+($debian_chroot)}~> '
+            ;;
+        f*) # full
+            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]#GIT#\n                 $(~/.rvm/bin/rvm-prompt)\r\$ ${debian_chroot:+($debian_chroot)}~> '
+            ;;
+        emot*) # emotive
+            PS1='[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`${debian_chroot:+($debian_chroot)} [\u@\h:\[\e[36m\]\W\[\e[0m\]]:\j#GIT#\$ '
+            ;;
+        emoj*) # emoji
+            PS1='\n[\!] `if [ $? = 0 ]; then echo "😄 "; else echo "😡 "; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]#GIT#\n`if [ $EUID = 0 ]; then echo "🔮"; else dateBasedEmoji; fi` ${debian_chroot:+($debian_chroot)}☞  '
+            ;;
+        d*) # default
+            prompt color
+            return
+            ;;
+        *)
+            echo "Usage prompt [-G] <prompt name>"
+            echo "  -G, --disable-git  disable the git prompt plugin"
+            echo "prompt names:"
+            echo "  default     Defaults to color"
+            echo "  simple      username@hostname:current_dir$"
+            echo "  color       simple prompt with color"
+            echo "  full        a multilined, emotive, verbose prompt"
+            echo "  multiline   a multilined, emotive prompt"
+            echo "  multismall  a multilined, emotive, horizontally challenged prompt"
+            echo "  emotive     ^_^ [username@hostname:current_dir]$"
+            echo "  emoji       Icons! Oh My! (multiline)"
+            return
+            ;;
+    esac
+
+    # Fix PS1 if git-completion module was loaded
+    if command_exists "__git_ps1" ; then
+        if [ "$enable_git_prompt" = "1" ]; then
+            case "$prompt" in
+                e*|c*|m*|f*) # emotive, color, or multiline
+                    PS1=$(echo "$PS1" | sed -e 's/#GIT#/\$(__git_ps1 " (\\[\\e[33m\\]%s\\[\\e[0m\\])")/')
+                    ;;
+                m*s*) # multismall or msmall
+                    PS1=$(echo "$PS1" | sed -e 's/#GIT#/\$(__git_ps1 "\\n(\\[\\e[33m\\]%s\\[\\e[0m\\])")/')
+                    ;;
+                sm*) # small
+                    ;;
+                *)
+                    PS1=$(echo "$PS1" | sed -e 's/#GIT#/\$(__git_ps1 " (%s)")/')
+                    ;;
+            esac
+        fi
+    fi
+
+    PS1=$(echo "$PS1" | sed -e 's/#GIT#//g')
+
+    # If this is an xterm set the title to user@host:dir
+    case "$TERM" in
+    xterm*|rxvt*)
+        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \W\a\]$PS1"
+        ;;
+    *)
+        ;;
+    esac
+}
+# vim:set ft=sh sw=4 ts=8 et fdm=marker :

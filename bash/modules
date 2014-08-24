@@ -1,0 +1,39 @@
+#!/bin/bash
+# Modules
+# Loading of other bash modules
+load_bash_modules() {
+	case "$1" in
+		-q|--quiet)
+			local quiet=1
+			;;
+		-h|--help)
+			echo "Usage: load_bash_modules [-q|--quiet]"
+			return
+			;;
+	esac
+	if [ -e "$HOME/.bash_modules" ]; then
+		local mod_path="$rcfiles/bash/modules.d"
+		local mod_files=$(sed -e 's/#.*//' -e 's/[ 	]*$//' -e 's/^[ 	]*//' -e '/^$/ d' "$HOME/.bash_modules")
+		local OLDIFS="${IFS}"
+		IFS=$'\n'
+		for confline in $mod_files; do
+			if [ -r "${mod_path}/${confline}" ]; then
+				source "${mod_path}/${confline}"
+				[[ $quiet ]] || echo "Loaded ${confline}"
+			else
+				[[ $quiet ]] || echo "Not found: ${mod_path}/${confline}"
+			fi
+		done
+		IFS="${OLDIFS}"
+	fi
+	if [ -d "$HOME/.bash_modules.d" ]; then
+		for module in $HOME/.bash_modules.d/*; do
+			source "${module}"
+			[[ $quiet ]] || echo "Loaded $(basename "$module")"
+		done
+	fi
+}
+
+load_bash_modules --quiet
+
+# vim: ft=sh sw=2 ts=2 noet fdm=marker

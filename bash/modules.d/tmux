@@ -1,0 +1,24 @@
+# Function for quick start or attach tmux session
+
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+
+# Set correct term for tmux so solarized theme works in vim
+export TERM=screen-256color-bce
+
+tmux_start() {
+  if [[ -z "$1" ]]; then
+    session="main"
+  else
+    session="$1"
+  fi
+
+  if tmux has-session -t $session; then
+    tmux attach -t $session
+  else
+    tmux new-session -s $session
+  fi
+}
+
+alias t='tmux_start'
+
+# vim:set ft=sh:
