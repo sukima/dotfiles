@@ -1,3 +1,12 @@
-set show-rev-graph = yes   # Show revision graph?
-set show-refs = yes        # Show references?
-set show-line-numbers = no # Show line numbers?
+# Enable both ID and line numbers in the blame view
+set blame-view = date:default author:full file-name:auto id:yes,color \
+                 line-number:yes,interval=5 text
+
+# Change grep view to be similar to `git grep` format
+set grep-view = file-name:yes line-number:yes,interval=1 text
+
+# Show file sizes as units
+set tree-view = line-number:no,interval=5 mode author:full \
+                file-size:units date:relative id:yes file-name
+
+set pager-view = line-number:yes,interval=1 text
