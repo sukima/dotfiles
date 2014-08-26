@@ -12,7 +12,7 @@ load_bash_modules() {
 			;;
 	esac
 	if [ -e "$HOME/.bash_modules" ]; then
-		local mod_path="$rcfiles/bash/modules.d"
+		local mod_path="$HOME/.homesick/repos/dotfiles/bash/modules.d"
 		local mod_files=$(sed -e 's/#.*//' -e 's/[ 	]*$//' -e 's/^[ 	]*//' -e '/^$/ d' "$HOME/.bash_modules")
 		local OLDIFS="${IFS}"
 		IFS=$'\n'
