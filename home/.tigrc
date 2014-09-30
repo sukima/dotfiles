@@ -10,3 +10,5 @@ set tree-view = line-number:no,interval=5 mode author:full \
                 file-size:units date:relative id:yes file-name
 
 set pager-view = line-number:yes,interval=1 text
+
+set vertical-split = false
