@@ -67,3 +67,6 @@
 
 [github]
   user = sukima
+
+[gui]
+  diffopts = --patience
