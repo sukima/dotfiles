@@ -4,6 +4,7 @@
 " set "editor=bash -lc \"mvim -f \\$*\" mvim "
 
 imap <C-S-I> <C-i>
+cnoremap jk <esc>
 
 command console emenu Tools.Web Developer.Toggle Tools
 
