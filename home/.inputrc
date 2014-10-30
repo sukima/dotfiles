@@ -14,3 +14,12 @@ set mark-directories on
 
 # Show all instead of beeping first
 set show-all-if-ambiguous off
+
+# Better normal mode escaping management
+$if mode=vi
+  set keymap vi-command
+  "gg": beginning-of-history
+  "G": end-of-history
+  set keymap vi-insert
+  "jk": vi-movement-mode
+$endif
