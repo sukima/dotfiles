@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [[ "$1" == "usage" ]]; then
+  echo "    edit [TODO_FILE]"
+  echo "    e [TODO_FILE]"
+  echo "      Open the TODO_FILE file in your EDITOR. TODO_FILE is either a"
+  echo "      full path, filename, or file alias (todo/done/report)."
+  echo "      Defaults to \"vi $TODO_FILE\"."
+  echo ""
+  exit 0
+fi
+
+case x"$2" in
+  x|xtodo)
+    file="$TODO_FILE"
+    ;;
+  xdone)
+    file="$DONE_FILE"
+    ;;
+  xreport)
+    file="$REPORT_FILE"
+    ;;
+  x/*)
+    file="$2"
+    ;;
+  x*)
+    file="$TODO_DIR"/"$2"
+    ;;
+esac
+
+exec "${EDITOR:-vi}" "$file"
