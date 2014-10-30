@@ -25,7 +25,7 @@
   pr = !hub pull-request
   prdev = !hub pull-request -b develop
   pushtags = push --follow-tags
-  pushorigin = push -u origin head
+  pushorigin = push -u origin HEAD
   amend = commit -v --amend
   fixup = commit --fixup
   prune = remote prune
