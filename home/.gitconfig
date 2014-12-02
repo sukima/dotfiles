@@ -51,6 +51,9 @@
   conflictstyle = diff3
   tool = diffconflicts
 
+[rerere]
+  enable = true
+
 [diff]
   tool = vimdiff
 
