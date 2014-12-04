@@ -25,6 +25,7 @@ source $HOME/.homesick/repos/homeshick/homeshick.sh
 homeshick --quiet refresh 14 $HOMESHICK_REFRESH_REPOS
 source $HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash
 
+source $rcfiles/bash/vars
 source $rcfiles/bash/colors
 source $rcfiles/tools
 source $rcfiles/aliases
