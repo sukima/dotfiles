@@ -42,7 +42,7 @@
   whitespace = fix
 
 [push]
-  default = tracking
+  default = simple
 
 [rebase]
   autosquash = true
