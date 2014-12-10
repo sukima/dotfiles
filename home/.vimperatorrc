@@ -12,4 +12,6 @@ cabbrev tabe tabgroups
 
 source! /Users/suki/.vimperatorrc.local
 
+set noincsearch
+
 " vim: set ft=vimperator:
