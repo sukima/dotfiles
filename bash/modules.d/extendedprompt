@@ -17,6 +17,18 @@ dateBasedEmoji() {
     esac
 }
 
+random_emoji() {
+    local emoji
+    local index
+    if [ $1 = 0 ]; then
+        emoji=(😄 😃 😀 😊 ☺️ 😉 😍 😘 😜 😝 😛 😁 😆 😋 😎 😇 😺 😸 😻 👍 👌 💃 🎉 🎊 💖)
+    else
+        emoji=(😞 😢 😭 😰 😡 😤 😱 👿 😟 😵 🙀 😿 😹 👺 💩 👎 💔 ⚠️ ☔️ 💣)
+    fi
+    let "index = $RANDOM % ${#emoji[@]}"
+    echo "${emoji[$index]} "
+}
+
 prompt() {
     local enable_git_prompt=1
     local prompt='__help'
@@ -63,7 +75,7 @@ prompt() {
             PS1='[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`${debian_chroot:+($debian_chroot)} [\u@\h:\[\e[36m\]\W\[\e[0m\]]:\j#GIT#\$ '
             ;;
         emoj*) # emoji
-            PS1='\n╭ [\!] `if [ $? = 0 ]; then echo "😄 "; else echo "😡 "; fi`#GIT# \u@\h:\[\e[36m\]\w\[\e[0m\]\n╰ `if [ $EUID = 0 ]; then echo "🔮"; else dateBasedEmoji; fi` ${debian_chroot:+($debian_chroot)}\j➤ '
+            PS1='\n╭ [\!] `random_emoji $?`#GIT# \u@\h:\[\e[36m\]\w\[\e[0m\]\n╰ `if [ $EUID = 0 ]; then echo "🔮"; else dateBasedEmoji; fi` ${debian_chroot:+($debian_chroot)}\j➤ '
             ;;
         d*) # default
             prompt color
