@@ -28,6 +28,7 @@
   pushorigin = push -u origin HEAD
   amend = commit -v --amend
   fixup = commit --fixup
+  squash = commit --squash
   prune = remote prune
   pruneo = remote prune origin
 
