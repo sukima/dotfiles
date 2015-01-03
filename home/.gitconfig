@@ -49,8 +49,9 @@
   autosquash = true
 
 [merge]
-  conflictstyle = diff3
-  tool = diffconflicts
+  ; conflictstyle = diff3
+  conflictstyle = merge
+  tool = fugitive
 
 [rerere]
   enable = true
@@ -62,6 +63,9 @@
   cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
   trustExitCode = false
   keepBackup = false
+
+[mergetool "fugitive"]
+  cmd = vim "+Gdiff" $MERGED
 
 [color]
   ui = auto
