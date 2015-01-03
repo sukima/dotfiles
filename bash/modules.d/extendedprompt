@@ -66,7 +66,7 @@ prompt() {
             PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (\j) \[\e[36m\]\W\[\e[0m\]#GIT#\n\$ ~> '
             ;;
         m*) # multiline
-            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]#GIT#\n\$ ${debian_chroot:+($debian_chroot)}~> '
+            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`#GIT# \u@\h:\[\e[36m\]\w\[\e[0m\]\n\$${debian_chroot:+($debian_chroot)} \j> '
             ;;
         f*) # full
             PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi` (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]#GIT#\n                 $(~/.rvm/bin/rvm-prompt)\r\$ ${debian_chroot:+($debian_chroot)}~> '
