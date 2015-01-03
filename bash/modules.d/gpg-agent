@@ -10,8 +10,8 @@ if [ -f ${GPG_AGENT} ]; then
 		eval "$(cat "$envfile")"
 	else
 		# Should not need this with MacGPG2
-		# gpg-agent --daemon --log-file=~/.gnupg/gpg-agent.log --write-env-file "$envfile"
-		gpg-agent --daemon
+		gpg-agent --daemon --log-file=~/.gnupg/gpg-agent.log --write-env-file "$envfile"
+		# gpg-agent --daemon
 		eval "$(cat "$envfile")"
 	fi
 	export GPG_AGENT_INFO  # the env file does not contain the export statement
