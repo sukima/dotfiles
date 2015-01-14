@@ -54,7 +54,7 @@
   tool = fugitive
 
 [rerere]
-  enable = true
+  enabled = true
 
 [diff]
   tool = vimdiff
