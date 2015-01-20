@@ -31,6 +31,7 @@
   squash = commit --squash
   prune = remote prune
   pruneo = remote prune origin
+  pruneall = !git remote prune origin | tee /dev/stderr | sed -e 's+^.*origin/+git branch -d +' | sh
 
 [core]
   ignorecase = false
