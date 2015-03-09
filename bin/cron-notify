@@ -1,0 +1,14 @@
+#!/bin/bash
+# Same as the alert script but for use with cron
+
+source $HOME/.homesick/repos/dotfiles/bash/rc
+source $HOME/.homesick/repos/dotfiles/tools
+source $HOME/.homesick/repos/dotfiles/bash/modules.d/alert
+
+function prompt() {
+  : # no-op
+}
+
+[[ -e $HOME/.bash_local ]] && source $HOME/.bash_local
+
+notifyme "$@"
