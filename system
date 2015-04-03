@@ -8,6 +8,10 @@ if [[ $system =~ "Darwin" && ! $system =~ "AppleTV" ]]; then
 	printf 'OSX'
 	exit 0
 fi
+if [[ $system =~ "CYGWIN" ]]; then
+	printf 'MinGW'
+	exit 0
+fi
 if [[ $system == "MINGW32_NT-6.1" ]]; then
 	printf 'MinGW'
 	exit 0
