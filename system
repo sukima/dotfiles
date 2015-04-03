@@ -13,6 +13,6 @@ if [[ $system == "MINGW32_NT-6.1" ]]; then
 	exit 0
 fi
 
-printf 'Unknown system' > &2
+printf 'Unknown system' 1>&2
 exit 1
 # vim: ft=sh sw=2 ts=2 noet fdm=marker
