@@ -9,7 +9,7 @@ if [[ $system =~ "Darwin" && ! $system =~ "AppleTV" ]]; then
 	exit 0
 fi
 if [[ $system =~ "CYGWIN" ]]; then
-	printf 'MinGW'
+	printf 'Cygwin'
 	exit 0
 fi
 if [[ $system == "MINGW32_NT-6.1" ]]; then

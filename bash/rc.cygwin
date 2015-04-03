@@ -1,0 +1,21 @@
+#!/bin/bash
+export HISTCONTROL=ignoreboth
+shopt -s histappend
+shopt -s checkwinsize
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+	cygwin) color_prompt=yes;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+	eval "`dircolors -b`"
+	alias ls='/bin/ls --color=auto'
+fi
+
+alias grep='grep -Hn'
+alias egrep='egrep'
+alias fgrep='fgrep'
+
+# vim: ft=sh sw=2 ts=2 noet fdm=marker
