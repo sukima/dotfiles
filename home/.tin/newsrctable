@@ -1,0 +1,13 @@
+# NNTP-server -> newsrc translation table and NNTP-server
+# shortname list for tin 2.0.1
+#
+# the format of this file is
+#   <FQDN of NNTP-server> <newsrc file> <shortname> ...
+#
+# if <newsrc file> is given without path, $HOME is assumed as its location
+#
+# examples:
+#   news.tin.org      .newsrc-tin.org  tinorg
+#   news.example.org  /tmp/nrc-ex      example    ex
+
+news.grc.com .newsrc-grc.com grc

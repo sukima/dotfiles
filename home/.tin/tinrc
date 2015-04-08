@@ -1,0 +1,773 @@
+# tin configuration file V1.3.12
+# This file was automatically saved by rtin 2.2.0 20131224 ("Lochindaal")
+#
+# Do not edit while tin is running, since all your changes to this file
+# will be overwritten when you leave tin.
+#
+############################################################################
+
+# Directory where articles/threads are saved
+savedir=/Users/suki/News
+
+# If ON articles/threads with Archive-name: in mail header will
+# be automatically saved with the Archive-name & part/patch no.
+auto_save=OFF
+
+# If ON mark articles that are saved as read
+mark_saved_read=ON
+
+# Perform post processing (saving binary attachments) from saved articles.
+# Possible values are (the default is marked with *):
+# * 0 = no
+#   1 = extract shell archives (shar) only
+#   2 = yes
+post_process_type=0
+
+# If set, post processed files will be opened in a viewer
+post_process_view=ON
+
+# If ON only save/print/pipe/mail unread articles (tagged articles excepted)
+process_only_unread=OFF
+
+# If ON show empty Followup-To header when editing an article
+prompt_followupto=OFF
+
+# What should we ask confirmation for.
+confirm_choice=commands & quit
+
+# If ON the 'Mark as (un)read' function marks only the current article.
+mark_ignore_tags=OFF
+
+# If ON automatically reconnect to NNTP server if the connection is broken
+auto_reconnect=OFF
+
+# If ON use -> otherwise highlighted bar for selection
+draw_arrow=OFF
+
+# If ON use inverse video for page headers at different levels
+inverse_okay=ON
+
+# If ON put cursor at first unread art in group otherwise last art
+pos_first_unread=ON
+
+# If ON show only new/unread articles otherwise show all.
+show_only_unread_arts=ON
+
+# If ON show only subscribed to groups that contain unread articles.
+show_only_unread_groups=OFF
+
+# Filter which articles
+# Possible values are (the default is marked with *):
+# * 0 = only kill unread articles
+#   1 = kill all articles and show in threads marked with K
+#   2 = kill all articles and never show them
+kill_level=0
+
+# Go to the unread article with following key(s)
+# Possible values are (the default is marked with *):
+#   0 = nothing
+#   1 = PAGE DOWN
+# * 2 = TAB
+#   3 = PAGE DOWN or TAB
+goto_next_unread=2
+
+# Number of lines that cursor-up/down will scroll in article pager
+# Possible values are (the default is marked with *):
+#  -2 = half-page scrolling
+#  -1 = the top/bottom line is carried over onto the next page
+#   0 = page-by-page (traditional behavior)
+# * 1 = line-by-line
+#   2 or greater = scroll by 2 or more lines (only in the pager)
+scroll_lines=1
+
+# If ON ask user if read groups should all be marked read
+catchup_read_groups=OFF
+
+# If ON catchup group/thread when leaving with the left arrow key.
+group_catchup_on_exit=ON
+thread_catchup_on_exit=ON
+
+# Thread articles by ...
+# Possible values are (the default is marked with *):
+#   0 = nothing
+#   1 = Subject
+#   2 = References
+# * 3 = Both (Subject and References)
+#   4 = Multipart Subject
+#   5 = Percentage Match
+thread_articles=3
+
+# Thread percentage match...
+# the percentage of characters in the subject of an article that must match
+# a base article for both those articles to be considered to belong to the
+# same thread. This option is an integer percentage, eg. 80, no decimals may
+# follow. If 80 is used here, then 80% of the characters must match exactly,
+# no insertion of a character, for the two articles to be put in the same
+# thread. eg. 'happy' and 'harpy' would match, but 'harpie', 'happie' and
+# 'harppy' would be threaded separately from 'happy'
+thread_perc=75
+
+# If ON show group description text after newsgroup name at
+# group selection level
+show_description=ON
+
+# Part of from field to display
+# Possible values are (the default is marked with *):
+#   0 = none
+#   1 = address
+# * 2 = full name
+#   3 = both
+show_author=2
+
+# Which news headers you wish to see. If you want to see _all_ the headers,
+# place an '*' as this value. This is the only way a wildcard can be used.
+# If you enter 'X-' as the value, you will see all headers beginning with
+# 'X-' (like X-Alan or X-Pape). You can list more than one by delimiting with
+# spaces. Not defining anything turns off this option.
+news_headers_to_display=Newsgroups Followup-To Summary Keywords X-Comment-To
+
+# Same as 'news_headers_to_display' except it denotes the opposite.
+# An example of using both options might be if you thought X- headers were
+# A Good Thing(tm), but thought Alan and Pape were miscreants...well then you
+# would do something like this:
+# news_headers_to_display=X-
+# news_headers_to_not_display=X-Alan X-Pape
+# Not defining anything turns off this option.
+news_headers_to_not_display=
+
+# If ON use print current subject or newsgroup description in the last line
+info_in_last_line=OFF
+
+# Sort articles by ...
+# Possible values are (the default is marked with *):
+#   0 = nothing
+#   1 = Subject descending
+#   2 = Subject ascending
+#   3 = From descending
+#   4 = From ascending
+#   5 = Date descending
+# * 6 = Date ascending
+#   7 = Score descending
+#   8 = Score ascending
+#   9 = Lines descending
+#  10 = Lines ascending
+sort_article_type=6
+
+# Sort thread by ...
+# Possible values are (the default is marked with *):
+#   0 = nothing
+# * 1 = Score descending
+#   2 = Score ascending
+#   3 = Last posting date descending
+#   4 = Last posting date ascending
+sort_threads_type=1
+
+# (-m) directory where articles/threads are saved in mailbox format
+maildir=/Users/suki/Mail
+
+# Format of the mailbox.
+mailbox_format=MBOXO
+
+# If ON print all of article header otherwise just the important lines
+print_header=OFF
+
+# Print program with parameters used to print articles/threads
+printer=/usr/ucb/lpr
+
+# If ON articles/threads will be saved in batch mode when save -S
+# or mail (-M/-N) is specified on the command line
+batch_save=ON
+
+# If ON editor will be started with cursor offset into the file
+# otherwise the cursor will be positioned at the first line
+start_editor_offset=ON
+
+# Format of editor line including parameters
+# %E Editor  %F Filename  %N Linenumber
+editor_format=%E +%N %F
+
+# Format of mailer line including parameters
+# %M Mailer  %S Subject  %T To  %F Filename
+# ie. to use elm as your mailer:    elm -s "%S" "%T" < %F
+# ie. elm interactive          :    elm -i %F -s "%S" "%T"
+mailer_format=%M "%T" -s "%S" < %F
+
+# Interactive mailreader
+# Possible values are (the default is marked with *):
+# * 0 = no interactive mailreader
+#   1 = use interactive mailreader with headers in file
+#   2 = use interactive mailreader without headers in file
+interactive_mailer=1
+
+# Thread score
+# Possible values are (the default is marked with *):
+# * 0 = max
+#   1 = sum
+#   2 = average
+thread_score=0
+
+# If ON remove ~/.article after posting.
+unlink_article=ON
+
+# If ON keep all failed postings in ~/dead.articles
+keep_dead_articles=ON
+
+# Filename where to keep all postings (default posted)
+# If no filename is set then postings will not be saved
+posted_articles_file=posted
+
+# If ON add posted articles which start a new thread to filter for
+# highlighting follow-ups
+add_posted_to_filter=ON
+
+# Signature path (random sigs)/file to be used when posting/replying
+# sigfile=file       appends file as signature
+# sigfile=!command   executes external command to generate a signature
+# sigfile=--none     don't append a signature
+sigfile=/Users/suki/.Sig
+
+# If ON prepend the signature with dashes '\n-- \n'
+sigdashes=ON
+
+# If ON add signature to reposted articles
+signature_repost=ON
+
+# A comma-delimited list of address-parts you want to be warned
+# about when trying to reply by email.
+spamtrap_warning_addresses=
+
+# The program used to open URLs. The actual URL will be appended
+url_handler=url_handler.pl
+
+# If ON include advertising User-Agent: header
+advertising=ON
+
+# Time interval in seconds between rereading the active file (0=never)
+reread_active_file_secs=1200
+
+# Time in seconds to wait for a response from the server (0=no timeout)
+nntp_read_timeout_secs=120
+
+# Characters used in quoting to followups and replies.
+# '_' is replaced by ' ', %s, %S are replaced by author's initials.
+quote_chars=>_
+
+# How quoting should be handled when following up or replying.
+# Possible values are (the default is marked with *):
+#   0 = Nothing special
+#   1 = Compress quotes
+#   2 = Quote signatures
+#   3 = Compress quotes, quote signatures
+#   4 = Quote empty lines
+# * 5 = Compress quotes, quote empty lines
+#   6 = Quote signatures, quote empty lines
+#   7 = Compress quotes, quote signatures, quote empty lines
+quote_style=5
+
+# A regular expression that tin will use to decide which lines are
+# quoted when viewing articles. Quoted lines are shown in col_quote.
+# If you leave this blank, tin will use a built in default.
+quote_regex=^\s{0,3}(?:[\]{}>|:)]|\w{1,3}[>|])(?!-)
+
+# A regular expression that tin will use to decide which lines are
+# quoted twice. Twice quoted lines are shown in col_quote2.
+# If you leave this blank, tin will use a built in default.
+quote_regex2=^\s{0,3}(?:(?:[\]{}>|:)]|\w{1,3}[>|])\s*){2}(?!-[})>])
+
+# A regular expression that tin will use to decide which lines are
+# quoted >=3 times. >=3 times quoted lines are shown in col_quote3.
+# If you leave this blank, tin will use a built in default.
+quote_regex3=^\s{0,3}(?:(?:[\]{}>|:)]|\w{1,3}[>|])\s*){3}
+
+# A regular expression that tin will use to decide which words
+# bounded by '/' are to be shown in col_markslashes.
+# If you leave this blank, tin will use a built in default.
+slashes_regex=(?:^|(?<=\s))/(?(?=[^-*/_\s][^/\s])[^-*/_\s][^/]*[^-*/_\s]|[^/\s])/(?:(?=[,.!?;]?\s)|$)
+
+# A regular expression that tin will use to decide which words
+# bounded by '*' are to be shown in col_markstars.
+# If you leave this blank, tin will use a built in default.
+stars_regex=(?:^|(?<=\s))\*(?(?=[^-*/_\s][^*\s])[^-*/_\s][^*]*[^-*/_\s]|[^*\s])\*(?:(?=[,.!?;]?\s)|$)
+
+# A regular expression that tin will use to decide which words
+# bounded by '-' are to be shown in col_markstroke.
+# If you leave this blank, tin will use a built in default.
+strokes_regex=(?:^|(?<=\s))-(?(?=[^-*/_\s][^-\s])[^-*/_\s][^-]*[^-*/_\s]|[^-\s])-(?:(?=[,.!?;]?\s)|$)
+
+# A regular expression that tin will use to decide which words
+# bounded by '_' are to be shown in col_markdash.
+# If you leave this blank, tin will use a built in default.
+underscores_regex=(?:^|(?<=\s))_(?(?=[^-*/_\s][^_\s])[^-*/_\s][^_]*[^-*/_\s]|[^_\s])_(?:(?=[,.!?;]?\s)|$)
+
+# A regular expression that tin will use to find Subject prefixes
+# which will be removed before showing the header.
+strip_re_regex=(?:R[eE](?:\^\d+|\[\d+\])?|A[wW]|Odp|Sv):\s
+
+# A regular expression that tin will use to find Subject suffixes
+# which will be removed when replying or posting followup.
+strip_was_regex=(?:(?<=\S)|\s)\((?:[Ww]a[rs]|[Bb]y[l\x{0142}]o):.*\)\s*$
+
+# A regular expression that tin will use to find the begin of
+# a verbatim block.
+verbatim_begin_regex=#v\+\s$
+
+# A regular expression that tin will use to find the end of
+# a verbatim block.
+verbatim_end_regex=#v-\s$
+
+# If OFF don't show signatures when displaying articles
+show_signatures=ON
+
+# If ON decode German style TeX umlaut codes to ISO and
+# show "a as Umlaut-a, etc.
+tex2iso_conv=OFF
+
+# Handling of uuencoded data in the pager
+# Possible values are (the default is marked with *):
+# * 0 = no, display raw uuencoded data
+#   1 = yes, uuencoded data will be condensed to a single tag line showing
+#       size and filename, similar to how MIME attachments are displayed
+#   2 = hide all, as for 1, but any line that looks like uuencoded data will
+#       be folded into a tag line.
+hide_uue=0
+
+# Format of quote line when mailing/posting/following-up an article
+# %A Address    %D Date   %F Addr+Name   %G Groupname   %M Message-ID
+# %N Full Name  %C First Name   %I Initials
+news_quote_format=%F wrote:
+mail_quote_format=In article %M you wrote:
+xpost_quote_format=In %G %F wrote:
+
+# Put your name in the Cc: and/or Bcc: field when mailing an article.
+# Possible values are (the default is marked with *):
+# * 0 = No
+#   1 = Cc
+#   2 = Bcc
+#   3 = Cc and Bcc
+auto_cc_bcc=0
+
+# If ON use UTF-8 characters for indicator '->', tree and ellipsis '...'.
+utf8_graphics=OFF
+
+# Character used to show that an art was deleted (default 'D')
+# _ is turned into ' '
+art_marked_deleted=D
+
+# Character used to show that an art is in a range (default '#')
+# _ is turned into ' '
+art_marked_inrange=#
+
+# Character used to show that an art will return (default '-')
+# _ is turned into ' '
+art_marked_return=-
+
+# Character used to show that an art was auto-selected (default '*')
+# _ is turned into ' '
+art_marked_selected=*
+
+# Character used to show that an art is recent (default 'o')
+# _ is turned into ' '
+art_marked_recent=o
+
+# Character used to show that an art is unread (default '+')
+# _ is turned into ' '
+art_marked_unread=+
+
+# Character used to show that an art was read (default ' ')
+# _ is turned into ' '
+art_marked_read=_
+
+# Character used to show that an art was killed (default 'K')
+# kill_level must be set accordingly, _ is turned into ' '
+art_marked_killed=K
+
+# Character used to show that an art was selected before read (default ':')
+# kill_level must be set accordingly, _ is turned into ' '
+art_marked_read_selected=:
+
+# If ON a screen redraw will always be done after certain external commands
+force_screen_redraw=OFF
+
+# If --internal use the built in mini inews for posting via NNTP
+# otherwise use an external inews program
+inews_prog=--internal
+
+# If ON automatically list thread when entering it using right arrow key.
+auto_list_thread=ON
+
+# If ON wrap around threads on searching next unread article
+wrap_on_next_unread=ON
+
+# If ON enable mouse button support on xterm terminals
+use_mouse=ON
+
+# If ON strip blanks from ends of lines for faster display on slow terminals.
+strip_blanks=ON
+
+# Maximum length of the names of newsgroups displayed
+groupname_max_length=32
+
+# If ON abbreviate (if necessary) long newsgroup names at group selection
+# level and article level like this:
+#   news.software.readers -> n.software.readers -> n.s.readers -> n.s.r.
+abbreviate_groupname=OFF
+
+# If ON show a mini menu of useful commands at each level
+# and posting etiquette after composing an article
+beginner_level=ON
+
+# Number of days a short term filter will be active
+default_filter_days=28
+
+# If ON, create local copies of NNTP overview files.
+cache_overview_files=OFF
+
+# Number of articles to get (0=no limit), if negative sets maximum number
+# of already read articles to be read before first unread one
+getart_limit=0
+
+# Number of days in which article is considered recent, (0=OFF)
+recent_time=2
+
+# Score limit before an article is marked killed
+score_limit_kill=-50
+
+# Default score to kill articles
+score_kill=-100
+
+# Score limit before an article is marked hot
+score_limit_select=50
+
+# Default score to select articles
+score_select=100
+
+# If ON using ANSI-color
+use_color=ON
+
+# Changing colors of several screen parts
+# Possible values are:
+#  -1 = default (white for foreground and black for background)
+#   0 = black
+#   1 = red
+#   2 = green
+#   3 = brown
+#   4 = blue
+#   5 = pink
+#   6 = cyan
+#   7 = white
+# These are *only* for foreground:
+#   8 = gray
+#   9 = light red
+#  10 = light green
+#  11 = yellow
+#  12 = light blue
+#  13 = light pink
+#  14 = light cyan
+#  15 = light white
+
+# Standard foreground color
+# Default: -1 (default color)
+col_normal=7
+
+# Standard background color
+# Default: -1 (default color)
+col_back=0
+
+# Color of background for inverse text
+# Default: 4 (blue)
+col_invers_bg=4
+
+# Color of foreground for inverse text
+# Default: 7 (white)
+col_invers_fg=7
+
+# Color of text lines
+# Default: -1 (default color)
+col_text=7
+
+# Color of mini help menu
+# Default: 3 (brown)
+col_minihelp=3
+
+# Color of help pages
+# Default: -1 (default color)
+col_help=7
+
+# Color of messages in last line
+# Default: 6 (cyan)
+col_message=6
+
+# Color of quote-lines
+# Default: 2 (green)
+col_quote=2
+
+# Color of twice quoted lines
+# Default: 3 (brown)
+col_quote2=3
+
+# Color of >=3 times quoted lines
+# Default: 4 (blue)
+col_quote3=4
+
+# Color of header-lines
+# Default: 2 (green)
+col_head=2
+
+# Color of actual news header fields
+# Default: 9 (light red)
+col_newsheaders=9
+
+# Color of article subject
+# Default: 6 (cyan)
+col_subject=6
+
+# Color of response counter
+# Default: 2 (green)
+col_response=2
+
+# Color of sender (From:)
+# Default: 2 (green)
+col_from=2
+
+# Color of Help/Mail-Sign
+# Default: 4 (blue)
+col_title=4
+
+# Color of signature
+# Default: 4 (blue)
+col_signature=4
+
+# Color of highlighted URLs
+# Default: -1 (default color)
+col_urls=7
+
+# Color of verbatim blocks
+# Default: 5 (pink)
+col_verbatim=5
+
+# Enable URL highlighting?
+url_highlight=ON
+
+# Enable word highlighting?
+word_highlight=ON
+
+# Should the leading and ending stars and dashes also be displayed,
+# even when they are highlighting marks?
+# Possible values are (the default is marked with *):
+#   0 = no
+#   1 = yes, display mark
+# * 2 = print a space instead
+word_h_display_marks=2
+
+# Color of word highlighting with *stars*
+# Default: 11 (yellow)
+col_markstar=11
+
+# Color of word highlighting with _dash_
+# Default: 13 (light pink)
+col_markdash=13
+
+# Color of word highlighting with /slash/
+# Default: 14 (light cyan)
+col_markslash=14
+
+# Color of word highlighting with -stroke-
+# Default: 12 (light blue)
+col_markstroke=12
+
+# Attributes of word highlighting on mono terminals
+# Possible values are:
+#   0 = Normal
+#   1 = Underline
+#   2 = Best highlighting
+#   3 = Reverse video
+#   4 = Blinking
+#   5 = Half bright
+#   6 = Bold
+
+# Attribute of word highlighting with *stars*
+# Default: 6 (bold)
+mono_markstar=6
+
+# Attribute of word highlighting with _dash_
+# Default: 2 (best highlighting)
+mono_markdash=2
+
+# Attribute of word highlighting with /slash/
+# Default: 5 (half bright)
+mono_markslash=5
+
+# Attribute of word highlighting with -stroke-
+# Default: 3 (reverse video)
+mono_markstroke=3
+
+# User's mail address (and fullname), if not username@host (fullname)
+mail_address=
+
+# Wrap article lines at column
+wrap_column=0
+
+# Trim the article body, remove unnecessary blank lines.
+# Possible values are (the default is marked with *):
+# * 0 = Nothing special
+#   1 = Skip leading blank lines
+#   2 = Skip trailing blank lines
+#   3 = Skip leading and trailing blank lines
+#   4 = Compact multiple blank lines between text blocks
+#   5 = Compact multiple blank lines between text blocks and skip
+#       leading blank lines
+#   6 = Compact multiple blank lines between text blocks and skip
+#       trailing blank lines
+#   7 = Compact multiple blank lines between text blocks and skip
+#       leading and trailing blank lines
+trim_article_body=0
+
+# Charset used for MIME (Content-Type) header in postings.
+mm_network_charset=US-ASCII
+
+# If ON, use //TRANSLIT extension. This means that when a character cannot
+# be represented in the in the target character set, it can be approximated
+# through one or several similarly looking characters.
+translit=OFF
+
+# MIME encoding (8bit, base64, quoted-printable, 7bit) of the body
+# for mails and posts, if necessary. QP is efficient for most European
+# character sets (ISO-8859-X) with small fraction of non-US-ASCII chars,
+# while Base64 is more efficient for most 8bit East Asian, Greek, and
+# Russian charsets with a lot of 8bit characters.
+post_mime_encoding=7bit
+mail_mime_encoding=7bit
+
+# If ON, 8bit characters in news headers are NOT encoded.
+# default is OFF. Thus 8bit characters are encoded by default.
+# 8bit chars in header are encoded regardless of the value of this
+# parameter unless post_mime_encoding is 8bit as well.
+post_8bit_header=OFF
+
+# If ON, 8bit characters in mail headers are NOT encoded.
+# default is OFF. Thus 8bit characters are encoded by default.
+# 8bit chars in headers are encoded regardless of the value of this parameter
+# unless mail_mime_encoding is 8bit as well. Note that RFC 2822
+# prohibits 8bit characters in mail headers so that you are advised NOT to
+# turn it ON unless you have some compelling reason.
+mail_8bit_header=OFF
+
+# If --internal automatically use the built in MIME viewer for non-text
+# parts of articles.
+# Otherwise specify an external viewer program (eg, metamail) or leave blank
+# for no automatic viewing
+metamail_prog=--internal
+
+# If ON tin will ask before using metamail to display MIME messages
+# this only happens if metamail_prog is set to something
+ask_for_metamail=OFF
+
+# If ON strip multipart/alternative messages automatically
+alternative_handling=ON
+
+# If ON detect verbatim blocks in articles
+verbatim_handling=ON
+
+# If ON strip unsubscribed groups from newsrc
+strip_newsrc=OFF
+
+# What to do with bogus groups in newsrc file
+# Possible values are (the default is marked with *):
+# * 0 = keep
+#   1 = remove
+#   2 = highlight with D on selection screen
+strip_bogus=2
+
+# Format string for selection level representation
+# Default: %f %n %U  %G  %d
+# Possible values are:
+#   %%              '%'
+#   %d              Description
+#   %f              Newsgroup flag: 'D' bogus, 'X' not postable,
+#                   'M' moderated, '=' renamed, 'N' new, 'u' unsubscribed
+#   %G              Group name
+#   %n              Number, linenumber on screen
+#   %U              Unread count
+select_format=%f %n %U  %G  %d
+
+# Format string for group level representation
+# Default: %n %m %R %L  %s  %F
+# Possible values are:
+#   %%              '%'
+#   %D              Date, like date_format
+#   %(formatstr)D   Date, formatstr gets passed to my_strftime()
+#   %F              From, name and/or address according to show_author
+#   %I              Initials
+#   %L              Line count
+#   %M              Message-ID
+#   %m              Article marks
+#   %n              Number, linenumber on screen
+#   %R              Count, number of responses in thread
+#   %s              Subject (only group level)
+#   %S              Score
+group_format=%n %m %R %L  %s  %F
+
+# Format string for thread level representation
+# Default: %n %m  [%L]  %T  %F
+# Possible values are:
+#   %%              '%'
+#   %D              Date, like date_format
+#   %(formatstr)D   Date, formatstr gets passed to my_strftime()
+#   %F              From, name and/or address according to show_author
+#   %I              Initials
+#   %L              Line count
+#   %M              Message-ID
+#   %m              Article marks
+#   %n              Number, linenumber on screen
+#   %S              Score
+#   %T              Thread tree (only thread level)
+thread_format=%n %m  [%L]  %T  %F
+
+# Format string for date representation
+date_format=%a, %d %b %Y %H:%M:%S
+
+# Wildcard matching
+# Possible values are (the default is marked with *):
+# * 0 = wildmat
+#   1 = regex
+wildcard=0
+
+# Defaults for quick (1 key) kill & auto-selection filters
+# header=NUM  0,1=Subject: 2,3=From: 4=Message-ID: & full References: line
+#             5=Message-ID: & last References: entry only
+#             6=Message-ID: entry only 7=Lines:
+# global=ON/OFF  ON=apply to all groups OFF=apply to current group
+# case=ON/OFF    ON=filter case sensitive OFF=ignore case
+# expire=ON/OFF  ON=limit to default_filter_days OFF=don't ever expire
+default_filter_kill_header=0
+default_filter_kill_global=ON
+default_filter_kill_case=OFF
+default_filter_kill_expire=OFF
+default_filter_select_header=0
+default_filter_select_global=ON
+default_filter_select_case=OFF
+default_filter_select_expire=OFF
+
+# Default action/prompt strings
+default_save_mode=a
+default_author_search=
+default_goto_group=
+default_config_search=
+default_group_search=
+default_subject_search=node
+default_art_search=
+default_repost_group=
+default_mail_address=
+default_move_group=0
+default_pipe_command=
+default_post_newsgroups=
+default_post_subject=
+default_range_group=1-.
+default_range_select=1-.
+default_range_thread=1-.
+default_pattern=
+default_save_file=savefile.tin
+default_select_pattern=
+default_shell_command=
+
+# Host & time info used for detecting new groups (don't touch)
