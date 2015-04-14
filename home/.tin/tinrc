@@ -1,5 +1,5 @@
 # tin configuration file V1.3.12
-# This file was automatically saved by rtin 2.2.0 20131224 ("Lochindaal")
+# This file was automatically saved by tin 2.2.0 20131224 ("Lochindaal")
 #
 # Do not edit while tin is running, since all your changes to this file
 # will be overwritten when you leave tin.
@@ -224,7 +224,7 @@ add_posted_to_filter=ON
 # sigfile=file       appends file as signature
 # sigfile=!command   executes external command to generate a signature
 # sigfile=--none     don't append a signature
-sigfile=/Users/suki/.Sig
+sigfile=/Users/suki/.signature
 
 # If ON prepend the signature with dashes '\n-- \n'
 sigdashes=ON
@@ -602,7 +602,7 @@ mono_markslash=5
 mono_markstroke=3
 
 # User's mail address (and fullname), if not username@host (fullname)
-mail_address=
+mail_address="Devin Weaver" <suki@tritarget.org>
 
 # Wrap article lines at column
 wrap_column=0
