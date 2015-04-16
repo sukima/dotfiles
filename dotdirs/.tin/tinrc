@@ -39,7 +39,7 @@ confirm_choice=commands & quit
 mark_ignore_tags=OFF
 
 # If ON automatically reconnect to NNTP server if the connection is broken
-auto_reconnect=OFF
+auto_reconnect=ON
 
 # If ON use -> otherwise highlighted bar for selection
 draw_arrow=OFF
@@ -420,7 +420,7 @@ beginner_level=ON
 default_filter_days=28
 
 # If ON, create local copies of NNTP overview files.
-cache_overview_files=OFF
+cache_overview_files=ON
 
 # Number of articles to get (0=no limit), if negative sets maximum number
 # of already read articles to be read before first unread one
