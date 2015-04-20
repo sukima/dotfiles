@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ "x" = "x$1" ]; then
+  FILE="-"
+else
+  FILE="$1"
+fi
+
+exec tmux save-buffer "$FILE"
