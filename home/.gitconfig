@@ -35,7 +35,7 @@
 
 [core]
   ignorecase = false
-  pager = less -E
+  pager = less -EX
   excludesfile = ~/.gitignore_global
   autocrlf = false
   whitespace = cr-at-eol
