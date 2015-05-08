@@ -14,54 +14,6 @@ chmod_format() {
     s/^0*\(..*\)|.*/\1/;q'
 }
 
-function ghblame {
-	local fullpath=$1
-	local path_no_lineno=${fullpath%:*}
-	if [[ ! -e $path_no_lineno ]]; then
-		printf "%s %s\n" "$path_no_lineno" "does not exist" >&2
-		return 1
-	fi
-	local lineno=${fullpath#*:}
-	if [[ $lineno =~ [0-9]+ ]]; then
-		lineno="#L$lineno"
-	else
-		lineno=""
-	fi
-
-	local abs_path=$(cd "${path_no_lineno%/*}" &>/dev/null; printf "%s/%s" "$(pwd)" "${path_no_lineno##*/}")
-	local file_dir=${abs_path%/*}
-
-	local in_git_repo
-	[ -d $file_dir/.git ] || (cd $file_dir; git rev-parse --git-dir) > /dev/null 2>&1
-	in_git_repo=$?
-	if [[ $in_git_repo != 0 ]]; then
-		printf "%s\n" "Not in a git repo" >&2
-		return in_git_repo
-	fi
-
-	local root=$(cd $file_dir >/dev/null; git rev-parse --show-toplevel)
-	local ref
-	ref=$(cd $root >/dev/null; git symbolic-ref HEAD 2>/dev/null)
-	if [[ $? != 0 ]]; then
-		printf "%s\n" "Not on any branch" >&2
-		return 1
-	fi
-
-	local branch=${ref#refs/heads/}
-	local remote_name=$(cd $root >/dev/null; git config branch.$branch.remote 2>/dev/null)
-	local remote_url=$(cd $root >/dev/null; git config remote.$remote_name.url 2>/dev/null)
-
-	if [[ ! $remote_url =~ 'github.com' ]]; then
-		printf "%s\n" "Upstream is not a github repo" >&2
-		return 1
-	fi
-	local remote_dir
-	remote_dir=${remote_url#git@github.com:}
-	remote_dir=${remote_dir#https://github.com/}
-	local rel_path=${abs_path#$root}
-	open "https://github.com/$remote_dir/blame/$branch$rel_path$lineno"
-}
-
 # A util function to setup missing file paths that some programs and scrips
 # expect.
 function setupTempPaths {
