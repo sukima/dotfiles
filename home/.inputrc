@@ -22,4 +22,5 @@ $if mode=vi
   "G": end-of-history
   set keymap vi-insert
   "jk": vi-movement-mode
+  "jj": vi-movement-mode
 $endif
