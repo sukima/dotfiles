@@ -5,6 +5,15 @@ function randpass {
 	printf "%s\n" `< /dev/urandom tr -dc A-Za-z0-9 | head -c$passlength`
 }
 
+chmod_format() {
+  sed 's/.\(.........\).*/\1/
+    h;y/rwsxtSTlL-/IIIIIOOOOO/;x;s/..\(.\)..\(.\)..\(.\)/|\1\2\3/
+    y/sStTlLx-/IIIIIIOO/;G
+    s/\n\(.*\)/\1;OOO0OOI1OIO2OII3IOO4IOI5IIO6III7/;:k
+    s/|\(...\)\(.*;.*\1\(.\)\)/\3|\2/;tk
+    s/^0*\(..*\)|.*/\1/;q'
+}
+
 function ghblame {
 	local fullpath=$1
 	local path_no_lineno=${fullpath%:*}
