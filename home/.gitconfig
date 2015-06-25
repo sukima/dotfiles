@@ -13,6 +13,7 @@
   sb = show-branch
   diffc = diff --cached
   diffs = diff --stat
+  shows = show --stat
   stats = shortlog --summary
   patch = format-patch
   rawdiff = diff --no-ext-diff -w
