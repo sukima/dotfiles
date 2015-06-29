@@ -47,7 +47,7 @@ else
   branches = prepend['U', nomerged] + prepend['M', merged]
 end
 
-branches = branches.map do |(prefix, branch)| 
+branches = branches.map do |(prefix, branch)|
   [prefix, branch.chomp.strip]
 end.select do |(prefix, branch)|
   branch.sub!('* ','')

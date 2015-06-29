@@ -40,7 +40,7 @@ if (`uname` =~ /Darwin/) {
 } else {
   $EDITOR_CMD = '/usr/bin/gvim -f -c "call SetupEditServer()" "%s"';
 }
-  
+
 #our $EDITOR_CMD = '/usr/bin/emacsclient -c "%s"';
 
 # The settings to configure the temp dir and how soon old files are removed.
