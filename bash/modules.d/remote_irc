@@ -1,6 +1,10 @@
 # Load a tirssi compatible remote IRC session (See tirssi script)
 function irc() {
-  printf "\\033k${2:-IRC}\\033\\\\"
-  ssh -t "$1" '$HOME/.bin/tirssi'
+  if [[ "$1" == "--name" ]]; then
+    local remote_irc_name="$2"
+    shift; shift
+  fi
+  printf "\\033k${remote_irc_name:-IRC}\\033\\\\"
+  ssh -t "$@" '$HOME/.bin/tirssi'
 }
 # vim:ft=sh
