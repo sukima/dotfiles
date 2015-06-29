@@ -1,5 +1,5 @@
 # Load a tirssi compatible remote IRC session (See tirssi script)
-function irc() {
+function remoteirc() {
   if [[ "$1" == "--name" ]]; then
     local remote_irc_name="$2"
     shift; shift
