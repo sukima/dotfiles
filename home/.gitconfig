@@ -17,9 +17,9 @@
   stats = shortlog --summary
   patch = format-patch
   rawdiff = diff --no-ext-diff -w
-  ignore = update-index --assume-unchanged
-  unignore = update-index --no-assume-unchanged
-  ignored = !git ls-files -v | grep ^[a-z]
+  hide = update-index --assume-unchanged
+  unhide = update-index --no-assume-unchanged
+  hidden = !git ls-files -v | grep ^[a-z]
   ap = add -p
   cim = commit -m
   serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
