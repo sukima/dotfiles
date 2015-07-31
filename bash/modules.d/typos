@@ -1,0 +1,59 @@
+# Mange some common typos in a fun way
+
+icanhazpony() {
+  if command_exists ponysay; then
+    if [[ $LINES -gt 25 ]]; then
+      return 0
+    fi
+  fi
+  return 1
+}
+
+icanhazcow() {
+  if command_exists cowsay; then
+    if [[ $LINES -gt 10 ]]; then
+      return 0
+    fi
+  fi
+  return 1
+}
+
+typo() {
+  if icanhazpony; then
+    local command=ponysay
+    local sleep=1
+  elif icanhazcow; then
+    local command=cowsay
+  else
+    local command=echo
+  fi
+
+  eval $command "$1"
+  if [[ -n $sleep ]]; then
+    sleep 1
+  fi
+}
+
+alias lsd="typo 'Wow, pretty colors, taste yummy.'; ls"
+alias xs="typo 'Have you gone mad?'; cd"
+alias ks="typo 'Take a typing lesson or something!'; ls"
+alias vf="typo 'Ha Ha, Very Funny.'; cd"
+alias csd="typo 'OK, I get the idea, you can not type!'; cd"
+alias cds="typo 'Please try to type like a SANE person!'; cd"
+
+if command_exists sl; then
+  alias sl="sl; ls" # sl is a typo program. "brew info sl"
+else
+  alias sl="typo 'Are you dyslexic?'; ls"
+fi
+
+if command_exists gti; then
+  alias gti="gti; git" # gti is a typo program. "brew info gti"
+else
+  alias gti="typo 'Goddamn idiot truckload of sh*t'; git"
+fi
+
+alias got="typo 'Got typing skills?'; git"
+alias gut="typo 'It takes guts to do it wrong!'; git"
+
+# vim:ft=sh
