@@ -28,4 +28,4 @@ case x"$2" in
     ;;
 esac
 
-exec "${EDITOR:-vi}" "$file"
+exec "${VISUAL:-vi}" "$file"
