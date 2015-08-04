@@ -1,0 +1,1 @@
+{"name":"Dotfiles","tagline":"My personal dotfiles","body":"### Install\r\n\r\n```console\r\nbash <(curl https://sukima.github.io/dotfiles/homeshick.sh)\r\n```\r\n","google":"","note":"Don't delete this file! It's used internally to help with page regeneration."}
