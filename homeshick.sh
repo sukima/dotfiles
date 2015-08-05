@@ -40,7 +40,7 @@ ${VISUAL:-vi} $tmpfile
 
 code=$?
 
-if [[ $code != 0 ]]; then
+if [[ $code -ne 0 ]]; then
   echo "Editor returned ${code}." 1>&2
   exit 1
 fi
