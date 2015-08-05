@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# bootstrap script to install Homeshick and you preferred castles to a new
+# system.
+
 tmpfilename="/tmp/${0##*/}.XXXXX"
 
 if type mktemp >/dev/null; then
@@ -13,14 +16,11 @@ trap 'rm -f "$tmpfile"' EXIT
 cat <<'EOF' > $tmpfile
 # Which Homeshick castles do you want to install?
 #
-# Each line is passed as the argument to `homeshick clone`
+# Each line is passed as the argument(s) to `homeshick clone`.
+# Lines starting with '#' will be ignored.
 #
-# Lines starting with '#' will be ignored, and an empty file aborts this
-# operation.
-#
-# If you remove a line that castle will NOT be installed.
-#
-# However, if you remove everything, the script will be aborted.
+# If you remove or comment a line that castle will NOT be installed.
+# However, if you remove or comment everything, the script will be aborted.
 
 # Plugin management
 gmarik/Vundle.vim
