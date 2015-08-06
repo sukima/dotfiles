@@ -21,6 +21,8 @@ cat <<'EOF' > $tmpfile
 #
 # If you remove or comment a line that castle will NOT be installed.
 # However, if you remove or comment everything, the script will be aborted.
+#
+# WARNING! This will overwrite any dotfiles that currently exist!
 
 # Plugin management
 gmarik/Vundle.vim
@@ -66,5 +68,5 @@ fi
 source $HOME/.homesick/repos/homeshick/homeshick.sh
 
 for castle in "${castles[@]}"; do
-  homeshick clone "$castle"
+  homeshick clone -f "$castle"
 done
