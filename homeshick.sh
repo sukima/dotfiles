@@ -48,7 +48,7 @@ fi
 castles=()
 
 while read line; do
-  castle=$(echo "$line" | sed '/^[ \t]*#/d;s/^[ \t]*\(.*\)[ \t]*$/\1/')
+  castle=$(echo "$line" | sed '/^[ 	]*#/d;s/^[ 	]*\(.*\)[ 	]*$/\1/')
   if [[ -n $castle ]]; then
     castles+=("$castle")
   fi
