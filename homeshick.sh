@@ -32,6 +32,7 @@ tmux-plugins/tpm
 sukima/dotfiles
 sukima/vimrc
 sukima/tmuxrc
+#sukima/irssirc
 
 # Private castles
 #sukima/muttrc
