@@ -69,5 +69,5 @@ fi
 source $HOME/.homesick/repos/homeshick/homeshick.sh
 
 for castle in "${castles[@]}"; do
-  homeshick clone -f "$castle"
+  homeshick -f clone "$castle"
 done
