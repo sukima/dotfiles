@@ -47,9 +47,8 @@ else
   alias sl="typo 'Are you dyslexic?'; ls"
 fi
 
-if command_exists gti; then
-  alias gti="gti; git" # gti is a typo program. "brew info gti"
-else
+# gti is a typo program. "brew info gti"
+if ! command_exists gti; then
   alias gti="typo 'Goddamn idiot truckload of sh*t'; git"
 fi
 
