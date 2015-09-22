@@ -24,22 +24,26 @@ if [[ $? != 0 ]]; then
   exit 3
 fi
 
-if [ -n "$extpass" ]; then
-  tmpfile="$(mktemp /tmp/encmount-extpass.XXXX)"
-  trap "rm -f '$tmpfile'" EXIT
-  echo "#!/bin/bash" > "$tmpfile"
-  echo "eval \"exec $extpass\"" >> "$tmpfile"
-  chmod 700 "$tmpfile"
-  extpassarg="--extpass=\"$tmpfile\""
-fi
-
-path="$(eval "cd $path" && pwd)"
 mount="$(eval "cd $mount" && pwd)"
 
 if [ "$umount" = "yes" ]; then
   echo umount "$mount"
   umount "$mount"
+elif [ "$type" = "sshfs" ]; then
+  echo sshfs $options "$path" "$mount"
+  sshfs $options "$path" "$mount"
 else
+  path="$(eval "cd $path" && pwd)"
+
+  if [ -n "$extpass" ]; then
+    tmpfile="$(mktemp /tmp/encmount-extpass.XXXX)"
+    trap "rm -f '$tmpfile'" EXIT
+    echo "#!/bin/bash" > "$tmpfile"
+    echo "eval \"exec $extpass\"" >> "$tmpfile"
+    chmod 700 "$tmpfile"
+    extpassarg="--extpass=\"$tmpfile\""
+  fi
+
   echo encfs $options "$extpassarg" "$path" "$mount"
   encfs $options "$extpassarg" "$path" "$mount"
 fi
