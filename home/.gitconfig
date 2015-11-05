@@ -43,6 +43,9 @@
   autocrlf = false
   whitespace = cr-at-eol
 
+[grep]
+  extendRegexp = true
+
 [apply]
   whitespace = fix
 
