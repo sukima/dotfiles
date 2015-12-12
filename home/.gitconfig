@@ -22,7 +22,7 @@
   hidden = !git ls-files -v | grep ^[a-z]
   ap = add -p
   cim = commit -m
-  serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
+  serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
   pr = !hub pull-request
   prdev = !hub pull-request -b develop
   pushtags = push --follow-tags
