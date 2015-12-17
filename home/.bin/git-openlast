@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# git openlast - look at the changed files in the previous commit and open
+# those as tabs in Vim.
+#
+
+git show --stat HEAD
+
+files=($(git diff --diff-filter=AM --ignore-submodules --name-only HEAD^ | xargs grep -Il ""))
+
+read -p "Open ${#files[@]} files in Vim tabs? (Y/n)" -n 1 -r
+
+if [[ -z $REPLY || $REPLY =~ [Yy] ]]; then
+  exec vim -p ${files[@]}
+else
+  exit 1
+fi
