@@ -5,6 +5,6 @@ function remoteirc() {
     shift; shift
   fi
   printf "\\033k${remote_irc_name:-IRC}\\033\\\\"
-  ssh -t "$@" '$HOME/.bin/tirssi'
+  ssh -t "$@" '/bin/bash -l $HOME/.bin/tirssi'
 }
 # vim:ft=sh
