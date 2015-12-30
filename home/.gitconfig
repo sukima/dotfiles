@@ -21,13 +21,12 @@
   unhide = update-index --no-assume-unchanged
   hidden = !git ls-files -v | grep ^[a-z]
   ap = add -p
-  cim = commit -m
   serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
   pr = !hub pull-request
   prdev = !hub pull-request -b develop
   pushtags = push --follow-tags
   pushorigin = push -u origin HEAD
-  amend = commit -v --amend
+  amend = commit -v --amend --no-edit
   fixup = commit --fixup
   squash = commit --squash
   prune = remote prune
