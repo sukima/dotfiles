@@ -26,6 +26,7 @@
   prdev = !hub pull-request -b develop
   pushtags = push --follow-tags
   pushorigin = push -u origin HEAD
+  wip = commit -m WIP
   amend = commit -v --amend --no-edit
   reword = commit -v --amend
   fixup = commit --fixup
