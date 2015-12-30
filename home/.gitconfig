@@ -27,6 +27,7 @@
   pushtags = push --follow-tags
   pushorigin = push -u origin HEAD
   amend = commit -v --amend --no-edit
+  reword = commit -v --amend
   fixup = commit --fixup
   squash = commit --squash
   prune = remote prune
