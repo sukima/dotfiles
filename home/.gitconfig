@@ -23,7 +23,6 @@
   ap = add -p
   serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
   pr = !hub pull-request
-  prdev = !hub pull-request -b develop
   pushtags = push --follow-tags
   pushorigin = push -u origin HEAD
   wip = commit -m WIP
@@ -32,7 +31,6 @@
   fixup = commit --fixup
   squash = commit --squash
   prune = remote prune
-  pruneo = remote prune origin
   pruneall = !git remote prune origin | tee /dev/stderr | grep pruned | sed -e 's+^.*origin/+git branch -d +' | sh
   ctags = !.git/hooks/ctags
   this = rev-parse --abbrev-ref HEAD
