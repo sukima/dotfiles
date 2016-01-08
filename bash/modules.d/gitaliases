@@ -1,27 +1,11 @@
-# A set of aliases for easy use of git commands
-alias gs='git status -sb'
-alias gss='git status'
-alias gst='git stash'
-alias grl='git revlog'
-alias gco='git checkout'
-alias gci='git commit'
-alias gp='git add --patch'
-alias gpl='git pull'
-alias gph='git push'
-alias gm='git merge'
-alias grb='git rebase'
-alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset" --abbrev-commit --date=relative'
-alias gls='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset" --abbrev-commit --date=relative -n 10'
-alias gg='git grep'
-alias gb='git branch'
-alias gbl='git blame'
-alias gbi='git bisect'
-alias gr='git reset'
-alias ga='git add'
-alias gau='git add -u'
-alias grm='git rm'
-alias gmv='git mv'
-alias gd='git diff'
-alias gdc='git diff --cached'
-alias gui='git gui'
-alias gk='gitk'
+# Alias g to git
+
+g() {
+  if [[ $# > 0 ]]; then
+    git $@
+  else
+    git status -sb
+  fi
+}
+
+complete -o bashdefault -o default -o nospace -F __git_wrap__git_main g
