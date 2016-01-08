@@ -35,7 +35,7 @@
   pruneo = remote prune origin
   pruneall = !git remote prune origin | tee /dev/stderr | grep pruned | sed -e 's+^.*origin/+git branch -d +' | sh
   ctags = !.git/hooks/ctags
-  thisbranch = rev-parse --abbrev-ref HEAD
+  this = rev-parse --abbrev-ref HEAD
 
 [core]
   ignorecase = false
