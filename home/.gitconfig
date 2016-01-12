@@ -33,6 +33,7 @@
   pruneall = !git remote prune origin | tee /dev/stderr | grep pruned | sed -e 's+^.*origin/+git branch -d +' | sh
   ctags = !.git/hooks/ctags
   this = rev-parse --abbrev-ref HEAD
+  browse = !hub browse
 
 [core]
   ignorecase = false
