@@ -5,15 +5,15 @@ set editing-mode vi
 set completion-query-items 40
 
 # Ignore case for the command-line-completion functionality
-set completion-ignore-case on
+set completion-ignore-case off
+
+# Show all instead of beeping first
+set show-all-if-ambiguous on
 
 # visible-stats
 # Append a mark according to the file type in a listing
 set visible-stats off
 set mark-directories on
-
-# Show all instead of beeping first
-set show-all-if-ambiguous off
 
 # Better normal mode escaping management
 $if mode=vi
