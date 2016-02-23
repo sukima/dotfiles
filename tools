@@ -55,15 +55,11 @@ command_exists() {
 # Utility functions to manipulate the PATH.
 # Used to prevent duplicates on multiple calls.
 inPath() {
-	echo "${PATH}" | grep "$1" > /dev/null
+	[[ "$PATH" == *"$1"* ]]
 }
 
 notInPath() {
-	if inPath "$1"; then
-		return 1
-	else
-		return 0
-	fi
+	[[ "$PATH" != *"$1"* ]]
 }
 
 addToPath() {

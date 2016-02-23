@@ -1,7 +1,7 @@
 # Add mac commandline tools to path (devtools, aliases)
-if [ -d /Developer/Tools ]; then
+if [[ -d /Developer/Tools ]]; then
     addToPath /Developer/Tools
-elif [ -d /Applications/Xcode.app/Contents/Developer/Tools ]; then
+elif [[ -d /Applications/Xcode.app/Contents/Developer/Tools ]]; then
     addToPath /Applications/Xcode.app/Contents/Developer/Tools
 fi
 
