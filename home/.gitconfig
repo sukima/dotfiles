@@ -35,6 +35,7 @@
   this = rev-parse --abbrev-ref HEAD
   browse = !hub browse
   propen = prbrowse
+  bfind = !git branch | grep
 
 [core]
   ignorecase = false
