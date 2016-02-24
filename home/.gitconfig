@@ -57,8 +57,8 @@
   autosquash = true
 
 [merge]
-  ; conflictstyle = diff3
-  conflictstyle = merge
+  conflictstyle = diff3
+  ; conflictstyle = merge
   tool = fugitive
 
 [rerere]
