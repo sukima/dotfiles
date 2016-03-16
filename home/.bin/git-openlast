@@ -4,9 +4,11 @@
 # those as tabs in Vim.
 #
 
-git show --stat HEAD
+REF="${1:-HEAD}"
 
-files=($(git diff --diff-filter=AM --ignore-submodules --name-only HEAD^ | xargs grep -Il ""))
+git show --stat "$REF"
+
+files=($(git diff --diff-filter=AM --ignore-submodules --name-only "${REF}^..${REF}" | xargs grep -Il ""))
 
 read -p "Open ${#files[@]} files in Vim tabs? (Y/n)" -n 1 -r
 
