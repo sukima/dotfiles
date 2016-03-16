@@ -23,6 +23,7 @@
   ap = add -p
   serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
   pr = !hub pull-request
+  pushf = push --force-with-lease
   pushtags = push --follow-tags
   pushorigin = push -u origin HEAD
   amend = commit -v --amend --no-edit
