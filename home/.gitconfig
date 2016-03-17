@@ -1,8 +1,3 @@
-[user]
-  name = Devin Weaver
-  email = suki@tritarget.org
-  signingkey = DE767C8A
-
 [alias]
   s = status -sb
   l = log --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %Cblue<%aN>%Creset%C(yellow)%d%Creset' --abbrev-commit --date=relative
