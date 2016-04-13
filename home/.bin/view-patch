@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec vim "${1:--}" '+setl ft=diff' '+setl nomod'
