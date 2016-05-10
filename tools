@@ -21,6 +21,28 @@ readModuleConfig() {
 	sed -e 's/#.*//' -e 's/[ 	]*$//' -e 's/^[ 	]*//' -e '/^$/ d' "$1"
 }
 
+rebuildModulesConfig() {
+	local module
+	local modules=$(readModuleConfig "$HOME/.bash_modules")
+	cat > ~/.bash_modules <<-"EOF"
+		# bash_modules - defines what modules to load into the bash environment
+		# Repository at http://github.com/sukima/dotfiles
+		# Generated for the first time by repository install.sh.
+		#
+		# Uncomment any of the following modules to load on next shell invocation.
+		EOF
+	for p in ~/.homesick/repos/dotfiles/bash/modules.d/*; do
+		module=$(basename "$p")
+		echo
+		egrep "^#[^!][	]*[^	]" $p | head -n1
+		if [[ "$modules" =~ "$module" ]]; then
+			echo "$module"
+		else
+			echo "# $module"
+		fi
+	done >> ~/.bash_modules
+}
+
 # A util function to setup missing file paths that some programs and scripts
 # expect.
 setupTempPaths() {
@@ -29,20 +51,7 @@ setupTempPaths() {
 	touch ~/.vim/local.vim
 	touch ~/.vim/local_gui.vim
 	touch ~/.bash_aliases
-	if [[ ! -e ~/.bash_modules ]]; then
-		cat > ~/.bash_modules <<-"EOF"
-			# bash_modules - defines what modules to load into the bash environment
-			# Repository at http://github.com/sukima/dotfiles
-			# Generated for the first time by repository install.sh.
-			#
-			# Uncomment any of the following modules to load on next shell invocation.
-			EOF
-		for p in ~/.homesick/repos/dotfiles/bash/modules.d/*; do
-			echo
-			egrep "^#[^!][	]*[^	]" $p | head -n1
-			echo "# $(basename $p)"
-		done >> ~/.bash_modules
-	fi
+	[[ -e ~/.bash_modules ]] || rebuildModulesConfig
 }
 
 fixtty() {
