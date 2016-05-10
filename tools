@@ -17,6 +17,10 @@ chmod_format() {
 		s/^0*\(..*\)|.*/\1/;q'
 }
 
+readModuleConfig() {
+	sed -e 's/#.*//' -e 's/[ 	]*$//' -e 's/^[ 	]*//' -e '/^$/ d' "$1"
+}
+
 # A util function to setup missing file paths that some programs and scripts
 # expect.
 setupTempPaths() {
