@@ -50,6 +50,7 @@ setupTempPaths() {
 	touch ~/.tmux.conf.local
 	touch ~/.vim/local.vim
 	touch ~/.vim/local_gui.vim
+	touch ~/.gitconfig.local
 	touch ~/.bash_aliases
 	[[ -e ~/.bash_modules ]] || rebuildModulesConfig
 }
