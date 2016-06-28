@@ -55,7 +55,7 @@
 [merge]
   conflictstyle = diff3
   ; conflictstyle = merge
-  tool = fugitive
+  tool = vimonly
 
 [rerere]
   enabled = true
@@ -68,8 +68,11 @@
   trustExitCode = false
   keepBackup = false
 
+[mergetool "vimonly"]
+  cmd = vim "$MERGED"
+
 [mergetool "fugitive"]
-  cmd = vim "+Gdiff" $MERGED
+  cmd = vim "+Gdiff" "$MERGED"
 
 [color]
   ui = auto
