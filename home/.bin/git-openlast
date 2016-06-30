@@ -8,7 +8,7 @@ REF="${1:-HEAD}"
 
 git show --stat "$REF"
 
-files=($(git diff --diff-filter=AM --ignore-submodules --name-only "${REF}^..${REF}" | xargs grep -Il ""))
+files=($(git diff --diff-filter=AM --ignore-submodules --name-only --no-renames "${REF}^..${REF}" | xargs grep -Il ""))
 
 read -p "Open ${#files[@]} files in Vim tabs? (Y/n)" -n 1 -r
 
