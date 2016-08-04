@@ -4,7 +4,6 @@
 " set editor="/bin/bash -l -- mvim -f"
 
 imap <C-S-I> <C-i>
-cnoremap jk <esc>
 
 command console emenu Tools.Web Developer.Toggle Tools
 command pad emenu Tools.Web Developer.Scratchpad
