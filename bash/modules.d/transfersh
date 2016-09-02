@@ -1,23 +1,24 @@
 # Command line cloud based file share using curl and https://transfer.sh/
 
 transfer() {
-  infile="$1"
-  outfile="$2"
-
-  if [[ -z "$outfile" ]]; then
-    outfile="$infile"
-  fi
-
-  if [[ -z "$infile" || "$outfile" = "-" ]]; then
-    echo "usage: transfer FILE [NAME]" >&2
-    echo "  FILE  file path or - for stdin" >&2
-    echo "  NAME  filename (required when reading from stdin)" >&2
+  if [ $# -eq 0 ]; then
+    echo "No arguments specified. Usage:"
+    echo "echo transfer /tmp/test.md"
+    echo "cat /tmp/test.md | transfer test.md"
     return 1
   fi
 
-  curl -X PUT --upload-file "$infile" "https://transfer.sh/${outfile}"
+  tmpfile=$( mktemp -t transferXXX )
 
-  return 0
+  if tty -s; then
+    basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g')
+    curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile
+  else
+    curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile
+  fi
+
+  cat $tmpfile
+  rm -f $tmpfile
 }
 
 # vim:sw=2 ts=2 et ft=sh
