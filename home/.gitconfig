@@ -63,6 +63,9 @@
 [diff]
   tool = vimdiff
 
+[diff "pgp"]
+  textconv = gpg -v
+
 [mergetool "diffconflicts"]
   cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
   trustExitCode = false
