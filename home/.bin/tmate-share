@@ -1,0 +1,57 @@
+#!/bin/bash
+
+if [[ -z $TMATE_SHARE ]]; then
+	echo "Missing TMATE_SHARE from environment." >&2
+	exit 1;
+fi
+
+ssh_session="$(tmate display -p '#{tmate_ssh}')"
+ssh_ro_session="$(tmate display -p '#{tmate_ssh_ro}')"
+web_session="$(tmate display -p '#{tmate_web}')"
+web_ro_session="$(tmate display -p '#{tmate_web_ro}')"
+share_dir="${TMATE_SHARE}/tmate-session-${USER}"
+
+if [[ -z $ssh_session ]]; then
+	echo "tmate-share must be ran inside a tmate session." >&2
+	exit 1
+fi
+
+if [[ ! -d "$share_dir" ]]; then
+	mkdir "$share_dir"
+fi
+
+echo "$ssh_session" > "${share_dir}/ssh.txt"
+echo "$ssh_ro_session" > "${share_dir}/ssh-ro.txt"
+echo "$web_session" > "${share_dir}/web.txt"
+echo "$web_ro_session" > "${share_dir}/web-ro.txt"
+
+cat > "${share_dir}/tmate-start" <<EOF
+#!/bin/bash
+mode=ssh
+ro=""
+while test \$# -gt 0; do
+	case \$1 in
+		-h | --help) echo "Usage: tmate-start [-hswr]"; exit 0 ;;
+		-s | --ssh) mode=ssh ;;
+		-w | --web) mode=web ;;
+		-r | --ro) ro=-ro ;;
+		-*)
+			split=\$1
+			shift
+			set -- \$(echo "\$split" | cut -c 2- | sed 's/./-& /g') "\$@"
+			continue
+			;;
+	esac
+	shift
+done
+case "\${mode}\${ro}" in
+	ssh-ro) exec $ssh_ro_session ;;
+	ssh) exec $ssh_session ;;
+	web-ro) exec open "$web_ro_session" ;;
+	web) exec open "$web_session" ;;
+esac
+EOF
+
+chmod 755 "${share_dir}/tmate-start"
+
+# vim:ft=sh ts=2 sw=2 noet
