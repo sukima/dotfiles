@@ -40,6 +40,9 @@
   autocrlf = false
   whitespace = cr-at-eol
 
+[commit]
+  verbose = true
+
 [grep]
   extendRegexp = true
 
