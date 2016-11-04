@@ -10,9 +10,11 @@ git show --stat "$REF"
 
 files=($(git diff --diff-filter=AM --ignore-submodules --name-only --no-renames "${REF}^..${REF}" | xargs grep -Il ""))
 
-read -p "Open ${#files[@]} files in Vim tabs? (Y/n)" -n 1 -r
+read -p "Open ${#files[@]} files in Vim? (Y/n/t)" -n 1 -r
 
 if [[ -z $REPLY || $REPLY =~ [Yy] ]]; then
+  exec vim ${files[@]}
+elif [[ $REPLY =~ [Tt] ]]; then
   exec vim -p ${files[@]}
 else
   exit 1
