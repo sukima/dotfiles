@@ -4,18 +4,36 @@
 # those as tabs in Vim.
 #
 
-REF="${1:-HEAD}"
-
-git show --stat "$REF"
-
-files=($(git diff --diff-filter=AM --ignore-submodules --name-only --no-renames "${REF}^..${REF}" | xargs grep -Il ""))
+case $1 in
+  -h|--help)
+    echo "Usage: git openlast [--status] [COMMIT_REF]"
+    echo "  -s|--status  open files in git status"
+    echo "  COMMIT_REF   open files in commit COMMIT_REF (default HEAD)"
+    exit 0
+    ;;
+  -s|--status)
+    REF="Status"
+    OLD_IFS="$IFS"
+    IFS=$'\n'
+    files=($(git ls-files -z -m --others --exclude-standard | xargs -0 grep -Il ""))
+    IFS="$OLD_IFS"
+    git status
+    ;;
+  *)
+    REF="${1:-HEAD}"
+    OLD_IFS="$IFS"
+    IFS=$'\n'
+    files=($(git diff -z --diff-filter=AM --ignore-submodules --name-only --no-renames "${REF}^..${REF}" | xargs -0 grep -Il ""))
+    IFS="$OLD_IFS"
+    git show --stat "$REF"
+esac
 
 read -p "Open ${#files[@]} files in Vim? (Y/n/t)" -n 1 -r
 
 if [[ -z $REPLY || $REPLY =~ [Yy] ]]; then
-  exec vim ${files[@]}
+  exec vim -q <(printf "%s|1| Referenced in commit ${REF}\n" "${files[@]}")
 elif [[ $REPLY =~ [Tt] ]]; then
-  exec vim -p ${files[@]}
+  exec vim -p -- "${files[@]}"
 else
   exit 1
 fi
