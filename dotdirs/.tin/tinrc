@@ -1,5 +1,5 @@
-# tin configuration file V1.3.12
-# This file was automatically saved by tin 2.2.0 20131224 ("Lochindaal")
+# tin configuration file V1.3.13
+# This file was automatically saved by tin 2.4.0 20160823 ("Octomore")
 #
 # Do not edit while tin is running, since all your changes to this file
 # will be overwritten when you leave tin.
@@ -111,7 +111,7 @@ thread_perc=75
 # group selection level
 show_description=ON
 
-# Part of from field to display
+# Part of From field to display in group and thread level
 # Possible values are (the default is marked with *):
 #   0 = none
 #   1 = address
@@ -161,6 +161,12 @@ sort_article_type=6
 #   3 = Last posting date descending
 #   4 = Last posting date ascending
 sort_threads_type=1
+
+# Function for sorting articles
+# Possible values are (the default is marked with *):
+# * 0 = qsort
+#   1 = heapsort
+sort_function=0
 
 # (-m) directory where articles/threads are saved in mailbox format
 maildir=/Users/suki/Mail
@@ -315,6 +321,11 @@ verbatim_begin_regex=#v\+\s$
 # a verbatim block.
 verbatim_end_regex=#v-\s$
 
+# A regular expression that tin will use to decide which lines are
+# external quotes. Text from external quotes is shown in col_extquote.
+# If you leave this blank, tin will use a built in default.
+extquote_regex=^\|\s
+
 # If OFF don't show signatures when displaying articles
 show_signatures=ON
 
@@ -403,9 +414,6 @@ use_mouse=ON
 
 # If ON strip blanks from ends of lines for faster display on slow terminals.
 strip_blanks=ON
-
-# Maximum length of the names of newsgroups displayed
-groupname_max_length=32
 
 # If ON abbreviate (if necessary) long newsgroup names at group selection
 # level and article level like this:
@@ -520,6 +528,10 @@ col_newsheaders=9
 # Color of article subject
 # Default: 6 (cyan)
 col_subject=6
+
+# Color of quoted text from external sources
+# Default: 5 (pink)
+col_extquote=5
 
 # Color of response counter
 # Default: 2 (green)
@@ -667,6 +679,9 @@ alternative_handling=ON
 
 # If ON detect verbatim blocks in articles
 verbatim_handling=ON
+
+# If ON detect quoted text from external sources in articles
+extquote_handling=OFF
 
 # If ON strip unsubscribed groups from newsrc
 strip_newsrc=OFF
