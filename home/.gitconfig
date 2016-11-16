@@ -32,6 +32,7 @@
   browse = !hub browse
   propen = prbrowse
   bfind = !git branch | grep
+  decapitate = reset --hard @{u}
 
 [core]
   ignorecase = false
