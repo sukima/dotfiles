@@ -1,0 +1,16 @@
+# Tap into piped data
+
+tap() {
+	f="$(mktemp)"
+	cat > "$f"
+	"${EDITOR:-vim}" "$f" < /dev/tty > /dev/tty
+	ee="$?"
+	if [ "$ee" == "0" ]; then
+		cat "$f"
+		rm "$f"
+	else
+		rm "$f"
+		echo "Editor exited with code $ee, and not success exit code" 1>&2
+		return "$ee"
+	fi
+}
