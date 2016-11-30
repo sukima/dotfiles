@@ -21,7 +21,7 @@ EMOJI=(
 if [[ "$1" == "-s" ]]; then
   PS3="(^d to cancel) #?"
   select CHOICE in "${EMOJI[@]}"; do
-    tmux send-keys -l -t:.- $CHOICE
+    tmux send-keys -l -t:.- "$CHOICE"
     exit 0
   done
 else
