@@ -2,42 +2,59 @@
 
 VERSION=1.0
 config_file="${HOME}/.pomodororc"
+lockdir="${HOME}/.pomodoro"
+mode="status"
+
+usage() {
+  echo "Usage: pomodoro [-vhspblk] [-c FILE] [--lockdir DIR]"
+  echo "Version: $VERSION"
+  echo "  -h, --help         This cruft"
+  echo "  -v, --version      Print the version"
+  echo "  -s, --status       Output status for current running Pomodoro"
+  echo "  -p, --pomodoro     Start a Pomodoro"
+  echo "  -b, --break        Start a short break"
+  echo "  -l, --long-break   Start a long break"
+  echo "  -k, --kill         Kill current running Pomodoro"
+  echo "  -c, --config FILE  Load config from FILE (default '~/.pomodororc')"
+  echo "  --lockdir DIR      Use DIR to save the lockfiles (default '~/.pomodoro')"
+}
 
 while test $# -gt 0
 do
   case $1 in
   # Normal option processing
     -h | --help)
-      echo "Usage: pomodoro [-c FILE] [-hvpbl]"
-      echo "Version: $VERSION"
-      echo "  -h, --help         This cruft"
-      echo "  -v, --version      Print the version"
-      echo "  -c, --config FILE  Load config from FILE (default '~/.pomodororc')"
-      echo "  -p, --pomodoro     Start a Pomodoro"
-      echo "  -b, --break        Start a short break"
-      echo "  -l, --long-break   Start a long break"
-      echo "  -d, --display      Output status for current running Pomodoro"
+      usage
+      exit 0
       ;;
     -v | --version)
       echo "Version: $VERSION"
       exit 0
       ;;
-    -c | --config)
-      config_file="$2"
-      shift
+    -s | --status)
+      mode="status"
       ;;
     -p | --pomodoro)
-      timer="pomodoro"
+      mode="pomodoro"
       ;;
     -b | --break)
-      timer="break"
+      mode="break"
       ;;
     -l | --long-break)
-      timer="longbrake"
+      mode="longbrake"
       ;;
-    -d | --display)
-      cat "bork"
+    -k | --kill)
+      mode="kill"
       ;;
+    -c | --config)
+      shift
+      config_file="$1"
+      ;;
+    --lockdir)
+      shift
+      lock_dir="$1"
+      ;;
+
   # ...
 
   # Special cases
@@ -45,7 +62,8 @@ do
       break
       ;;
     --* | -?)
-      echo "unknown option $1" >&2
+      echo "pomodoro: unknown option -- $1" >&2
+      usage >&2
       exit 1
       ;;
 
@@ -57,3 +75,7 @@ do
 
   shift
 done
+
+echo "config_file: $config_file"
+echo "lockdir: $lockdir"
+echo "mode: $mode"
