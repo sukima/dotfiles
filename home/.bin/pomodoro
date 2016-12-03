@@ -1,0 +1,59 @@
+#!/bin/bash
+
+VERSION=1.0
+config_file="${HOME}/.pomodororc"
+
+while test $# -gt 0
+do
+  case $1 in
+  # Normal option processing
+    -h | --help)
+      echo "Usage: pomodoro [-c FILE] [-hvpbl]"
+      echo "Version: $VERSION"
+      echo "  -h, --help         This cruft"
+      echo "  -v, --version      Print the version"
+      echo "  -c, --config FILE  Load config from FILE (default '~/.pomodororc')"
+      echo "  -p, --pomodoro     Start a Pomodoro"
+      echo "  -b, --break        Start a short break"
+      echo "  -l, --long-break   Start a long break"
+      echo "  -d, --display      Output status for current running Pomodoro"
+      ;;
+    -v | --version)
+      echo "Version: $VERSION"
+      exit 0
+      ;;
+    -c | --config)
+      config_file="$2"
+      shift
+      ;;
+    -p | --pomodoro)
+      timer="pomodoro"
+      ;;
+    -b | --break)
+      timer="break"
+      ;;
+    -l | --long-break)
+      timer="longbrake"
+      ;;
+    -d | --display)
+      cat "bork"
+      ;;
+  # ...
+
+  # Special cases
+    --)
+      break
+      ;;
+    --* | -?)
+      echo "unknown option $1" >&2
+      exit 1
+      ;;
+
+  # Done with options
+    *)
+      break
+      ;;
+  esac
+
+  shift
+done
