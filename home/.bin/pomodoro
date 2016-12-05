@@ -2,11 +2,10 @@
 
 VERSION=1.0
 config_file="${HOME}/.pomodororc"
-lockdir="${HOME}/.pomodoro"
-mode="status"
+mode_command="status"
 
 usage() {
-  echo "Usage: pomodoro [-vhspblk] [-c FILE] [--lockdir DIR]"
+  echo "Usage: pomodoro [-hvspbl] [-c FILE]"
   echo "Version: $VERSION"
   echo "  -h, --help         This cruft"
   echo "  -v, --version      Print the version"
@@ -14,9 +13,11 @@ usage() {
   echo "  -p, --pomodoro     Start a Pomodoro"
   echo "  -b, --break        Start a short break"
   echo "  -l, --long-break   Start a long break"
-  echo "  -k, --kill         Kill current running Pomodoro"
   echo "  -c, --config FILE  Load config from FILE (default '~/.pomodororc')"
-  echo "  --lockdir DIR      Use DIR to save the lockfiles (default '~/.pomodoro')"
+}
+
+status() {
+  echo "Status command executed"
 }
 
 while test $# -gt 0
@@ -32,27 +33,20 @@ do
       exit 0
       ;;
     -s | --status)
-      mode="status"
+      mode_command="status"
       ;;
     -p | --pomodoro)
-      mode="pomodoro"
+      mode_command="pomodoro"
       ;;
     -b | --break)
-      mode="break"
+      mode_command="break"
       ;;
     -l | --long-break)
-      mode="longbrake"
-      ;;
-    -k | --kill)
-      mode="kill"
+      mode_command="longbrake"
       ;;
     -c | --config)
       shift
       config_file="$1"
-      ;;
-    --lockdir)
-      shift
-      lock_dir="$1"
       ;;
 
   # ...
@@ -77,5 +71,5 @@ do
 done
 
 echo "config_file: $config_file"
-echo "lockdir: $lockdir"
-echo "mode: $mode"
+echo "mode_command: $mode_command"
+$mode_command
