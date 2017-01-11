@@ -45,6 +45,7 @@
   verbose = true
 
 [grep]
+  lineNumber = true
   extendRegexp = true
 
 [apply]
