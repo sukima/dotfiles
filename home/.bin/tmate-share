@@ -54,4 +54,8 @@ EOF
 
 chmod 755 "${share_dir}/tmate-start"
 
+if hash pbcopy >/dev/null 2>&1; then
+	printf '```%s```' "$ssh_session" | pbcopy
+fi
+
 # vim:ft=sh ts=2 sw=2 noet
