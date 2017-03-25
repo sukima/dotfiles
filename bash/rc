@@ -14,6 +14,7 @@ IGNOREEOF=1
 
 # allow CTRL-S to work
 stty stop undef
+shopt -s extglob
 
 if [ ! -n "$HOSTNAME" ]; then
 	HOSTNAME=`hostname -s`
