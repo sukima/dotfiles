@@ -1,7 +1,7 @@
 [alias]
   s = status -sb
-  l = log --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %Cblue<%aN>%Creset%C(yellow)%d%Creset' --abbrev-commit --date=relative
-  sl = log --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %Cblue<%aN>%Creset%C(yellow)%d%Creset' --abbrev-commit --date=relative -n 10
+  l = log --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %Cblue<%G?:%aN>%Creset%C(yellow)%d%Creset' --abbrev-commit --date=relative --no-show-signature
+  sl = !git l -n 10
   ci = commit -v
   co = checkout
   st = status
@@ -43,6 +43,11 @@
 
 [commit]
   verbose = true
+  # Add to ~/.gitconfig.local to sign every commit
+  # gpgSign = true
+
+[log]
+  showsignature = true
 
 [grep]
   lineNumber = true
