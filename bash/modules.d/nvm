@@ -1,7 +1,24 @@
 # Setup NVM if it is installed (nvm_install aliased if not)
+
 if test -r "$HOME/.nvm/nvm.sh" ; then
-    . "$HOME/.nvm/nvm.sh"  # This loads NVM into a shell session.
+  declare -a NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
+
+  NODE_GLOBALS+=("node")
+  NODE_GLOBALS+=("nvm")
+
+  load_nvm() {
+    export NVM_DIR=~/.nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  }
+
+  old_ifs=$IFS
+  IFS=" "
+  for cmd in "${NODE_GLOBALS[@]}"; do
+    eval "${cmd}(){ unset -f ${NODE_GLOBALS[*]}; load_nvm; ${cmd} \$@; }"
+  done
+  IFS=$old_ifs
 else
-    alias nvm_install="curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash"
+  alias nvm_install="curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash"
 fi
-# vim:set ft=sh sw=4 et fdm=marker :
+
+# vim: ft=sh sw=2 et
