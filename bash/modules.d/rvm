@@ -1,10 +1,11 @@
 # Setup RVM if it is installed (rvm_install aliased if not)
+
 if test -r "$HOME/.rvm/scripts/rvm" ; then
-    . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
+  . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
 elif test -r "/usr/local/rvm/scripts/rvm" ; then
-    . "/usr/local/rvm/scripts/rvm"
+  . "/usr/local/rvm/scripts/rvm"
 else
-    alias rvm_install="curl -L https://get.rvm.io | bash -s stable"
+  alias rvm_install="curl -L https://get.rvm.io | bash -s stable"
 fi
 
-# vim:set ft=sh sw=4 et fdm=marker :
+# vim:ft=sh sw=2 et
