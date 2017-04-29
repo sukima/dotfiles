@@ -22,10 +22,6 @@ fi
 
 # homeshick stuff
 source $HOME/.homesick/repos/homeshick/homeshick.sh
-# Check if castles need refreshing
-if [ -z "$HOMESHICK_SKIP_REFRESH" ]; then
-	homeshick --quiet refresh 14 $HOMESHICK_REFRESH_REPOS
-fi
 source $HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash
 
 source $rcfiles/bash/vars
