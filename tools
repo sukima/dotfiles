@@ -18,13 +18,15 @@ chmod_format() {
 }
 
 readModuleConfig() {
-	sed -e 's/#.*//' -e 's/[ 	]*$//' -e 's/^[ 	]*//' -e '/^$/ d' "$1"
+	if [[ -f "$1" ]]; then
+		sed -e 's/#.*//' -e 's/[ 	]*$//' -e 's/^[ 	]*//' -e '/^$/ d' "$1"
+	fi
 }
 
 rebuildModulesConfig() {
 	local module
 	local modules=$(readModuleConfig "$HOME/.bash_modules")
-	cat > ~/.bash_modules <<-"EOF"
+	cat > "$HOME/.bash_modules" <<-"EOF"
 		# bash_modules - defines what modules to load into the bash environment
 		# Repository at http://github.com/sukima/dotfiles
 		# Generated for the first time by repository install.sh.
