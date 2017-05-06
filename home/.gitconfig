@@ -100,6 +100,7 @@
 
 [gui]
   diffopts = --patience
+  gcwarning = false
 
 [init]
   templatedir = ~/.git_template
