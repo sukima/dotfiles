@@ -1,0 +1,5 @@
+# Check if homeshick castles need refreshing
+
+if [ -z "$HOMESHICK_SKIP_REFRESH" ]; then
+  homeshick --quiet refresh 14 $HOMESHICK_REFRESH_REPOS
+fi
