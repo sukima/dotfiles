@@ -2,6 +2,7 @@
   s = status -sb
   l = log --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %Cblue<%G?:%aN>%Creset%C(yellow)%d%Creset' --abbrev-commit --date=relative --no-show-signature
   sl = !git l -n 10
+  cl = show -s --no-show-signature --date=short --pretty='format:%h (\"%s\", %ad)'
   ci = commit -v
   co = checkout
   st = status
