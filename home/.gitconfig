@@ -34,6 +34,7 @@
   propen = prbrowse
   bfind = !git branch | grep
   decapitate = reset --hard @{u}
+  unwip = !git reset -q HEAD^ && git status -sb
 
 [core]
   ignorecase = false
