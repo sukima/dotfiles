@@ -35,6 +35,8 @@
   bfind = !git branch | grep
   decapitate = reset --hard @{u}
   unwip = !git reset -q HEAD^ && git status -sb
+  lsb = branch --sort=committerdate
+  setup-fetching-prs = !git config --add remote.origin.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*' && git fetch origin
 
 [core]
   ignorecase = false
