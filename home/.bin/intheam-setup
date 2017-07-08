@@ -1,0 +1,48 @@
+#!/bin/bash
+
+if [[ -z $INTHEAM_API_KEY ]]; then
+  read -s -p "Enter Inthe.AM API Key: " INTHEAM_API_KEY
+fi
+
+if [[ -z $INTHEAM_API_KEY ]]; then
+  echo "No API key; quiting" >&2
+  exit 1
+fi
+
+apiRequest() {
+  curl -H "Authorization: Token $INTHEAM_API_KEY" "https://inthe.am/api/v2/user/$1/"
+}
+
+apiRequest my-certificate > ~/.task/private.certificate.pem
+apiRequest my-key > ~/.task/private.key.pem
+apiRequest ca-certificate > ~/.task/ca.cert.pem
+
+echo "Certificates and keys downloaded."
+
+if hash jq >/dev/null 2>&1; then
+  :
+else
+  echo "The program jq not in PATH; configuration summary skipped."
+  exit 0
+fi
+
+tempfile=$(mktemp)
+trap "rm -f '$tempfile'" EXIT
+
+apiRequest status > "$tempfile"
+
+server=$(cat "$tempfile" | jq -r .taskd_server)
+credentials=$(cat "$tempfile" | jq -r .taskd_credentials)
+trust=$(cat "$tempfile" | jq -r .taskd_files.taskd_trust)
+
+cat <<EOF > ~/.task/intheam.conf
+taskd.certificate=~/.task/private.certificate.pem
+taskd.key=~/.task/private.key.pem
+taskd.ca=~/.task/ca.cert.pem
+taskd.server=$server
+taskd.credentials=$credentials
+taskd.trust=$trust
+EOF
+
+echo "Configuration file saved (~/.task/intheam.conf)"
+echo "Done."
