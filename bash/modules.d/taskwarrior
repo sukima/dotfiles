@@ -12,7 +12,11 @@ alias in='task add +in'
 tickle () {
   deadline=$1
   shift
-  task add +in +tickle wait:$deadline $@
+  if [[ $1 =~ [^0-9] ]]; then
+    task add +in +tickle wait:$deadline $@
+  else
+    task $1 modify +tickle wait:$deadline
+  fi
 }
 
 alias tick=tickle
