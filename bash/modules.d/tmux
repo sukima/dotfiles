@@ -19,6 +19,6 @@ tmux_start() {
   fi
 }
 
-alias t='tmux_start'
+alias tm='tmux_start'
 
 # vim:set ft=sh:
