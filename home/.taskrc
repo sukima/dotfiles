@@ -43,7 +43,7 @@ report.in.description       = Inbox
 report.in.filter            = status:pending limit:page (+in)
 report.in.labels            = ID,Description
 
-context.work=+@work or +@computer or +@phone or +@online
-context.home=+@home or +@computer or +@phone or +@online
+context.work=+@work
+context.home=+@home
 
 include ~/.task/intheam.conf
