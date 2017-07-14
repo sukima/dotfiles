@@ -45,7 +45,22 @@ review_next() {
   fi
 }
 
+project_note() {
+  local id="$1"
+  local dir="$HOME/.task/project_notes"
+  local file="$dir/$id.otl"
+
+  if [[ -z $id ]]; then
+    echo "Missing project name"
+    return 1
+  fi
+
+  mkdir -p $dir
+  ${VISUAL:-${EDITOR:-vi}} "$file"
+}
+
 alias rnr=read_and_review
+alias n=project_note
 alias t=task
 
 # vim: ft=sh ts=2 sw=2 et
