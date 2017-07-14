@@ -30,6 +30,17 @@ read_and_review (){
   task "$id" annotate "$link"
 }
 
+review_next() {
+  local projects=$((task +PROJECT +PENDING +READY -waiting _projects; task +PROJECT +next _projects) | uniq -u)
+  if [[ -n $projects ]]; then
+    echo -e "\033[0;31mAttention: The following projects don't currently have a next action:\033[0m\n"
+    echo "$projects"
+    return 1
+  else
+    return 0
+  fi
+}
+
 alias rnr=read_and_review
 
 # vim: ft=sh ts=2 sw=2 et
