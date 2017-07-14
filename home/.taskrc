@@ -48,7 +48,7 @@ report.standup.filter=+READY and +@work
 report.standup.sort=urgency-
 report.standup.labels=,Project,Description,Tags
 
-context.work=+@work
-context.home=+@home
+context.work=+@work or +in
+context.home=+@home or +in
 
 include ~/.task/intheam.conf
