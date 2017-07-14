@@ -34,15 +34,31 @@ read_and_review (){
   task "$id" annotate "$link"
 }
 
-review_next() {
+inbox() {
+  local NC="\033[0m"
+  local RED="\033[0;31m"
+  local GREEN="\033[0;32m"
+  local YELLOW="\033[0;33m"
+
+  local IS_OK=0
+  local inbox=$(task +PENDING +READY +in count)
   local projects=$((task +PROJECT +PENDING +READY -waiting _projects; task +PROJECT +next _projects) | uniq -u)
-  if [[ -n $projects ]]; then
-    echo -e "\033[0;31mAttention: The following projects don't currently have a next action:\033[0m\n"
-    echo "$projects"
-    return 1
+
+  if [[ $inbox -gt 0 ]]; then
+    echo -e "${YELLOW}You have ${inbox} tasks in the INBOX:${NC}\n"
+    task +PENDING +READY +in
+    IS_OK=1
   else
-    return 0
+    echo -e "${GREEN}No tasks in the INBOX${NC}"
   fi
+
+  if [[ -n $projects ]]; then
+    echo -e "\n${RED}Attention: The following projects don't currently have a next action:${NC}\n"
+    echo "$projects"
+    IS_OK=1
+  fi
+
+  return $IS_OK
 }
 
 project_note() {
