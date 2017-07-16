@@ -10,12 +10,12 @@
 alias in='task add +in'
 
 tickle () {
-  deadline=$1
-  shift
   if [[ $1 =~ [^0-9] ]]; then
+    local deadline=$1
+    shift
     task add +in +tickle wait:$deadline $@
   else
-    task $1 modify +tickle wait:$deadline
+    task $1 modify +tickle wait:$2
   fi
 }
 
@@ -42,7 +42,7 @@ inbox() {
 
   local IS_OK=0
   local inbox=$(task +PENDING +READY +in count)
-  local projects=$((task +PROJECT +PENDING +READY -waiting _projects; task +PROJECT +next _projects) | uniq -u)
+  local projects=$((task +PROJECT +PENDING +READY -waiting _projects; task +PROJECT +next _projects) | sort | uniq -u)
 
   if [[ $inbox -gt 0 ]]; then
     echo -e "${YELLOW}You have ${inbox} tasks in the INBOX:${NC}\n"
