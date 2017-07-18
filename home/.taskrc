@@ -43,11 +43,12 @@ report.in.description       = Inbox
 report.in.filter            = status:pending limit:page (+in)
 report.in.labels            = ID,Description
 
-report.standup.columns=start.active,project,description,tags
-report.standup.filter=+READY and +@work
-report.standup.sort=urgency-
-report.standup.labels=,Project,Description,Tags
+report.standup.columns=start.active,project,description,tags,status
+report.standup.filter=+@work and (+READY or end:yesterday or end:today)
+report.standup.sort=status+,urgency-
+report.standup.labels=,Project,Description,Tags,Status
 
+context.fc=+@fc or +in
 context.work=+@work or +in
 context.home=+@home or +in
 
