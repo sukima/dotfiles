@@ -29,7 +29,7 @@ data.location=~/.task
 #include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-light-256.theme
 #include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/no-color.theme
 
-# urgency.user.tag.in.coefficient=15.0
+urgency.user.tag.waiting.coefficient=-5.0
 
 uda.reviewed.type=date
 uda.reviewed.label=Reviewed
@@ -43,10 +43,10 @@ report.in.description       = Inbox
 report.in.filter            = status:pending limit:page (+in)
 report.in.labels            = ID,Description
 
-report.standup.columns=start.active,project,description,tags,status
+report.standup.columns=project,description,tags,status,start.active
 report.standup.filter=+@work and (+READY or end:yesterday or end:today)
 report.standup.sort=status+,urgency-
-report.standup.labels=,Project,Description,Tags,Status
+report.standup.labels=Project,Description,Tags,Status,
 
 context.fc=+@fc or +in
 context.work=+@work or +in

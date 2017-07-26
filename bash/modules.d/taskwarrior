@@ -9,18 +9,18 @@
 
 alias in='task add +in'
 
-tickle () {
-  if [[ $1 =~ [^0-9] ]]; then
-    local deadline=$1
-    shift
-    task add +in +tickle wait:$deadline $@
-  else
-    task $1 modify +tickle wait:$2
-  fi
-}
+# tickle () {
+#   if [[ $1 =~ [^0-9] ]]; then
+#     local deadline=$1
+#     shift
+#     task add +in +tickle wait:$deadline $@
+#   else
+#     task $1 modify +tickle wait:$2
+#   fi
+# }
 
-alias tick=tickle
-alias think='tickle +1d'
+# alias tick=tickle
+# alias think='tickle +1d'
 
 webpage_title () {
   curl -s "$1" | grep -i '<title>' | head -n1 | sed -e 's/<[^>]*>//g' | tr -d '\r\n'
