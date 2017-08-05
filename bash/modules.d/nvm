@@ -1,7 +1,15 @@
 # Setup NVM if it is installed (nvm_install aliased if not)
 
 if test -r "$HOME/.nvm/nvm.sh" ; then
-  declare -a NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
+  local initial_globals=$(find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' 2>/dev/null)
+
+  if [[ -n "$initial_globals" ]]; then
+    declare -a NODE_GLOBALS=(`echo "$initial_globals" | xargs -n1 basename | sort | uniq`)
+  else
+    declare -a NODE_GLOBALS
+  fi
+
+  unset initial_globals
 
   NODE_GLOBALS+=("node")
   NODE_GLOBALS+=("nvm")
