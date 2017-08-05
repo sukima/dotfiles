@@ -120,7 +120,7 @@ prompt() {
     fi
 
     if command_exists "task"; then
-        PS1=$(echo "$PS1" | sed -e 's/#INBOX#/ in:\$(task +in +PENDING count)/')
+        PS1=$(echo "$PS1" | sed -e 's/#INBOX#/ in:\$(task rc.gc=off +in +PENDING count)/')
     fi
 
     PS1=$(echo "$PS1" | sed -e 's/#GIT#//g' -e 's/#INBOX#//g')
