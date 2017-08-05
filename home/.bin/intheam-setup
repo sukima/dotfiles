@@ -13,6 +13,8 @@ apiRequest() {
   curl -H "Authorization: Token $INTHEAM_API_KEY" "https://inthe.am/api/v2/user/$1/"
 }
 
+mkdir $HOME/.task
+
 apiRequest my-certificate > ~/.task/private.certificate.pem
 apiRequest my-key > ~/.task/private.key.pem
 apiRequest ca-certificate > ~/.task/ca.cert.pem
