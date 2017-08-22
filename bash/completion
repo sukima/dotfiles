@@ -11,6 +11,10 @@ if [ -n "$PS1" ]; then
 		if [ -f /etc/bash_completion ]; then
 			. /etc/bash_completion
 		fi
+		# Homebrew on Mac places completions here (brew install bash-completion)
+		if [ -f /usr/local/etc/bash_completion ]; then
+			. /usr/local/etc/bash_completion
+		fi
 	fi
 fi
 unset bash bminor bmajor
