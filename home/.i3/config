@@ -32,10 +32,13 @@ set $text-color #f3f4f5
 set $inactive-text-color #676E7D
 
 set $mod Mod4
+# set $mod Mod1
 
+exec --no-startup-id xset 0 0 300
 exec --no-startup-id xmodmap $HOME/.Xmodmap
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id dropbox start
+exec --no-startup-id env KEYBASE_START_UI=hideWindow run_keybase
 exec --no-startup-id nm-applet
 exec --no-startup-id gnome-settings-daemon
 
@@ -126,6 +129,8 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to workspace
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
@@ -155,6 +160,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# lock screen
+bindsym $mod+Shift+z exec "i3lock -bdt -I 30 -i ~/Pictures/Wallpapers/waterfallOffset.png"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -211,6 +218,11 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'
 bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'
 bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+bindsym $mod+F8 exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym $mod+F9 exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'
+bindsym $mod+F10 exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'
+
 
 # brightness control
 bindsym XF86MonBrightnessDown exec xbacklight -steps 1 -time 0 -dec 5
