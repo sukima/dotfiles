@@ -9,7 +9,7 @@ dateBasedEmoji() {
         03*)   echo -n "⛄";;
         04-01) echo -n "🃏";;
         07-04) echo -n "🎆";;
-        09-02) echo -n "🎂";;
+        08-02) echo -n "🎂";;
         10-02) echo -n "👰";;
         10*)   echo -n "🎃";;
         11-12) echo -n "🎂";;
