@@ -29,7 +29,7 @@ data.location=~/.task
 #include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-light-256.theme
 #include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/no-color.theme
 
-urgency.user.tag.waiting.coefficient=-5.0
+urgency.user.tag.waiting.coefficient=-10.0
 
 uda.reviewed.type=date
 uda.reviewed.label=Reviewed
