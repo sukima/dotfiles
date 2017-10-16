@@ -8,4 +8,10 @@ g() {
   fi
 }
 
+# Preload git completion in Ubuntu which is normally lazy loaded but we need
+# the __git_wrap__git_main function available for our completion.
+if [[ -e /usr/share/bash-completion/completions/git ]]; then
+  source /usr/share/bash-completion/completions/git
+fi
+
 complete -o bashdefault -o default -o nospace -F __git_wrap__git_main g
