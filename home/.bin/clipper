@@ -1,0 +1,258 @@
+#!/bin/bash
+
+PROGRAM_NAME="clipper"
+VERSION="1.0"
+COPYRIGHT_YEARS="2017"
+COPYRIGHT_HOLDERS="Devin Weaver"
+CONFIG_FILE="$HOME/.config/$PROGRAM_NAME/$PROGRAM_NAME.cfg"
+MOUNTS_FILE="$HOME/.config/$PROGRAM_NAME/mounts.cfg"
+LOCK_FILE="$HOME/.config/$PROGRAM_NAME/$PROGRAM_NAME.pids"
+FIFO_DIR="$HOME"
+
+print_help() {
+  echo "Usage: $PROGRAM_NAME [-hvskdf] [-m MOUNT_CONFIG] [-o MOUNT_DIR] [-l LOCK_FILE]"
+  echo "  -h,--help       This cruft"
+  echo "  -v,--version    Show version and license info"
+  echo "  -s,--status     Show the status of running instances"
+  echo "  -k,--kill       Kill running background instances"
+  echo "  -d,--daemon     Run in background (default)"
+  echo "  -f,--no-daemon  Run in foreground"
+  echo "  -o,--mountdir   Use MOUNT_DIR to create FIFOs in"
+  echo "  -m,--mounts     Use MOUNT_CONFIG to define the FIFOs"
+  echo "  -l,--lockfile   Use LOCK_FILE as lock file"
+  echo "Config options:"
+  echo "  daemon=true                true: --daemon / false: --no-daemon"
+  echo "  mount_config=MOUNT_CONFIG  --mounts MOUNT_CONFIG"
+  echo "  mount_dir=MOUNT_DIR        --mountdir MOUNT_DIR"
+  echo "  lock_file=LOCK_FILE        --lockfile LOCK_FILE"
+}
+
+print_version() {
+  cat << EOF
+$PROGRAM_NAME $VERSION
+The MIT License (MIT)
+Copyright (c) $COPYRIGHT_YEARS $COPYRIGHT_HOLDERS
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+EOF
+}
+
+config_read_file() {
+  (grep -E "^${2}=" -m 1 "${1}" 2>/dev/null || echo "VAR=__UNDEFINED__") \
+    | head -n 1 | cut -d '=' -f 2-
+}
+
+config_get() {
+  val="$(config_read_file "$CONFIG_FILE" "${1}")"
+  if [ "${val}" = "__UNDEFINED__" ]; then
+    val="$2"
+  fi
+  printf -- "%s" "${val}"
+}
+
+setup_fifo() {
+  if [[ ! -e "$1" ]]; then
+    mkfifo "$1"
+    chmod 600 "$1"
+  fi
+  trap 'rm "$1"' EXIT
+}
+
+spawn_fifo_writer() {
+  setup_fifo "$1"
+  while :; do bash -c "$2" < "$1"; done
+}
+
+spawn_fifo_reader() {
+  setup_fifo "$1"
+  while :; do bash -c "$2" > "$1"; done
+}
+
+kill_running_daemon() {
+  [[ -e "$pid_file" ]] || return 1
+  while IFS=':' read -r mount pid; do
+    ps "$pid" >/dev/null 2>&1 && kill "$pid"
+  done < "$pid_file"
+  rm "$pid_file"
+}
+
+background="$(config_get daemon true)"
+mount_config="$(config_get mount_config "$MOUNTS_FILE")"
+mount_dir="$(config_get mount_dir "$FIFO_DIR")"
+pid_file="$(config_get lock_file "$LOCK_FILE")"
+
+while test $# -gt 0
+do
+  case $1 in
+    -h | --help)
+      print_help
+      exit 0
+      ;;
+    -v | --version)
+      print_version
+      exit 0
+      ;;
+    -s | --status)
+      if [[ -e "$pid_file" ]]; then
+        while IFS=':' read -r mount pid; do
+          if ps "$pid" >/dev/null 2>&1; then
+            echo "$mount: running ($pid)"
+          else
+            echo "$mount: stale ($pid)"
+          fi
+        done < "$pid_file"
+      else
+        echo "No mounts running"
+      fi
+      exit 0
+      ;;
+    -k | --kill)
+      kill_running_daemon || exit 1
+      exit 0
+      ;;
+    -d | --daemon)
+      background=true
+      ;;
+    -f | --no-daemon)
+      background=false
+      ;;
+    -o | --mountdir)
+      shift
+      mountdir="$1"
+      ;;
+    -m | --mounts)
+      shift
+      mount_config="$1"
+      ;;
+    -l | --lockfile)
+      shift
+      pid_file="$1"
+      ;;
+    --)
+      break
+      ;;
+    --*)
+      echo "$PROGRAM_NAME: unrecognized option '$1'"
+      echo "Try '$PROGRAM_NAME --help' for more information."
+      echo
+      exit 1
+      ;;
+    -?)
+      echo "$PROGRAM_NAME: invalid option -- '${1:1}'"
+      echo "Try '$PROGRAM_NAME --help' for more information."
+      echo
+      exit 1
+      ;;
+    -*)
+      split=$1
+      shift
+      set -- $(echo "$split" | cut -c 2- | sed 's/./-& /g') "$@"
+      continue
+      ;;
+    *)
+      break
+      ;;
+  esac
+  shift
+done
+
+if [[ ! -e "$CONFIG_FILE" ]]; then
+  mkdir -p "$(dirname "$CONFIG_FILE")"
+  echo "Missing default config file. Creating $CONFIG_FILE" >&2
+  cat > "$CONFIG_FILE" << EOF
+# $PROGRAM_NAME config file
+# Any line starting with a # is ignored
+
+# Run in background
+# values: true / false
+#daemon=true
+
+# Read FIFO and commands from this file
+#mount_config=$MOUNTS_FILE
+
+# Directory to create FIFOs in
+#mount_dir=$FIFO_DIR
+
+# Lock file to use
+#lock_file=$LOCK_FILE
+EOF
+fi
+
+if [[ ! -e "$MOUNTS_FILE" ]]; then
+  mkdir -p "$(dirname "$MOUNTS_FILE")"
+  echo "Missing default mounts config. Creating $MOUNTS_FILE" >&2
+  cat > "$MOUNTS_FILE" << EOF
+# This file describes the programs that will run when data is piped into
+# a FIFO. Any line starting with a # is ignored.
+# Writeable FIFO begins with a > (default)
+# Readable FIFO begins with a <
+# mount_name=command to execute
+# mount_name=>command to execute
+# mount_name=<command to execute
+
+# Examples
+#linuxcopy=ssh linuxbox "DISPLAY=:0 xclip -selection -clipboard"
+#notify=zenity --notification --listen
+#to-mac=>ssh macbox "pbcopy"
+#from-mac=<ssh macbox "pbpaste"
+EOF
+fi
+
+mkdir -p "$(dirname "$pid_file")"
+mkdir -p "$mount_dir"
+
+if [[ -e "$pid_file" ]]; then
+  while IFS=':' read -r mount pid; do
+    if ps "$pid" >/dev/null 2>&1; then
+      echo "Mount daemons already running" >&2
+      echo "Use $PROGRAM_NAME -k to kill them" >&2
+      exit 1
+    fi
+  done < "$pid_file"
+  echo "Stale lock file found. Removing." >&2
+  rm "$pid_file"
+fi
+
+while read -r line; do
+  mount_name="$(printf -- "%s" "$line" | sed 's:^\s*#.*$::g' | cut -d= -f1)"
+  mount_cmd="$(printf -- "%s" "$line" | sed 's:^\s*#.*$::g' | cut -d= -f2-)"
+  no_mounts=true
+  if [[ -n "$mount_name" && -n "$mount_cmd" ]]; then
+    if [[ "${mount_cmd:0:1}" == "<" ]]; then
+      spawn_fifo_reader "${mount_dir}/${mount_name}" "${mount_cmd:1}" </dev/null >/dev/null 2>&1 &
+    elif [[ "${mount_cmd:0:1}" == ">" ]]; then
+      spawn_fifo_writer "${mount_dir}/${mount_name}" "${mount_cmd:1}" </dev/null >/dev/null 2>&1 &
+    else
+      spawn_fifo_writer "${mount_dir}/${mount_name}" "${mount_cmd}" </dev/null >/dev/null 2>&1 &
+    fi
+    no_mounts=false
+    echo "$mount_name:$!" >> "$pid_file"
+  fi
+done < "$mount_config"
+
+if [[ "$no_mounts" == "true" ]]; then
+  echo "No mount points defined in $mount_config" >&2
+  exit 1
+fi
+
+if [[ "$background" == "true" ]]; then
+  disown
+else
+  trap 'rm "$pid_file"; kill 0' EXIT
+  wait
+fi
