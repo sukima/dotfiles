@@ -2,6 +2,6 @@
 # Convert file contents to Data URI format
 
 type=$(file --mime-type "$1" | awk -F": " '{print $(NF)}')
-cat <(printf "data:${type};base64,") <(base64 "$1")
+cat <(printf "data:${type};base64,") <(base64 -w0 "$1")
 
 # vim:set ft=sh sw=4 et fdm=marker :
