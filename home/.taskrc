@@ -31,6 +31,9 @@ data.location=~/.task
 
 urgency.user.tag.waiting.coefficient=-10.0
 
+uda.priority.values=H,M,,L
+urgency.uda.priority.L.coefficient=-1.8
+
 uda.reviewed.type=date
 uda.reviewed.label=Reviewed
 report._reviewed.description=Tasksh review report.  Adjust the filter to your needs.
