@@ -206,6 +206,7 @@ bar {
 
     # i3bar position
     position bottom
+    tray_output primary
     # Using custom i3status.conf
     # status_command i3blocks
     status_command i3status -c ~/.i3status.conf
