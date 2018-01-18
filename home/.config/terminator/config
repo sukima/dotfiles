@@ -1,42 +1,43 @@
 [global_config]
-  enabled_plugins = TerminalShot, APTURLHandler, LaunchpadBugURLHandler
-  title_transmit_bg_color = "#073642"
-  focus = mouse
-  title_transmit_fg_color = "#93a1a1"
   borderless = True
+  enabled_plugins = TerminalShot, APTURLHandler, LaunchpadBugURLHandler
+  focus = mouse
+  tab_position = hidden
+  title_transmit_bg_color = "#073642"
+  title_transmit_fg_color = "#93a1a1"
 [keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
 [profiles]
   [[default]]
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#586e75:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
-    copy_on_selection = True
-    background_image = /home/suki/Pictures/Wallpapers/background-images-of-waterfalls-23.jpg
-    background_darkness = 0.78
     audible_bell = True
-    background_type = image
-    use_system_font = False
-    cursor_color = "#eee8d5"
-    scroll_background = False
-    font = mononoki 12
     background_color = "#002b36"
+    background_darkness = 0.78
+    background_image = /home/suki/Pictures/Wallpapers/background-images-of-waterfalls-23.jpg
+    background_type = image
+    copy_on_selection = True
+    cursor_color = "#eee8d5"
+    font = mononoki 12
     foreground_color = "#839496"
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    scroll_background = False
+    use_system_font = False
   [[solarized-dark]]
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#586e75:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
     background_color = "#002b36"
     background_image = None
     cursor_color = "#eee8d5"
     foreground_color = "#eee8d5"
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#586e75:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
   [[solarized-light]]
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
     background_color = "#eee8d5"
     background_image = None
     cursor_color = "#002b36"
     foreground_color = "#002b36"
-[layouts]
-  [[default]]
-    [[[child1]]]
-      type = Terminal
-      parent = window0
-    [[[window0]]]
-      type = Window
-      parent = ""
-[plugins]
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
