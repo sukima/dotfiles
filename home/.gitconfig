@@ -7,6 +7,7 @@
   co = checkout
   st = status
   sb = show-branch
+  up = pull --rebase --autostash
   diffc = diff --cached
   diffs = diff --stat
   shows = show --stat
