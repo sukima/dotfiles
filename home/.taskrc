@@ -54,5 +54,6 @@ report.standup.labels=Project,Description,Tags,Status,
 context.fc=+@fc or +in
 context.work=+@work or +in
 context.home=+@home or +in
+context.church=+@church or +@home or +in
 
 include ~/.task/intheam.conf
