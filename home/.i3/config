@@ -207,7 +207,7 @@ bar {
 
     # i3bar position
     position bottom
-    tray_output primary
+    tray_output DVI-0
     # Using custom i3status.conf
     # status_command i3blocks
     status_command i3status -c ~/.i3status.conf
