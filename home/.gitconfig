@@ -23,6 +23,8 @@
   pushf = push --force-with-lease
   pushtags = push --follow-tags
   pushorigin = push -u origin HEAD
+  sign = commit -v --amend --no-edit -S
+  signall = "!f() { git rebase \"$1\" --exec 'git sign'; }; f"
   amend = commit -v --amend --no-edit
   reword = commit -v --amend
   fixup = commit --fixup
