@@ -1,8 +1,8 @@
 [alias]
   s = status -sb
-  l = log --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %Cblue<%G?:%aN>%Creset%C(yellow)%d%Creset' --abbrev-commit --date=relative --no-show-signature
-  sl = !git l -n 10
-  cl = show -s --no-show-signature --date=short --pretty='format:%h (\"%s\", %ad)'
+  l = "log --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %Cblue<%G?:%aN>%Creset%C(yellow)%d%Creset' --abbrev-commit --date=relative --no-show-signature"
+  sl = "!git l -n 10"
+  cl = "show -s --no-show-signature --date=short --pretty='format:%h (\"%s\", %ad)'"
   ci = commit -v
   co = checkout
   st = status
@@ -16,10 +16,10 @@
   rawdiff = diff --no-ext-diff -w
   ignore = update-index --assume-unchanged
   unignore = update-index --no-assume-unchanged
-  ignored = !git ls-files -v | grep ^[a-z]
+  ignored = "!git ls-files -v | grep ^[a-z]"
   ap = add -p
   serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
-  pr = !hub pull-request
+  pr = "!hub pull-request"
   pushf = push --force-with-lease
   pushtags = push --follow-tags
   pushorigin = push -u origin HEAD
@@ -28,16 +28,16 @@
   fixup = commit --fixup
   squash = commit --squash
   prune = remote prune
-  pruneall = !git remote prune origin | tee /dev/stderr | grep pruned | sed -e 's+^.*origin/+git branch -d +' | sh
-  ctags = !.git/hooks/ctags
+  pruneall = "!git remote prune origin | tee /dev/stderr | grep pruned | sed -e 's+^.*origin/+git branch -d +' | sh"
+  ctags = "!.git/hooks/ctags"
   this = rev-parse --abbrev-ref HEAD
-  browse = !hub browse
+  browse = "!hub browse"
   propen = prbrowse
-  bfind = !git branch | grep
+  bfind = "!git branch | grep"
   decapitate = reset --hard @{u}
-  unwip = !git reset -q HEAD^ && git status -sb
+  unwip = "!git reset -q HEAD^ && git status -sb"
   lsb = branch --sort=committerdate
-  setup-fetching-prs = !git config --add remote.origin.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*' && git fetch origin
+  setup-fetching-prs = "!git config --add remote.origin.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*' && git fetch origin"
 
 [core]
   ignorecase = false
