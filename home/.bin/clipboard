@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+'use strict';
+
+var http = require('http');
+var method = 'POST';
+var selection = process.argv[2];
+
+if (process.argv[2] === '-o' || process.argv[2] === '--out') {
+  method = 'GET';
+  selection = process.argv[3];
+}
+
+var options = {
+  hostname: 'localhost',
+  port: 32010,
+  method: method,
+  path: '/' + selection,
+  headers: {
+    'Content-Type': 'application/octet-stream'
+  }
+};
+
+var req = http.request(options, function (res) {
+  var exitCode = res.statusCode >= 200 && res.statusCode < 300 ? 0 : 1;
+  res.pipe(process.stdout);
+  res.on('end', function () { process.exit(exitCode); });
+});
+
+req.on('error', function (error) { console.error(error); });
+
+if (method === 'POST') {
+  process.stdin.pipe(req);
+} else {
+  req.end();
+}
