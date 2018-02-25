@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+DEFAULT_HOST=csd
+
+spawn_all_the_things() {
+  ssh -f -N $1
+  $HOME/.bin/x2vncd
+}
+
+exit_all_the_things() {
+  ssh -O exit $1
+  killall x2vnc
+}
+
+case "$1" in
+  -k | kill | exit | s*)
+    exit_all_the_things pluto-${2:-$DEFAULT_HOST}
+    ;;
+  *)
+    spawn_all_the_things pluto-${1:-$DEFAULT_HOST}
+    ;;
+esac
