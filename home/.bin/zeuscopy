@@ -1,2 +1,0 @@
-#!/bin/bash
-exec ssh suki@zeus.local "/home/suki/.bin/clipboard $1"
