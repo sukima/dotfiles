@@ -84,6 +84,12 @@ project_note() {
   ${VISUAL:-${EDITOR:-vi}} "$file"
 }
 
+tmod() {
+  id="$1"
+  shift
+  task "$id" mod -in "$@"
+}
+
 alias rnr=read_and_review
 alias n=project_note
 alias t=task
