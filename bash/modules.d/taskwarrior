@@ -1,3 +1,4 @@
+#!/bin/bash
 # Aliases for TaskWarrior
 
 # References:
@@ -28,21 +29,22 @@ webpage_title () {
 
 read_and_review (){
   link="$1"
-  title=$(webpage_title $link)
+  title=$(webpage_title "$link")
   descr="\"Read and review: $title\""
   id=$(task add +in +rnr "$descr" | sed -n 's/Created task \(.*\)./\1/p')
   task "$id" annotate "$link"
 }
 
 inbox() {
+  local inbox projects
   local NC="\033[0m"
   local RED="\033[0;31m"
   local GREEN="\033[0;32m"
   local YELLOW="\033[0;33m"
-
   local IS_OK=0
-  local inbox=$(task +PENDING +READY +in count)
-  local projects=$((task +PROJECT +PENDING +READY -waiting _projects; task +PROJECT +next _projects) | sort | uniq -u)
+
+  inbox=$(task +PENDING +READY +in count)
+  projects=$( (task +PROJECT +PENDING +READY -waiting _projects; task +PROJECT +next _projects) | sort | uniq -u )
 
   if [[ $inbox -gt 0 ]]; then
     echo -e "${YELLOW}You have ${inbox} tasks in the INBOX:${NC}\n"
@@ -54,7 +56,14 @@ inbox() {
 
   if [[ -n $projects ]]; then
     echo -e "\n${RED}Attention: The following projects don't currently have a next action:${NC}\n"
-    echo "$projects"
+    if [[ "$1" == "-v" ]]; then
+      for project in $projects; do
+        echo "$project"
+        task rc.context=none "pro:$project"
+      done
+    else
+      echo "$projects"
+    fi
     IS_OK=1
   fi
 
@@ -71,7 +80,7 @@ project_note() {
     return 1
   fi
 
-  mkdir -p $dir
+  mkdir -p "$dir"
   ${VISUAL:-${EDITOR:-vi}} "$file"
 }
 
