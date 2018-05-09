@@ -41,6 +41,13 @@ report._reviewed.columns=uuid
 report._reviewed.sort=reviewed+,modified+
 report._reviewed.filter=( reviewed.none: or reviewed.before:now-1week ) and ( +PENDING or +WAITING )
 
+report.next.filter = status:pending limit:page -maybe
+
+report.maybe.columns     = id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description,urgency
+report.maybe.description = Someday/Maybe
+report.maybe.filter      = status:pending limit:page +maybe
+report.maybe.labels      = ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg
+
 report.in.columns           = id,description
 report.in.description       = Inbox
 report.in.filter            = status:pending limit:page (+in)
