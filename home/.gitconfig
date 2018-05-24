@@ -50,6 +50,7 @@
 
 [commit]
   verbose = true
+  template = ~/.git_commit_msg.txt
   # Add to ~/.gitconfig.local to sign every commit
   # gpgSign = true
 
