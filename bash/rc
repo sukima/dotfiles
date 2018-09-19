@@ -11,6 +11,7 @@ system=`$rcfiles/system`
 
 # CTRL-D will logout of shell after 2 tries (ignore 1st CTRL-D)
 IGNOREEOF=1
+export HISTCONTROL=ignoreboth
 
 # allow CTRL-S to work
 stty stop undef
