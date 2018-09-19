@@ -92,4 +92,24 @@ prependToPath() {
 	export PATH
 }
 
+clip() {
+	if test -z "$CLIPBOARD"; then
+		echo "\$CLIPBOARD not defined" 1>&2
+		return 1
+	fi
+	if type -p "$1" >/dev/null; then
+		"$@"
+	else
+		cat "${@:--}"
+	fi | $CLIPBOARD
+}
+
+rclip() {
+	if test -z "$PASTEBOARD"; then
+		echo "\$PASTEBOARD not defined" 1>&2
+		return 1
+	fi
+	$PASTEBOARD
+}
+
 # vim: ft=sh sw=2 ts=2 noet fdm=marker

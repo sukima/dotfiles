@@ -1,4 +1,6 @@
 #!/bin/bash
+export CLIPBOARD="pbcopy -Prefer txt"
+export PASTEBOARD="pbpaste"
 export CLICOLOR=1
 export LSCOLORS="gxfxcxdxbxegedabagacad"
 

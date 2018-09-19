@@ -1,4 +1,6 @@
 #!/bin/bash
+export CLIPBOARD="xclip -selection clipboard"
+export PASTEBOARD="xclip -out -selection clipboard"
 shopt -s histappend
 shopt -s checkwinsize
 
