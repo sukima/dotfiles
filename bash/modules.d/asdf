@@ -1,0 +1,17 @@
+# Ruby/Node/etc version manager
+
+if [ -e "$HOME/.asdf/asdf.sh" ]; then
+  . "$HOME/.asdf/asdf.sh"
+  . "$HOME/.asdf/completions/asdf.bash"
+else
+  asdf() {
+    unset -f asdf
+    echo "asdf not installed, auto-magically installing..." >&2
+    git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch v0.6.0
+    . "$HOME/.asdf/asdf.sh"
+    . "$HOME/.asdf/completions/asdf.bash"
+    asdf "$@"
+  }
+fi
+
+# vim:ft=sh
