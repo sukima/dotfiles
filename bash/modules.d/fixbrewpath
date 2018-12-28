@@ -2,4 +2,8 @@
 if inPath "/usr/local/bin"; then
   export PATH=$(echo $PATH | sed s+/usr/local/bin++g | sed s+::+:+g)
 fi
-prependToPath "/usr/local/bin"
+if inPath "/usr/bin"; then
+  export PATH=$(echo $PATH | sed s+/usr/bin++g | sed s+::+:+g)
+fi
+addToPath "/usr/local/bin"
+addToPath "/usr/bin"
