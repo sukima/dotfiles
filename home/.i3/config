@@ -1,3 +1,4 @@
+# vim:ft=i3config
 set $mod Mod4
 exec --no-startup-id xset 0 0 300
 exec --no-startup-id xmodmap $HOME/.Xmodmap
@@ -9,6 +10,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id gnome-settings-daemon
 # exec --no-startup-id compton -f -D 3 --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc --shadow-exclude "! name~=''"
+# vim:ft=i3config
 # i3 config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
@@ -54,16 +56,19 @@ font pango:Fira Code 12
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+# bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec hyper
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+# bindsym $mod+d exec dmenu_run
 # bindsym $mod+space exec rofi -show window
+bindsym $mod+d exec "rofi -combi-mobi window,drun -show combi -modi combi"
 # bindsym $mod+space exec rofi -show window -lines 10 -eh 2 -width 100 -height 100 -padding 300 -opacaty "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "Fira Code 18"
 # bindsym $mod+d exec rofi -show run -lines 10 -eh 2 -width 100 -height 100 -padding 300 -opacaty "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "Fira Code 18"
+bindsym $mod+e exec "$HOME/.bin/dmenu-emoji list | rofi -dmenu -p 'Emoji: ' | $HOME/.bin/dmenu-emoji copy"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -105,9 +110,10 @@ bindsym $mod+f fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+# bindsym $mod+w layout tabbed
 bindsym $mod+t layout tabbed
-bindsym $mod+e layout toggle split
+# bindsym $mod+e layout toggle split
+bindsym $mod+w layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle

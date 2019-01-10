@@ -1,3 +1,4 @@
+# vim:ft=i3config
 set $mod Mod1
 #exec --no-startup-id xset 0 0 300
 #exec --no-startup-id xmodmap $HOME/.Xmodmap
