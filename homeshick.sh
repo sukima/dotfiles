@@ -33,6 +33,7 @@ sukima/dotfiles
 sukima/vimrc
 sukima/tmuxrc
 #sukima/irssirc
+#sukima/hyperrc
 
 # Private castles
 #sukima/muttrc
