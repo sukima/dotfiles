@@ -1,0 +1,3 @@
+#include ".Xresources.d/xft"
+#include ".Xresources.d/solarized"
+#include ".Xresources.d/urxvt"

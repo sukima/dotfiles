@@ -2,6 +2,7 @@
 set $mod Mod4
 exec --no-startup-id xset 0 0 300
 exec --no-startup-id xmodmap $HOME/.Xmodmap
+exec --no-startup-id xrdb -DENV_HOME=$HOME -load $HOME/.Xmodmap
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id guake >/dev/null 2>/dev/null
 # exec --no-startup-id dropbox start
