@@ -2,7 +2,6 @@
 set $mod Mod1
 #exec --no-startup-id xset 0 0 300
 #exec --no-startup-id xmodmap $HOME/.Xmodmap
-exec --no-startup-id xrdb -DENV_HOME=$HOME -load $HOME/.Xmodmap
 #exec --no-startup-id nitrogen --restore
 #exec --no-startup-id env KEYBASE_START_UI=hideWindow run_keybase
 # exec --no-startup-id compton -f -D 3 --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc --shadow-exclude "! name~=''"
@@ -52,8 +51,7 @@ font pango:Fira Code 12
 floating_modifier $mod
 
 # start a terminal
-# bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec hyper
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
