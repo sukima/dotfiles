@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if [[ $# > 0 ]]; then
-  git commit --no-gpg-sign -m "WIP $* [skip ci]"
-else
-  git commit --no-gpg-sign -m "WIP [skip ci]"
-fi
