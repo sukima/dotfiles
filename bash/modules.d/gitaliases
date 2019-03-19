@@ -12,6 +12,12 @@ g() {
 # the __git_wrap__git_main function available for our completion.
 if [[ -e /usr/share/bash-completion/completions/git ]]; then
   source /usr/share/bash-completion/completions/git
+elif [[ -e /usr/local/etc/bash_completion.d/git-completion.bash ]]; then
+  source /usr/local/etc/bash_completion.d/git-completion.bash
 fi
 
-complete -o bashdefault -o default -o nospace -F __git_wrap__git_main g
+if command_exists __git_complete; then
+  __git_complete g _git
+elif command_exists __git_wrap__git_main; then
+  complete -o bashdefault -o default -o nospace -F __git_wrap__git_main g
+fi
