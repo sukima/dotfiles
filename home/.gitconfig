@@ -41,6 +41,7 @@
   unwip = "!git reset -q HEAD^ && git status -sb"
   lsb = branch --sort=committerdate
   setup-fetching-prs = "!git config --add remote.origin.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*' && git fetch origin"
+  gitignore = "!f() { curl -sL https://www.gitignore.io/api/$@ ;}; f"
 
 [core]
   ignorecase = false
