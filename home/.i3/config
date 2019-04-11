@@ -10,6 +10,7 @@ exec --no-startup-id env KEYBASE_START_UI=hideWindow run_keybase
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id gnome-settings-daemon
+exec --no-startup-id synergys --config /etc/synergy.conf
 # exec --no-startup-id compton -f -D 3 --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc --shadow-exclude "! name~=''"
 # vim:ft=i3config
 # i3 config file (v4)
