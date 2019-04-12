@@ -1,4 +1,8 @@
 # Extended prompt command
+__ps1_custom() {
+    :
+}
+
 dateBasedEmoji() {
     case `date +%m-%d` in
         01-01) echo -n "🎉 ";;
@@ -63,22 +67,22 @@ prompt() {
             PS1='[\!] \$ ~> '
             ;;
         c*) # color
-            PS1='${debian_chroot:+($debian_chroot)}\[\e[34m\]\u\[\e[0m\]@\h:\[\e[36m\]\W\[\e[0m\]#GIT#\$ '
+            PS1='${debian_chroot:+($debian_chroot)}\[\e[34m\]\u\[\e[0m\]@\h:\[\e[36m\]\W\[\e[0m\]#GIT#$(__ps1_custom)\$ '
             ;;
         m*s*) # multismall or msmall
-            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`#INBOX# (\j) \[\e[36m\]\W\[\e[0m\]#GIT#\n\$ ~> '
+            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`#INBOX# (\j) \[\e[36m\]\W\[\e[0m\]#GIT#$(__ps1_custom)\n\$ ~> '
             ;;
         m*) # multiline
-            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`#INBOX##GIT# \u@\h:\[\e[36m\]\w\[\e[0m\]\n\$${debian_chroot:+($debian_chroot)} \j> '
+            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`#INBOX##GIT#$(__ps1_custom) \u@\h:\[\e[36m\]\w\[\e[0m\]\n\$${debian_chroot:+($debian_chroot)} \j> '
             ;;
         f*) # full
-            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`#INBOX# (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]#GIT#\n                 $(~/.rvm/bin/rvm-prompt)\r\$ ${debian_chroot:+($debian_chroot)}~> '
+            PS1='\n[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`#INBOX# (jobs:\j) \u@\h:\[\e[36m\]\w\[\e[0m\]#GIT#$(__ps1_custom)\n                 $(~/.rvm/bin/rvm-prompt)\r\$ ${debian_chroot:+($debian_chroot)}~> '
             ;;
         emot*) # emotive
-            PS1='[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`${debian_chroot:+($debian_chroot)} [\u@\h:\[\e[36m\]\W\[\e[0m\]]:\j#INBOX@#GIT#\$ '
+            PS1='[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`${debian_chroot:+($debian_chroot)} [\u@\h:\[\e[36m\]\W\[\e[0m\]]:\j#INBOX@#GIT#$(__ps1_custom)\$ '
             ;;
         emoj*) # emoji
-            PS1='\n╭ [\!] `random_emoji $?`#INBOX##GIT# \u@\h:\[\e[36m\]\w\[\e[0m\]\n╰ `if [ $EUID = 0 ]; then echo "🔮"; else dateBasedEmoji; fi` ${debian_chroot:+($debian_chroot)}\j➤ '
+            PS1='\n╭ [\!] `random_emoji $?`#INBOX##GIT#$(__ps1_custom) \u@\h:\[\e[36m\]\w\[\e[0m\]\n╰ `if [ $EUID = 0 ]; then echo "🔮"; else dateBasedEmoji; fi` ${debian_chroot:+($debian_chroot)}\j➤ '
             ;;
         d*) # default
             prompt color
