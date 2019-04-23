@@ -112,4 +112,19 @@ rclip() {
 	$PASTEBOARD
 }
 
+prunePath() {
+	local new_path=":"
+	local old_ifs="$IFS"
+	IFS=":"
+	for entry in $PATH; do
+		if ! [[ "$new_path" =~ ":${entry}:" ]]; then
+			new_path="${new_path}${entry}:"
+		fi
+	done
+	IFS="$old_ifs"
+	new_path="${new_path#:}"
+	PATH="${new_path%:}"
+	export PATH
+}
+
 # vim: ft=sh sw=2 ts=2 noet fdm=marker

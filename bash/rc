@@ -64,6 +64,8 @@ if [[ -e ~/.bash_local ]]; then
 	source ~/.bash_local 
 fi
 
+prunePath
+
 # Many utilities assume you have a ~/tmp directory.
 [[ -d "$HOME/tmp" ]] || echo "WARNING: Missing $HOME/tmp directory. Run setupTempPaths" >&2
 
