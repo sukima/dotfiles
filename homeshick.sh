@@ -25,8 +25,7 @@ cat <<'EOF' > $tmpfile
 # WARNING! This will overwrite any dotfiles that currently exist!
 
 # Plugin management
-gmarik/Vundle.vim
-tmux-plugins/tpm
+#tmux-plugins/tpm
 
 # Main castles
 sukima/dotfiles
@@ -38,6 +37,7 @@ sukima/tmuxrc
 # Private castles
 #sukima/muttrc
 #sukirepoman@tritarget.org:securerc.git
+#sukirepoman@tritarget.org:macosrc.git
 EOF
 
 ${VISUAL:-vi} $tmpfile
