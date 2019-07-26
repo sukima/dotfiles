@@ -72,4 +72,8 @@ prunePath
 unset rcfiles
 unset system
 
+if [[ -n "$SHOW_MOTD" && -r /etc/motd ]]; then
+	/bin/cat /etc/motd
+fi
+
 # vim: ft=sh sw=2 ts=2 noet fdm=marker
