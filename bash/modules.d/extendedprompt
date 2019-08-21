@@ -5,22 +5,22 @@ __ps1_custom() {
 
 dateBasedEmoji() {
     case `date +%m-%d` in
-        01-01) echo -n "🎉 ";;
-        02-14) echo -n "💝 ";;
+        01-01) echo -n "🎉";;
+        02-14) echo -n "💝";;
         02*)   echo -n "⛄";;
-        03-17) echo -n "🍀 ";;
-        03-18) echo -n "🎂 ";;
+        03-17) echo -n "🍀";;
+        03-18) echo -n "🎂";;
         03*)   echo -n "⛄";;
-        04-01) echo -n "🃏 ";;
-        07-04) echo -n "🎆 ";;
-        08-02) echo -n "🎂 ";;
-        10-02) echo -n "👰 ";;
-        10*)   echo -n "🎃 ";;
-        11-12) echo -n "🎂 ";;
-        11-2*) echo -n "🍗 ";;
-        12-2*) echo -n "🎅 ";;
-        12*)   echo -n "🎄 ";;
-        *)     echo -n "🐉 ";;
+        04-01) echo -n "🃏";;
+        07-04) echo -n "🎆";;
+        08-02) echo -n "🎂";;
+        10-02) echo -n "👰";;
+        10*)   echo -n "🎃";;
+        11-12) echo -n "🎂";;
+        11-2*) echo -n "🍗";;
+        12-2*) echo -n "🎅";;
+        12*)   echo -n "🎄";;
+        *)     echo -n "🐉";;
     esac
 }
 
@@ -33,7 +33,7 @@ random_emoji() {
         emoji=(😞 😢 😭 😰 😡 😤 😱 👿 😟 😵 🙀 😿 😹 👺 💩 👎 💔 ⚠️ ☔️ 💣)
     fi
     let "index = $RANDOM % ${#emoji[@]}"
-    echo "${emoji[$index]} "
+    echo "${emoji[$index]}"
 }
 
 prompt() {
@@ -82,7 +82,7 @@ prompt() {
             PS1='[\!] `if [ $? = 0 ]; then echo \[\e[32m\]^_^\[\e[0m\]; else echo \[\e[31m\]O.O\[\e[0m\]; fi`${debian_chroot:+($debian_chroot)} [\u@\h:\[\e[36m\]\W\[\e[0m\]]:\j#INBOX@#GIT#$(__ps1_custom)\$ '
             ;;
         emoj*) # emoji
-            PS1='\n╭ [\!] `random_emoji $?`#INBOX##GIT#$(__ps1_custom) \u@\h:\[\e[36m\]\w\[\e[0m\]\n╰ `if [ $EUID = 0 ]; then echo "🔮"; else dateBasedEmoji; fi` ${debian_chroot:+($debian_chroot)}\j➤ '
+            PS1='\n╭ [\!] `random_emoji $?`#INBOX##GIT#$(__ps1_custom) \u@\h:\[\e[36m\]\w\[\e[0m\]\n╰ `if [ $EUID = 0 ]; then echo -n "🔮"; else dateBasedEmoji; fi` ${debian_chroot:+($debian_chroot)}\j➤ '
             ;;
         d*) # default
             prompt color
