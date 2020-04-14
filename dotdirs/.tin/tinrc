@@ -1,5 +1,5 @@
 # tin configuration file V1.3.13
-# This file was automatically saved by tin 2.4.0 20160823 ("Octomore")
+# This file was automatically saved by tin 2.3.2 20151224 ("Glenavullen")
 #
 # Do not edit while tin is running, since all your changes to this file
 # will be overwritten when you leave tin.
@@ -616,6 +616,10 @@ mono_markstroke=3
 # User's mail address (and fullname), if not username@host (fullname)
 mail_address="Devin Weaver" <suki@tritarget.org>
 
+# If ON using slrnface(1) to interpret the ''X-Face:'' header.
+# Only useful when running in an xterm.
+use_slrnface=OFF
+
 # Wrap article lines at column
 wrap_column=0
 
@@ -747,6 +751,18 @@ date_format=%a, %d %b %Y %H:%M:%S
 #   1 = regex
 wildcard=0
 
+# Unicode normalization form
+# Possible values are:
+#   0 = None
+#   1 = NFKC
+#   2 = NFKD
+#   3 = NFC
+#   4 = NFD
+normalization_form=3
+
+# If ON, bi-directional text is rendered by tin
+render_bidi=OFF
+
 # Defaults for quick (1 key) kill & auto-selection filters
 # header=NUM  0,1=Subject: 2,3=From: 4=Message-ID: & full References: line
 #             5=Message-ID: & last References: entry only
@@ -769,7 +785,7 @@ default_author_search=
 default_goto_group=
 default_config_search=
 default_group_search=
-default_subject_search=node
+default_subject_search=ios
 default_art_search=
 default_repost_group=
 default_mail_address=
@@ -781,7 +797,7 @@ default_range_group=1-.
 default_range_select=1-.
 default_range_thread=1-.
 default_pattern=
-default_save_file=savefile.tin
+default_save_file=~/savefile.tin
 default_select_pattern=
 default_shell_command=
 
