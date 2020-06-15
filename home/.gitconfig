@@ -45,6 +45,7 @@
   commitlink = "show -s --no-show-signature --date=short --pretty='format:%h (\"%s\", %ad)'"
   enable-remote-updates = "config --local receive.denyCurrentBranch updateInstead"
   disable-remote-updates = "config --local receive.denyCurrentBranch reject"
+  sync = "!git checkout --quiet HEAD; git fetch upstream master:master; git checkout --quiet -"
 
 [core]
   ignorecase = false
