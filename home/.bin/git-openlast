@@ -24,7 +24,7 @@ case $1 in
     REF_LABEL="Referenced in commit ${REF}"
     OLD_IFS="$IFS"
     IFS=$'\n'
-    files=($(git diff -z --diff-filter=AM --ignore-submodules --name-only --no-renames "${REF}^..${REF}" | xargs -0 grep -Il ""))
+    files=($(git diff -z --diff-filter=AM --ignore-submodules --name-only --no-renames --relative "${REF}^..${REF}" | xargs -0 grep -Il ""))
     IFS="$OLD_IFS"
     git show --stat "$REF"
 esac
