@@ -46,6 +46,7 @@
   enable-remote-updates = "config --local receive.denyCurrentBranch updateInstead"
   disable-remote-updates = "config --local receive.denyCurrentBranch reject"
   sync = "!git checkout --quiet HEAD; git fetch upstream master:master; git checkout --quiet -"
+  remark = "!f() { git branch -D ${1:-marker}; git branch ${1:-marker} ${2}; }; f"
 
 [core]
   ignorecase = false
