@@ -112,6 +112,9 @@
   status = auto
   branch = auto
 
+[advice]
+  detachedHead = false
+
 [github]
   user = sukima
 
