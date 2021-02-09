@@ -17,7 +17,7 @@ elif [[ -e /usr/local/etc/bash_completion.d/git-completion.bash ]]; then
 fi
 
 if command_exists __git_complete; then
-  __git_complete g _git
+  __git_complete g __git_main
 elif command_exists __git_wrap__git_main; then
   complete -o bashdefault -o default -o nospace -F __git_wrap__git_main g
 fi
