@@ -56,6 +56,9 @@
   autocrlf = false
   whitespace = cr-at-eol
 
+[init]
+  defaultBranch = main
+
 [commit]
   verbose = true
   template = ~/.git_commit_msg.txt
