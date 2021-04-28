@@ -1,14 +1,14 @@
 # vim:ft=i3config
 set $mod Mod4
 exec --no-startup-id xset 0 0 300
-exec --no-startup-id xmodmap $HOME/.Xmodmap
+# exec --no-startup-id xmodmap $HOME/.Xmodmap
 exec --no-startup-id xrdb -DENV_HOME=$HOME -load $HOME/.Xresources
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id guake >/dev/null 2>/dev/null
-exec --no-startup-id dropbox start
+# exec --no-startup-id guake >/dev/null 2>/dev/null
+# exec --no-startup-id dropbox start
 # exec --no-startup-id run_keybase -a
-exec --no-startup-id nm-applet
-exec --no-startup-id blueman-applet
-exec --no-startup-id gnome-settings-daemon
-exec --no-startup-id synergys --config /etc/synergy.conf
+# exec --no-startup-id nm-applet
+# exec --no-startup-id blueman-applet
+# exec --no-startup-id gnome-settings-daemon
+# exec --no-startup-id synergys --config /etc/synergy.conf
 # exec --no-startup-id compton -f -D 3 --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc --shadow-exclude "! name~=''"

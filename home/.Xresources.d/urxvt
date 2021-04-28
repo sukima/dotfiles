@@ -18,7 +18,7 @@ URxvt.lineSpace:            0
 
 ! Fonts
 URxvt.allow_bold:           true
-URxvt.font:                 xft:mononoki:size=12,xft:Symbola:pixelsize=12
+URxvt.font:                 xft:mononoki:size=14,xft:Symbola:pixelsize=14
 
 ! Fix font space
 URxvt*letterSpace: -1
