@@ -59,6 +59,9 @@
 [init]
   defaultBranch = main
 
+[fetch]
+  output = compact
+
 [commit]
   verbose = true
   template = ~/.git_commit_msg.txt
