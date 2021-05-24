@@ -30,7 +30,7 @@
   fixup = commit --fixup
   squash = commit --squash
   prune = remote prune
-  pruneall = "!git remote prune origin | tee /dev/stderr | grep pruned | sed -e 's+^.*origin/++' | xargs -n 1 sh -c 'git show-ref --verify --quiet refs/heads/\"{}\" && git branch -d \"{}\"'"
+  pruneall = "!f() { git remote prune ${1:-origin} | tee /dev/stderr | grep pruned | sed -e 's+^.*origin/++' | while read -r branch; do git show-ref --verify --quiet refs/heads/$branch && git branch -d $branch; done }; f"
   ctags = "!.git/hooks/ctags"
   this = rev-parse --abbrev-ref HEAD
   browse = "!hub browse"
