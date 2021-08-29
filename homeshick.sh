@@ -33,6 +33,7 @@ sukima/vimrc
 sukima/tmuxrc
 #sukima/irssirc
 #sukima/hyperrc
+#sukima/alacrittyrc
 
 # Private castles
 #sukima/muttrc
