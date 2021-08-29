@@ -2,6 +2,8 @@ useful tools
 
 * vim
 * git
+* git-gui
+* tig
 * tmux
 * moreutils — chronic, vidir, vipe — https://joeyh.name/code/moreutils/
 * renameutils — qmv, qcp, imv, icp, deurlname — https://www.nongnu.org/renameutils/
