@@ -1,0 +1,110 @@
+#!/bin/bash
+
+branch-todo-list() {
+  if [[ $1 = --all ]]; then
+    git branch --list --all | sed 's/^./pick/'
+  else
+    git branch --list | grep '^ ' | sed 's/^./pick/'
+  fi
+}
+
+rename-branch() {
+  git branch -m $1 $2 && echo "Renamed branch ${1} to ${2}."
+}
+
+delete-branch() {
+  git branch -d $1
+}
+
+force-delete-branch() {
+  git branch -D $1
+}
+
+git status > /dev/null || exit 1 # Check we are in a git repo
+
+tododir=$(mktemp -d) || exit 1
+trap "rm -rf \$tododir" EXIT
+
+todofile="${tododir}/git-rebase-todo"
+
+branchlist=$(branch-todo-list $1) || exit 1
+
+if [[ -z $branchlist ]]; then
+  echo "No matching branches. Try --all"
+  exit 0
+fi
+
+cat > $todofile <<EOF
+${branchlist}
+
+# Interactive Git branch management
+#
+# Commands:
+# p, pick <branch> = noop
+# r, rename <from branch> <to branch> = rename the branch
+# d, delete <branch> = remove branch (git branch -d)
+# D, delete! <commit> = remove branch forcefully (git branch -D)
+#
+# If you remove a line here that branch will be ignored.
+#
+EOF
+
+${VISUAL:-${EDITOR:-vi}} $todofile
+
+if [[ $? != 0 ]]; then
+  echo "Editor had error code. Aborted"
+  exit 1
+fi
+
+did_something=0
+
+while read -r -u 3 todo from_branch to_branch; do
+  case "$todo" in
+    p|pick) ;;
+    r|rename)
+      did_something=1
+      if [[ -z $from_branch ]]; then
+        echo "Command rename missing branch argument"
+        continue
+      fi
+      if [[ -z $to_branch ]]; then
+        read -p "New branch name ($from_branch)? " -e to_branch
+        if [[ -z $to_branch ]]; then
+          echo "Skipping rename $from_branch"
+          continue
+        fi
+      fi
+      rename-branch $from_branch $to_branch
+      ;;
+    D|delete!)
+      did_something=1
+      if [[ -z $from_branch ]]; then
+        echo "Command delete! missing branch argument"
+        continue
+      fi
+      force-delete-branch $from_branch
+      ;;
+    d|delete)
+      did_something=1
+      if [[ -z $from_branch ]]; then
+        echo "Command delete missing branch argument"
+        continue
+      fi
+      delete-branch $from_branch
+      if [[ $? != 0 ]]; then
+        read -p "Force delete? [y/N] " -n 1 -r response
+        echo
+        if [[ $response =~ ^[Yy]$ ]]; then
+          force-delete-branch $from_branch
+        fi
+      fi
+      ;;
+    [a-zA-Z]*)
+      echo "Unknown command ${todo}"
+      ;;
+  esac
+done 3< $todofile
+
+if [[ $did_something = 0 ]]; then
+  echo "Nothing to do"
+fi
