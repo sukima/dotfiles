@@ -1,137 +1,139 @@
 [alias]
-  s = status -sb
-  l = "log --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %Cblue<%G?:%aN>%Creset%C(yellow)%d%Creset' --abbrev-commit --date=relative --no-show-signature"
-  sl = "!git l -n 10"
-  cl = "show -s --no-show-signature --date=short --pretty='format:%h (\"%s\", %ad)'"
-  ci = commit -v
-  co = checkout
-  st = status
-  sb = show-branch
-  up = pull --rebase --autostash
-  diffc = diff --cached
-  diffs = diff --stat
-  shows = show --stat
-  stats = shortlog --summary
-  patch = format-patch
-  rawdiff = diff --no-ext-diff -w
-  ignore = update-index --assume-unchanged
-  unignore = update-index --no-assume-unchanged
-  ignored = "!git ls-files -v | grep ^[a-z]"
-  ap = add -p
-  serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
-  pr = "!hub pull-request"
-  pushf = push --force-with-lease
-  pushtags = push --follow-tags
-  pushorigin = push -u origin HEAD
-  sign = commit -v --amend --no-edit -S
-  signall = "!f() { git rebase \"$1\" --exec 'git sign'; }; f"
-  amend = commit -v --amend --no-edit
-  reword = commit -v --amend
-  fixup = commit --fixup
-  squash = commit --squash
-  prune = remote prune
-  pruneall = "!f() { git remote prune ${1:-origin} | tee /dev/stderr | grep pruned | sed -e 's+^.*origin/++' | while read -r branch; do git show-ref --verify --quiet refs/heads/$branch && git branch -d $branch; done }; f"
-  ctags = "!.git/hooks/ctags"
-  this = rev-parse --abbrev-ref HEAD
-  browse = "!hub browse"
-  propen = prbrowse
-  bfind = "!git branch | grep"
-  decapitate = reset --hard @{u}
-  wip = "!f() { git commit --no-gpg-sign -m \"WIP${*+ $*} [skip ci]\"; }; f"
-  unwip = "!git reset -q HEAD^ && git status -sb"
-  lsb = branch --sort=committerdate
-  setup-fetching-prs = "!git config --add remote.origin.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*' && git fetch origin"
-  gitignore = "!f() { curl -sL https://www.gitignore.io/api/$@ ;}; f"
-  commitlink = "show -s --no-show-signature --date=short --pretty='format:%h (\"%s\", %ad)'"
-  enable-remote-updates = "config --local receive.denyCurrentBranch updateInstead"
-  disable-remote-updates = "config --local receive.denyCurrentBranch reject"
-  sync = "!git checkout --quiet HEAD; git fetch upstream master:master; git checkout --quiet -"
-  mark = "!f() { git branch -f ${1:-marker} ${2}; }; f"
-  unmark = "!f() { git branch -D ${1:-marker}; }; f"
-  changed = "diff --name-only --relative"
+	s = status -sb
+	l = "log --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %Cblue<%G?:%aN>%Creset%C(yellow)%d%Creset' --abbrev-commit --date=relative --no-show-signature"
+	sl = "!git l -n 10"
+	cl = "show -s --no-show-signature --date=short --pretty='format:%h (\"%s\", %ad)'"
+	ci = commit -v
+	co = checkout
+	st = status
+	sb = show-branch
+	up = pull --rebase --autostash
+	diffc = diff --cached
+	diffs = diff --stat
+	shows = show --stat
+	stats = shortlog --summary
+	patch = format-patch
+	rawdiff = diff --no-ext-diff -w
+	ignore = update-index --assume-unchanged
+	unignore = update-index --no-assume-unchanged
+	ignored = "!git ls-files -v | grep ^[a-z]"
+	ap = add -p
+	serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+	pr = "!hub pull-request"
+	pushf = push --force-with-lease
+	pushtags = push --follow-tags
+	pushorigin = push -u origin HEAD
+	sign = commit -v --amend --no-edit -S
+	signall = "!f() { git rebase \"$1\" --exec 'git sign'; }; f"
+	amend = commit -v --amend --no-edit
+	reword = commit -v --amend
+	fixup = commit --fixup
+	squash = commit --squash
+	prune = remote prune
+	pruneall = "!f() { git remote prune ${1:-origin} | tee /dev/stderr | grep pruned | sed -e 's+^.*origin/++' | while read -r branch; do git show-ref --verify --quiet refs/heads/$branch && git branch -d $branch; done }; f"
+	ctags = "!.git/hooks/ctags"
+	this = rev-parse --abbrev-ref HEAD
+	browse = "!hub browse"
+	propen = prbrowse
+	bfind = "!git branch | grep"
+	decapitate = reset --hard @{u}
+	wip = "!f() { git commit --no-gpg-sign -m \"WIP${*+ $*} [skip ci]\"; }; f"
+	unwip = "!git reset -q HEAD^ && git status -sb"
+	lsb = branch --sort=committerdate
+	setup-fetching-prs = "!git config --add remote.origin.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*' && git fetch origin"
+	gitignore = "!f() { curl -sL https://www.gitignore.io/api/$@ ;}; f"
+	commitlink = "show -s --no-show-signature --date=short --pretty='format:%h (\"%s\", %ad)'"
+	enable-remote-updates = "config --local receive.denyCurrentBranch updateInstead"
+	disable-remote-updates = "config --local receive.denyCurrentBranch reject"
+	sync = "!git checkout --quiet HEAD; git fetch upstream master:master; git checkout --quiet -"
+	mark = "!f() { git branch -f ${1:-marker} ${2}; }; f"
+	unmark = "!f() { git branch -D ${1:-marker}; }; f"
+	changed = "diff --name-only --relative"
 
 [core]
-  ignorecase = false
-  pager = less -EX
-  excludesfile = ~/.gitignore_global
-  autocrlf = false
-  whitespace = cr-at-eol
+	ignorecase = false
+	pager = less -EX
+	excludesfile = ~/.gitignore_global
+	autocrlf = false
+	whitespace = cr-at-eol
 
 [init]
-  defaultBranch = main
+	defaultBranch = main
 
 [fetch]
-  output = compact
+	output = compact
 
 [commit]
-  verbose = true
-  template = ~/.git_commit_msg.txt
-  # Add to ~/.gitconfig.local to sign every commit
-  # gpgSign = true
+	verbose = true
+	template = ~/.git_commit_msg.txt
+	# Add to ~/.gitconfig.local to sign every commit
+	# gpgSign = true
 
 [log]
-  showsignature = true
+	showsignature = true
 
 [grep]
-  lineNumber = true
-  extendRegexp = true
+	lineNumber = true
+	extendRegexp = true
 
 [apply]
-  whitespace = fix
+	whitespace = fix
 
 [push]
-  default = simple
+	default = simple
 
 [pull]
-  ff = only
+	ff = only
 
 [rebase]
-  autosquash = true
+	autosquash = true
 
 [merge]
-  conflictstyle = diff3
-  ; conflictstyle = merge
-  tool = vimonly
+	conflictstyle = diff3
+	; conflictstyle = merge
+	tool = vimonly
 
 [rerere]
-  enabled = true
+	enabled = true
 
 [diff]
-  tool = vimdiff
-  indentHeuristic = true
+	tool = vimdiff
+	indentHeuristic = true
 
 [diff "pgp"]
-  textconv = gpg -v
+	textconv = gpg -v
 
 [mergetool "diffconflicts"]
-  cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
-  trustExitCode = false
-  keepBackup = false
+	cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
+	trustExitCode = false
+	keepBackup = false
 
 [mergetool "vimonly"]
-  cmd = vim "$MERGED"
+	cmd = vim "$MERGED"
 
 [mergetool "fugitive"]
-  cmd = vim "+Gdiff" "$MERGED"
+	cmd = vim "+Gdiff" "$MERGED"
 
 [color]
-  ui = auto
-  interactive = auto
-  status = auto
-  branch = auto
+	ui = auto
+	interactive = auto
+	status = auto
+	branch = auto
 
 [advice]
-  detachedHead = false
+	detachedHead = false
 
 [github]
-  user = sukima
+	user = sukima
 
 [gui]
-  diffopts = --patience
-  gcwarning = false
+	diffopts = --patience
+	gcwarning = false
 
 [init]
-  templatedir = ~/.git_template
+	templatedir = ~/.git_template
 
 [include]
-  path = ~/.gitconfig.local
+	path = ~/.gitconfig.local
+
+; vim:noet ts=2
