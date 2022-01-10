@@ -48,6 +48,7 @@
   sync = "!git checkout --quiet HEAD; git fetch upstream master:master; git checkout --quiet -"
   mark = "!f() { git branch -f ${1:-marker} ${2}; }; f"
   unmark = "!f() { git branch -D ${1:-marker}; }; f"
+  changed = "diff --name-only --relative"
 
 [core]
   ignorecase = false
