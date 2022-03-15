@@ -65,7 +65,7 @@ if [[ ${#castles[@]} -eq 0 ]]; then
 fi
 
 if [[ ! -f $HOME/.homesick/repos/homeshick/homeshick.sh ]]; then
-  git clone git://github.com/andsens/homeshick.git $HOME/.homesick/repos/homeshick
+  git clone https://github.com/andsens/homeshick.git $HOME/.homesick/repos/homeshick
 fi
 
 source $HOME/.homesick/repos/homeshick/homeshick.sh
