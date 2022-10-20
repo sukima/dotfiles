@@ -55,6 +55,10 @@ if [[ -z $@ || $# != "5" ]] ; then
     exit 1
 fi
 
+md5() {
+  md5sum "$@"
+}
+
 cmd=$1
 BASE=$2
 LOCAL=$3
@@ -72,8 +76,8 @@ trap "rm -f '$LCONFL' '$RCONFL'" SIGINT SIGTERM EXIT
 sed -e '/^||||||| /,/^>>>>>>> /d' -e '/^=======$/,/^>>>>>>> /d' -e '/^<<<<<<< /d' $MERGED > $LCONFL
 sed -e '/^<<<<<<< /,/^=======$/d' -e '/^>>>>>>> /d' $MERGED > $RCONFL
 
-LCONFL_HASH=`md5 -q $LCONFL`
-MERGED_HASH=`md5 -q $MERGED`
+LCONFL_HASH=$(md5 $LCONFL)
+MERGED_HASH=$(md5 $MERGED)
 
 # Fire up vimdiff
 $cmd -f -R -d $LCONFL $RCONFL \
@@ -85,8 +89,8 @@ EC=$?
 
 # Overwrite $MERGED only if vimdiff exits cleanly and the files have changed.
 if [[ $EC == "0" ]] ; then
-  if [[ `md5 -q $MERGED` = $MERGED_HASH ]]; then
-    if [[ `md5 -q $LCONFL` = $LCONFL_HASH ]]; then
+  if [[ $(md5 $MERGED) = $MERGED_HASH ]]; then
+    if [[ $(md5 $LCONFL) = $LCONFL_HASH ]]; then
       echo "Nothing has changed!"
       EC=1
     else
