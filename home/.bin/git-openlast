@@ -29,12 +29,14 @@ case $1 in
     git show --stat "$REF"
 esac
 
-read -p "Open ${#files[@]} files in Vim? (Y/t/n)" -n 1 -r
+read -p "Open ${#files[@]} files in Vim? (Y/t/a/n)" -n 1 -r
 
 if [[ -z $REPLY || $REPLY =~ [Yy] ]]; then
   exec vim -q <(printf "%s|1| ${REF_LABEL}\n" "${files[@]}")
 elif [[ $REPLY =~ [Tt] ]]; then
   exec vim -p -- "${files[@]}"
+elif [[ $REPLY =~ [Aa] ]]; then
+  exec vim -- "${files[@]}"
 else
   exit 1
 fi
