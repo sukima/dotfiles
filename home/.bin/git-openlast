@@ -29,14 +29,25 @@ case $1 in
     git show --stat "$REF"
 esac
 
-read -p "Open ${#files[@]} files in Vim? (Y/t/a/n)" -n 1 -r
+echo
+
+if [[ $COLUMNS -lt 80 ]]; then
+  echo "Y: open as buffers"
+  echo "T: open in tabs"
+  echo "Q: open in quickfix list"
+  echo "N: cancel"
+else
+  echo "Y: open as buffers | T: open in tabs | Q: open in quickfix list | N: cancel"
+fi
+
+read -p "Open ${#files[@]} files in Vim? (Y/t/q/n)" -n 1 -r
 
 if [[ -z $REPLY || $REPLY =~ [Yy] ]]; then
-  exec vim -q <(printf "%s|1| ${REF_LABEL}\n" "${files[@]}")
+  exec vim -- "${files[@]}"
 elif [[ $REPLY =~ [Tt] ]]; then
   exec vim -p -- "${files[@]}"
-elif [[ $REPLY =~ [Aa] ]]; then
-  exec vim -- "${files[@]}"
+elif [[ $REPLY =~ [Qq] ]]; then
+  exec vim -q <(printf "%s|1| ${REF_LABEL}\n" "${files[@]}")
 else
   exit 1
 fi
